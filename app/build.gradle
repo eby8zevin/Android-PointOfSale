@@ -38,4 +38,7 @@ dependencies {
 
     // SQLite to Excel
     implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
+
+    // Material Ripple
+    implementation 'com.balysv:material-ripple:1.0.2'
 }
