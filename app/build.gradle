@@ -35,4 +35,7 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // SQLite to Excel
+    implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
 }
