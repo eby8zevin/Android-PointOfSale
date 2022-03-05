@@ -60,4 +60,7 @@ dependencies {
     // File Chooser
     implementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
     implementation 'com.github.hedzr:android-file-chooser:devel-SNAPSHOT'
+
+    // SQLiteAssetHelper
+    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2'
 }
