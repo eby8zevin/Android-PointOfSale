@@ -63,4 +63,9 @@ dependencies {
 
     // SQLiteAssetHelper
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2'
+
+    // com.shockwave.pdfium
+
+    // Date Picker
+    implementation 'com.whiteelephant:monthandyearpicker:1.3.0'
 }
