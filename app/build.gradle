@@ -65,7 +65,7 @@ dependencies {
     implementation 'com.github.hedzr:android-file-chooser:devel-SNAPSHOT'
 
     // SQLiteAssetHelper
-    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2'
+    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 
     // com.shockwave.pdfium
 
