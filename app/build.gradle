@@ -73,4 +73,7 @@ dependencies {
 
     // Toast
     implementation 'com.github.GrenderG:Toasty:1.5.2'
+
+    // Image Picker
+    implementation 'com.github.maayyaannkk:ImagePicker:1.0.13'
 }
