@@ -47,4 +47,7 @@ dependencies {
 
     // Android Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // Dialog Effects
+    implementation 'com.github.sd6352051:NiftyDialogEffects:v1.0.3'
 }
