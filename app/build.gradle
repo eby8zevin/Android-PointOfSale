@@ -56,4 +56,8 @@ dependencies {
 
     // Request Permissions
     implementation 'com.karumi:dexter:6.2.3'
+
+    // File Chooser
+    implementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
+    implementation 'com.github.hedzr:android-file-chooser:devel-SNAPSHOT'
 }
