@@ -53,4 +53,7 @@ dependencies {
 
     // PDF
     implementation 'com.itextpdf:itextpdf:5.5.10'
+
+    // Request Permissions
+    implementation 'com.karumi:dexter:6.2.3'
 }
