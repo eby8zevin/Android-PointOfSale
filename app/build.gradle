@@ -79,4 +79,7 @@ dependencies {
 
     // Barcode Scanner
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+
+    // Apache POI
+    implementation 'org.apache.poi:poi:3.16'
 }
