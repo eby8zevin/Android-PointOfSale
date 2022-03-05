@@ -76,4 +76,7 @@ dependencies {
 
     // Image Picker
     implementation 'com.github.maayyaannkk:ImagePicker:1.0.13'
+
+    // Barcode Scanner
+    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
 }
