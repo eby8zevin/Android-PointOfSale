@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "793609262266",
+    "project_id": "point-of-sale-pos",
+    "storage_bucket": "point-of-sale-pos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793609262266:android:ac3495d43bc3140bcd9e83",
+        "android_client_info": {
+          "package_name": "com.ahmadabuhasan.pointofsale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793609262266-93l1abb5b28h49juatpdcgfr1vnkpake.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmZ5Z0Xwn-TUQ2Hs5u-JeYkjrgbei-s1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793609262266-93l1abb5b28h49juatpdcgfr1vnkpake.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
