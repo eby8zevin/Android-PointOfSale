@@ -85,4 +85,19 @@ dependencies {
 
     // Apache POI
     implementation 'org.apache.poi:poi:3.16'
+
+    // Library Google
+    // ads-base, auth-base,
+    implementation 'com.google.android.gms:play-services-ads:19.5.0'
+    implementation 'com.google.android.gms:play-services-ads-lite:19.5.0'
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-tasks:17.1.0'
+    implementation 'com.google.android.gms:play-services-base:17.1.0'
+    implementation 'com.google.android.gms:play-services-basement:17.3.0'
+    implementation 'com.google.android.gms:play-services-measurement-base:17.2.0'
+    implementation 'com.google.android.gms:play-services-measurement-sdk-api:17.2.0'
+    implementation 'com.google.android.gms:play-services-gass:19.5.0'
+    implementation 'com.google.android.gms:play-services-drive:17.0.0'
 }
