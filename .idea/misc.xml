@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/gradiant.xml" value="0.165234375" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_main.xml" value="0.10461956521739131" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
       </map>
     </option>
   </component>
