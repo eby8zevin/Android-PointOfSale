@@ -4,6 +4,7 @@ plugins {
 
 android {
     compileSdk 31
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.ahmadabuhasan.pointofsale"
@@ -87,7 +88,7 @@ dependencies {
     implementation 'org.apache.poi:poi:3.16'
 
     // Library Google
-    // ads-base, auth-base,
+    // ads-base, auth-base.
     implementation 'com.google.android.gms:play-services-ads:19.5.0'
     implementation 'com.google.android.gms:play-services-ads-lite:19.5.0'
     implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
