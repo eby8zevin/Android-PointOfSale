@@ -101,6 +101,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-measurement-sdk-api:17.2.0'
     implementation 'com.google.android.gms:play-services-gass:19.5.0'
     implementation 'com.google.android.gms:play-services-drive:17.0.0'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
 }
 
 apply plugin: 'com.android.application'
