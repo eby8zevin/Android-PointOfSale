@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Point Of Sale</string>
+
+    <string name="admob_application_id">ca-app-pub-8638037215789792~9492303485</string>
 </resources>
