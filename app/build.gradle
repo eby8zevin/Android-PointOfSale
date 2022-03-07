@@ -40,6 +40,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+    implementation 'com.airbnb.android:lottie:5.0.2'
+
     // SQLite to Excel
     implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
 
