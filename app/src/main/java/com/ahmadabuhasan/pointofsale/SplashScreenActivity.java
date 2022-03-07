@@ -1,11 +1,11 @@
 package com.ahmadabuhasan.pointofsale;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.credentials.CredentialsApi;
 
