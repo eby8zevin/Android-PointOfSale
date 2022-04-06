@@ -2,4 +2,8 @@
     <string name="app_name">Point Of Sale</string>
 
     <string name="admob_application_id">ca-app-pub-8638037215789792~9492303485</string>
+
+    <string name="hello">Hello</string>
+    <string name="username">Zaid</string>
+    <string name="welcome">Welcome to App Point Of Sale</string>
 </resources>
