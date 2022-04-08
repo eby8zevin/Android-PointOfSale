@@ -6,4 +6,7 @@
     <string name="hello">Hello</string>
     <string name="username">Zaid</string>
     <string name="welcome">Welcome to App Point Of Sale</string>
+
+    <string name="customers">Customers</string>
+    <string name="suppliers">Suppliers</string>
 </resources>
