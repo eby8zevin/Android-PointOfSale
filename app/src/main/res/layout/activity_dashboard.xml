@@ -10,12 +10,12 @@
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header_background"
-        android:padding="10dp"
+        android:background="@drawable/ic_bg_topheader"
+        android:padding="25dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textHello"
+            android:id="@+id/text_hello"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textUsername"
+            android:id="@+id/text_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -36,19 +36,19 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/textHello"
+            app:layout_constraintStart_toEndOf="@id/text_hello"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageMenu"
+            android:id="@+id/image_menu"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="15dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_menu"
-            app:layout_constraintBottom_toBottomOf="@id/textHello"
+            app:layout_constraintBottom_toBottomOf="@id/text_hello"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textHello"
+            app:layout_constraintTop_toTopOf="@id/text_hello"
             app:tint="@color/white" />
 
         <LinearLayout
@@ -61,7 +61,7 @@
             android:background="@drawable/white_rectangle_background"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageMenu">
+            app:layout_constraintTop_toBottomOf="@id/image_menu">
 
             <TextView
                 android:id="@+id/textAppName"
@@ -80,7 +80,6 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="@string/welcome"
-                android:textColor="@color/black"
                 android:textSize="30sp" />
 
         </LinearLayout>
@@ -102,18 +101,6 @@
             android:columnCount="2"
             android:columnOrderPreserved="false"
             android:rowCount="5">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="12dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="6dp">
-
-            </androidx.cardview.widget.CardView>
-
 
         </GridLayout>
 
