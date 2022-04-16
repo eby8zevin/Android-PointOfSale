@@ -11,4 +11,5 @@
     <string name="text_indonesia">Indonesian</string>
     <string name="customers">Customers</string>
     <string name="suppliers">Suppliers</string>
+    <string name="products">Products</string>
 </resources>
