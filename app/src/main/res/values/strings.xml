@@ -12,4 +12,5 @@
     <string name="customers">Customers</string>
     <string name="suppliers">Suppliers</string>
     <string name="products">Products</string>
+    <string name="pos">POS</string>
 </resources>
