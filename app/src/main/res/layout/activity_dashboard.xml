@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".DashboardActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,17 +40,17 @@
             app:layout_constraintStart_toEndOf="@id/text_hello"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/image_menu"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="15dp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_menu"
+            android:src="@drawable/translation"
             app:layout_constraintBottom_toBottomOf="@id/text_hello"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_hello"
-            app:tint="@color/white" />
+            app:tint="@color/white" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +62,7 @@
             android:background="@drawable/white_rectangle_background"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_menu">
+            app:layout_constraintTop_toBottomOf="@id/text_username">
 
             <TextView
                 android:id="@+id/textAppName"
@@ -94,15 +95,151 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader">
 
-        <GridLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alignmentMode="alignMargins"
-            android:columnCount="2"
-            android:columnOrderPreserved="false"
-            android:rowCount="5">
+            android:layout_height="wrap_content">
 
-        </GridLayout>
+            <LinearLayout
+                android:id="@+id/customers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/white_rectangle_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                app:layout_constraintEnd_toStartOf="@id/suppliers"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/customers"
+                    android:padding="8dp"
+                    android:src="@drawable/customer" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sailec_regular"
+                    android:gravity="center"
+                    android:text="@string/customers"
+                    android:textAllCaps="true"
+                    android:textColor="@color/light_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/suppliers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/white_rectangle_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/customers"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/suppliers"
+                    android:padding="8dp"
+                    android:src="@drawable/supplier" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sailec_regular"
+                    android:gravity="center"
+                    android:text="@string/suppliers"
+                    android:textAllCaps="true"
+                    android:textColor="@color/light_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/products"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/white_rectangle_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                app:layout_constraintEnd_toStartOf="@id/suppliers"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customers">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/products"
+                    android:padding="8dp"
+                    android:src="@drawable/customer" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sailec_regular"
+                    android:gravity="center"
+                    android:text="@string/products"
+                    android:textAllCaps="true"
+                    android:textColor="@color/light_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/white_rectangle_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/customers"
+                app:layout_constraintTop_toBottomOf="@id/suppliers">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/pos"
+                    android:padding="8dp"
+                    android:src="@drawable/supplier" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sailec_regular"
+                    android:gravity="center"
+                    android:text="@string/pos"
+                    android:textAllCaps="true"
+                    android:textColor="@color/light_gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
