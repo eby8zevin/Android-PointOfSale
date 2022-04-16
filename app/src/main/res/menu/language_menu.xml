@@ -9,7 +9,7 @@
         <menu>
             <item
                 android:id="@+id/local_english"
-                android:icon="@drawable/us"
+                android:icon="@drawable/en"
                 android:title="@string/text_english" />
             <item
                 android:id="@+id/local_indonesian"
