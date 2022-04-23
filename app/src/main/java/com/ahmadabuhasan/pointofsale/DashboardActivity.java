@@ -1,5 +1,6 @@
 package com.ahmadabuhasan.pointofsale;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.Objects;
 
@@ -18,6 +21,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private ActivityDashboardBinding binding;
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +29,16 @@ public class DashboardActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Objects.requireNonNull(getSupportActionBar()).hide();
 
-        binding.textAppName.setSelected(true);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_gradient));
+        getSupportActionBar().setElevation(0.0f);
+
+        MobileAds.initialize(this, initializationStatus -> {
+
+        });
+        binding.adView.loadAd(new AdRequest.Builder().build());
+
     }
 
     @Override
