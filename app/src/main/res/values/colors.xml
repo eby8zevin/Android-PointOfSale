@@ -10,5 +10,6 @@
 
     <color name="deep_sky_blue">#01BAEF</color>
     <color name="light_gray">#BCBCBC</color>
-    <color name="colorBackground">#E5E5E5</color>
+    <color name="caribbean_green">#17D57E</color>
+    <color name="colorBackground">#F7F7F7</color>
 </resources>
