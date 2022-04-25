@@ -1,6 +1,8 @@
 package com.ahmadabuhasan.pointofsale;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.util.List;
 import java.util.Objects;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -33,6 +41,10 @@ public class DashboardActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_gradient));
         getSupportActionBar().setElevation(0.0f);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestPermission();
+        }
 
         MobileAds.initialize(this, initializationStatus -> {
 
@@ -63,5 +75,25 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void setNewLocale(AppCompatActivity appCompatActivity, String language) {
 
+    }
+
+    private void requestPermission() {
+        Dexter.withContext(this)
+                .withPermissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA
+                ).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+                multiplePermissionsReport.areAllPermissionsGranted();
+                multiplePermissionsReport.isAnyPermissionPermanentlyDenied();
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                permissionToken.continuePermissionRequest();
+            }
+        }).withErrorListener(dexterError -> Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show()).onSameThread().check();
     }
 }
