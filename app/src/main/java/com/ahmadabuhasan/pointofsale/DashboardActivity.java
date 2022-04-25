@@ -2,6 +2,7 @@ package com.ahmadabuhasan.pointofsale;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
+import com.ahmadabuhasan.pointofsale.utils.LocaleManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.karumi.dexter.Dexter;
@@ -66,9 +68,11 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.local_english:
+                setNewLocale(this, LocaleManager.ENGLISH);
                 Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.local_indonesian:
+                setNewLocale(this, LocaleManager.INDONESIAN);
                 Toast.makeText(getApplicationContext(), "Indonesian", Toast.LENGTH_SHORT).show();
                 return true;
             default:
@@ -77,7 +81,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void setNewLocale(AppCompatActivity appCompatActivity, String language) {
-
+        LocaleManager.setNewLocale(this, language);
+        startActivity(appCompatActivity.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override
