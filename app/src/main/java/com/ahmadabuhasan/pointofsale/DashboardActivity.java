@@ -66,17 +66,16 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.local_english:
-                setNewLocale(this, LocaleManager.ENGLISH);
-                Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.local_indonesian:
-                setNewLocale(this, LocaleManager.INDONESIAN);
-                Toast.makeText(getApplicationContext(), "Indonesian", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.local_english) {
+            setNewLocale(this, LocaleManager.ENGLISH);
+            Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (item.getItemId() == R.id.local_indonesian) {
+            setNewLocale(this, LocaleManager.INDONESIAN);
+            Toast.makeText(getApplicationContext(), "Indonesian", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
