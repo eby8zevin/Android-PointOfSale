@@ -25,9 +25,12 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.List;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
+
 public class DashboardActivity extends AppCompatActivity {
 
     private ActivityDashboardBinding binding;
+    private static long backPressed;
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -75,6 +78,16 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void setNewLocale(AppCompatActivity appCompatActivity, String language) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressed + 2000 > System.currentTimeMillis()) {
+            finishAffinity();
+        } else {
+            Toasty.info(this, R.string.press_once_again_to_exit, Toasty.LENGTH_SHORT).show();
+        }
+        backPressed = System.currentTimeMillis();
     }
 
     private void requestPermission() {
