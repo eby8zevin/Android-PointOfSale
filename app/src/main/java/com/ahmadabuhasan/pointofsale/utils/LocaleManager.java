@@ -24,6 +24,10 @@ public class LocaleManager {
         };
     }
 
+    public static Context setLocale(Context context) {
+        return updateResources(context, getLanguagePref(context));
+    }
+
     public static Context setNewLocale(Context context, String language) {
         setLanguagePref(context, language);
         return updateResources(context, language);
