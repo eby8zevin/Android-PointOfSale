@@ -6,10 +6,12 @@ import android.content.res.Configuration;
 
 public class MultiLanguageApp extends Application {
 
-    public void attachBaseContext(Context context) {
+    @Override
+    protected void attachBaseContext(Context context) {
         super.attachBaseContext(LocaleManager.setLocale(context));
     }
 
+    @Override
     public void onConfigurationChanged(Configuration configuration) {
         super.onConfigurationChanged(configuration);
         LocaleManager.setLocale(this);
