@@ -30,7 +30,7 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends BaseActivity {
 
     private ActivityDashboardBinding binding;
     private static long backPressed;
@@ -65,6 +65,7 @@ public class DashboardActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -80,11 +81,13 @@ public class DashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // https://androidwave.com/android-multi-language-support-best-practices/
     private void setNewLocale(AppCompatActivity appCompatActivity, @LocaleManager.LocaleDef String language) {
         LocaleManager.setNewLocale(this, language);
         Intent intent = appCompatActivity.getIntent();
         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
+    // En
 
     @Override
     public void onBackPressed() {
