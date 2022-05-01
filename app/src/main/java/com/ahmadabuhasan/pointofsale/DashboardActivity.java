@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
+import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ahmadabuhasan.pointofsale.utils.LocaleManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
@@ -66,22 +67,23 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.local_english) {
-            setNewLocale(this, LocaleManager.ENGLISH);
-            Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (item.getItemId() == R.id.local_indonesian) {
-            setNewLocale(this, LocaleManager.INDONESIAN);
-            Toast.makeText(getApplicationContext(), "Indonesian", Toast.LENGTH_SHORT).show();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.local_english:
+                setNewLocale(this, LocaleManager.ENGLISH);
+                Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.local_indonesian:
+                setNewLocale(this, LocaleManager.INDONESIAN);
+                Toast.makeText(getApplicationContext(), "Indonesian", Toast.LENGTH_SHORT).show();
+                return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
-    private void setNewLocale(AppCompatActivity appCompatActivity, String language) {
+    private void setNewLocale(AppCompatActivity appCompatActivity, @LocaleManager.LocaleDef String language) {
         LocaleManager.setNewLocale(this, language);
-        startActivity(appCompatActivity.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        Intent intent = appCompatActivity.getIntent();
+        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     @Override
