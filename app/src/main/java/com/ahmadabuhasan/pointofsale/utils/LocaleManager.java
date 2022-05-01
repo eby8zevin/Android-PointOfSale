@@ -15,10 +15,6 @@ import java.util.Locale;
 
 public class LocaleManager {
 
-    public static final String ENGLISH = "en";
-    public static final String INDONESIAN = "in";
-    private static final String LANGUAGE_KEY = "language_key";
-
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({ENGLISH, INDONESIAN})
     public @interface LocaleDef {
@@ -28,25 +24,51 @@ public class LocaleManager {
         };
     }
 
+    public static final String ENGLISH = "en";
+    public static final String INDONESIAN = "in";
+
+    /**
+     * SharedPreferences Key
+     */
+    static final String LANGUAGE_KEY = "language_key";
+
+    /**
+     * set current pref locale
+     */
     public static Context setLocale(Context context) {
         return updateResources(context, getLanguagePref(context));
     }
 
+    /**
+     * Set new Locale with context
+     */
     public static Context setNewLocale(Context context, @LocaleDef String language) {
         setLanguagePref(context, language);
         return updateResources(context, language);
     }
 
+    /**
+     * Get saved Locale from SharedPreferences
+     *
+     * @param context current Context
+     * @return current locale key by default return english locale
+     */
     public static String getLanguagePref(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getString(LANGUAGE_KEY, ENGLISH);
     }
 
+    /**
+     * set pref key
+     */
     private static void setLanguagePref(Context context, String localeKey) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         sharedPreferences.edit().putString(LANGUAGE_KEY, localeKey).apply();
     }
 
+    /**
+     * update resource
+     */
     private static Context updateResources(Context context, String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
@@ -62,6 +84,9 @@ public class LocaleManager {
         return context;
     }
 
+    /**
+     * get current locale
+     */
     public static Locale getLocale(Resources resources) {
         Configuration configuration = resources.getConfiguration();
         return Build.VERSION.SDK_INT >= 24 ? configuration.getLocales().get(0) : configuration.locale;
