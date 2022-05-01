@@ -1,10 +1,13 @@
 package com.ahmadabuhasan.pointofsale.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
+
+import androidx.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,14 +16,15 @@ import java.util.Locale;
 public class LocaleManager {
 
     public static final String ENGLISH = "en";
-    public static final String INDONESIAN = "id";
+    public static final String INDONESIAN = "in";
     private static final String LANGUAGE_KEY = "language_key";
 
     @Retention(RetentionPolicy.SOURCE)
+    @StringDef({ENGLISH, INDONESIAN})
     public @interface LocaleDef {
-        public static final String[] SUPPORTED_LOCALES = {
-                LocaleManager.ENGLISH,
-                LocaleManager.INDONESIAN
+        String[] SUPPORTED_LOCALES = {
+                ENGLISH,
+                INDONESIAN
         };
     }
 
@@ -28,17 +32,19 @@ public class LocaleManager {
         return updateResources(context, getLanguagePref(context));
     }
 
-    public static Context setNewLocale(Context context, String language) {
+    public static Context setNewLocale(Context context, @LocaleDef String language) {
         setLanguagePref(context, language);
         return updateResources(context, language);
     }
 
     public static String getLanguagePref(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(LANGUAGE_KEY, ENGLISH);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(LANGUAGE_KEY, ENGLISH);
     }
 
     private static void setLanguagePref(Context context, String localeKey) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(LANGUAGE_KEY, localeKey).apply();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPreferences.edit().putString(LANGUAGE_KEY, localeKey).apply();
     }
 
     private static Context updateResources(Context context, String language) {
@@ -46,12 +52,13 @@ public class LocaleManager {
         Locale.setDefault(locale);
         Resources resources = context.getResources();
         Configuration configuration = new Configuration(resources.getConfiguration());
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 17) {
             configuration.setLocale(locale);
-            return context.createConfigurationContext(configuration);
+            context = context.createConfigurationContext(configuration);
+        } else {
+            configuration.locale = locale;
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         }
-        configuration.locale = locale;
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         return context;
     }
 
