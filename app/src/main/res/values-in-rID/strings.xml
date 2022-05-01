@@ -2,4 +2,10 @@
 <resources>
     <string name="customers">Pelanggan</string>
     <string name="suppliers">Distributor</string>
+    <string name="products">Barang</string>
+    <string name="pos">POS</string>
+    <string name="expense">Pengeluaran</string>
+    <string name="all_orders">Semua Pesanan</string>
+    <string name="report">Laporan</string>
+    <string name="settings">Pengaturan</string>
 </resources>
