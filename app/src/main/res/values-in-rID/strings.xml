@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="welcome">Selamat Datang di App Point Of Sale</string>
+
     <string name="customers">Pelanggan</string>
     <string name="suppliers">Distributor</string>
     <string name="products">Barang</string>
