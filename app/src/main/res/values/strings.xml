@@ -46,9 +46,6 @@
     <string name="add_supplier">Add Supplier</string>
     <string name="add_suppliers">Add Suppliers</string>
     <string name="add_to_cart">Add To Cart</string>
-    <string name="admob_application_id">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="admob_banner_ads_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="admob_interstitial_ads_id">ca-app-pub-3940256099942544/1033173712</string>
     <string name="all_customer">All Customer</string>
     <string name="all_expense">All Expense</string>
     <string name="all_expense_report">All Expense Report</string>
@@ -58,7 +55,6 @@
     <string name="all_sales">All Sales</string>
     <string name="all_sales_report">All Sales Report</string>
     <string name="all_suppliers">All Suppliers</string>
-    <string name="app_name">Smart POS</string>
     <string name="appbar_scrolling_view_behavior">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="available_stock">Available Stock</string>
     <string name="backup_completed_successfully">Backup Completed Successfully</string>
