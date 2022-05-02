@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PointOfSale">
+        <activity android:name=".product.ProductActivity" />
         <activity android:name=".DashboardActivity" />
         <activity
             android:name=".SplashScreenActivity"
