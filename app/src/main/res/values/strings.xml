@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Point Of Sale</string>
+    <string name="app_name" translatable="false">Point Of Sale</string>
 
-    <string name="admob_application_id">ca-app-pub-8638037215789792~9492303485</string>
-    <string name="admob_banner_ads_id">ca-app-pub-8638037215789792/9766802475</string>
+    <string name="admob_application_id" translatable="false">ca-app-pub-8638037215789792~9492303485</string>
+    <string name="admob_banner_ads_id" translatable="false">ca-app-pub-8638037215789792/9766802475</string>
 
     <string name="hello">Hello</string>
     <string name="username">Zaid</string>
@@ -22,4 +22,11 @@
 
     <string name="error">Error</string>
     <string name="press_once_again_to_exit">Press once again to exit!</string>
+
+    <string name="backup_completed_successfully">Backup Completed Successfully</string>
+    <string name="unable_to_backup_database_retry">Unable to backup database. Retry</string>
+    <string name="database_Import_completed">Database Import Completed</string>
+    <string name="unable_to_import_database_retry">Unable to import database. Retry</string>
+
+
 </resources>
