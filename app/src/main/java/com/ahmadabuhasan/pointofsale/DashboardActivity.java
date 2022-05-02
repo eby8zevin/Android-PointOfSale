@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
+import com.ahmadabuhasan.pointofsale.product.ProductActivity;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ahmadabuhasan.pointofsale.utils.LocaleManager;
 import com.google.android.gms.ads.AdRequest;
@@ -56,6 +57,8 @@ public class DashboardActivity extends BaseActivity {
 
         });
         binding.adView.loadAd(new AdRequest.Builder().build());
+
+        binding.cardProducts.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ProductActivity.class)));
 
     }
 
