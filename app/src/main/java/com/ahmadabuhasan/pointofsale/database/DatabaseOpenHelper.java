@@ -18,7 +18,7 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
     private static final int DATABASE_VERSION = 1;
     private Context context;
 
-    private DatabaseOpenHelper(Context context) {
+    public DatabaseOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         this.context = context;
     }
