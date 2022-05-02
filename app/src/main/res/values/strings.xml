@@ -373,11 +373,6 @@
     <string name="tatal_discount">Total Discount</string>
     <string name="tax">Tax</string>
     <string name="tax_in_percentage">Tax in percentage (%)</string>
-    <string name="text_bangla">বাংলা</string>
-    <string name="text_english">English</string>
-    <string name="text_french">French</string>
-    <string name="text_hindi">हिन्दी</string>
-    <string name="text_spanish">Spanish</string>
     <string name="title_choose">Choose</string>
     <string name="title_choose_dict_file">Pick a dictionary</string>
     <string name="title_other_devices">Other devices</string>
