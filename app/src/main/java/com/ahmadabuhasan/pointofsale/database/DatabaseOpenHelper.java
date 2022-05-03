@@ -1,6 +1,8 @@
 package com.ahmadabuhasan.pointofsale.database;
 
 import android.content.Context;
+//import android.database.sqlite.SQLiteDatabase;
+//import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
@@ -24,6 +26,7 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
         this.context = context;
     }
 
+    // https://github.com/prof18/Database-Backup-Restore.git
     public void backup(String outFileName) {
 
         //database path
@@ -211,6 +214,42 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.SUPPLIERS_CONTACT_PERSON + "TEXT,"
                     + Constant.SUPPLIERS_CELL + "TEXT,"
                     + Constant.SUPPLIERS_EMAIL + "TEXT,"
-                    + Constant.SUPPLIERS_ADDRESS + "TEXT,"
+                    + Constant.SUPPLIERS_ADDRESS + "TEXT"
                     + ")";
+
+    // Creating Table
+    /*@Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_CUSTOMERS);
+        db.execSQL(CREATE_EXPENSE);
+        db.execSQL(CREATE_ORDER_DETAILS);
+        db.execSQL(CREATE_ORDER_LIST);
+        db.execSQL(CREATE_ORDER_TYPE);
+        db.execSQL(CREATE_PAYMENT_METHOD);
+        db.execSQL(CREATE_PRODUCT_CART);
+        db.execSQL(CREATE_PRODUCT_CATEGORY);
+        db.execSQL(CREATE_PRODUCT_WEIGHT);
+        db.execSQL(CREATE_PRODUCT);
+        db.execSQL(CREATE_SHOP);
+        db.execSQL(CREATE_SUPPLIERS);
+    }*/
+
+    // Upgrading Database
+    /*@Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.customers);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.expense);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.orderDetails);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.orderList);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.ORDER_TYPE);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.paymentMethod);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.productCart);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.productCategory);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.PRODUCT_WEIGHT);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.products);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.SHOP);
+        db.execSQL("DROP TABLE IF EXISTS " + Constant.suppliers);
+
+        onCreate(db);
+    }*/
 }
