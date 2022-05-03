@@ -3,7 +3,6 @@ package com.ahmadabuhasan.pointofsale.product;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -73,39 +72,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.image_placeholder))
                         .into(holder.binding.ivProductImage);
             } else {
-                byte[] bytes = Base64.decode(base64Image, 0);
+                byte[] bytes = Base64.decode(base64Image, Base64.DEFAULT);
                 holder.binding.ivProductImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
             }
         }
 
-        holder.binding.ivDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(ProductAdapter.this.context)
-                        .setMessage(R.string.app_name)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.app_name, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                databaseAccess.open();
-                                if (databaseAccess.deleteProduct(product_id)) {
-                                    Toasty.error(context, R.string.app_name, Toasty.LENGTH_SHORT).show();
-                                    ProductAdapter.this.productData.remove(holder.getAdapterPosition());
-                                    ProductAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
-                                } else {
-                                    Toast.makeText(context, R.string.app_name, Toast.LENGTH_SHORT).show();
-
-                                }
-                                dialogInterface.cancel();
-                            }
-                        }).setNegativeButton(R.string.app_name, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
+        holder.binding.ivDelete.setOnClickListener(view -> new AlertDialog.Builder(ProductAdapter.this.context)
+                .setMessage(R.string.want_to_delete_product)
+                .setCancelable(false)
+                .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                    databaseAccess.open();
+                    if (databaseAccess.deleteProduct(product_id)) {
+                        Toasty.error(context, R.string.product_deleted, Toasty.LENGTH_SHORT).show();
+                        ProductAdapter.this.productData.remove(holder.getAdapterPosition());
+                        ProductAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                    } else {
+                        Toast.makeText(context, R.string.failed, Toast.LENGTH_SHORT).show();
                     }
-                }).show();
-            }
-        });
+                    dialogInterface.cancel();
+                }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.cancel()).show());
     }
 
     @Override
@@ -120,6 +105,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         public MyViewHolder(@NonNull ProductItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            itemView.setOnClickListener(this);
         }
 
         @Override
