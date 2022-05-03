@@ -103,6 +103,6 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.EXPENSE_NOTE + " TEXT,"
                     + Constant.EXPENSE_AMOUNT + " TEXT,"
                     + Constant.EXPENSE_DATE + " TEXT,"
-                    + Constant.EXPENSE_TIME + " TEXT,"
+                    + Constant.EXPENSE_TIME + " TEXT"
                     + ")";
 }
