@@ -105,4 +105,18 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.EXPENSE_DATE + " TEXT,"
                     + Constant.EXPENSE_TIME + " TEXT"
                     + ")";
+
+    //order_details
+    private static final String CREATE_ORDER_DETAILS =
+            "CREATE TABLE " + Constant.orderDetails + "("
+                    + Constant.ORDER_DETAILS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.INVOICE_ID + " TEXT,"
+                    + Constant.PRODUCT_NAME + " TEXT,"
+                    + Constant.PRODUCT_WEIGHT + " TEXT,"
+                    + Constant.PRODUCT_QTY + " TEXT,"
+                    + Constant.PRODUCT_PRICE + " TEXT,"
+                    + Constant.PRODUCT_IMAGE + " TEXT,"
+                    + Constant.PRODUCT_ORDER_DATE + " TEXT,"
+                    + Constant.ORDER_STATUS + " TEXT"
+                    + ")";
 }
