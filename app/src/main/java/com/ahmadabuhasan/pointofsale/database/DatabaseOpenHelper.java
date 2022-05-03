@@ -173,4 +173,21 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.WEIGHT_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + Constant.WEIGHT_UNIT + "TEXT"
                     + ")";
+
+    //product
+    private static final String CREATE_PRODUCT =
+            "CREATE TABLE " + Constant.products + "("
+                    + Constant.PRODUCT_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.PRODUCT_NAME + "TEXT,"
+                    + Constant.PRODUCT_CODE + "TEXT,"
+                    + Constant.PRODUCT_CATEGORY + "TEXT,"
+                    + Constant.PRODUCT_DESCRIPTION + "TEXT,"
+                    + Constant.PRODUCT_BUY_PRICE + "TEXT,"
+                    + Constant.PRODUCT_SELL_PRICE + "TEXT,"
+                    + Constant.PRODUCT_SUPPLIER + "TEXT,"
+                    + Constant.PRODUCT_IMAGE + "TEXT,"
+                    + Constant.PRODUCT_STOCK + "TEXT,"
+                    + Constant.PRODUCT_WEIGHT_UNIT_ID + "TEXT,"
+                    + Constant.PRODUCT_WEIGHT + "TEXT"
+                    + ")";
 }
