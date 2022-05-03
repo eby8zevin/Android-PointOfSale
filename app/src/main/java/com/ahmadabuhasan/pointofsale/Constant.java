@@ -30,6 +30,7 @@ public class Constant {
     public static final String MANAGER = "manager";
     public static final String MONTHLY = "monthly";
     public static final String ORDER_DATE = "order_date";
+    public static final String ORDER_DETAILS_ID = "order_details_id";
     public static final String ORDER_PAYMENT_METHOD = "order_payment_method";
     public static final String ORDER_RECEIPT = "order_receipt";
     public static final String ORDER_STATUS = "order_status";
