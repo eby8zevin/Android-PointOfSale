@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmadabuhasan.pointofsale.Constant;
+import com.ahmadabuhasan.pointofsale.DashboardActivity;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ProductItemBinding;
@@ -111,7 +113,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         return productData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final ProductItemBinding binding;
 
@@ -122,7 +124,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
         @Override
         public void onClick(View view) {
-
+            Intent i = new Intent(ProductAdapter.this.context, DashboardActivity.class);
+            i.putExtra(Constant.PRODUCT_ID, (String) ((HashMap) ProductAdapter.this.productData.get(getAdapterPosition())).get(Constant.PRODUCT_ID));
+            ProductAdapter.this.context.startActivity(i);
         }
     }
 }
