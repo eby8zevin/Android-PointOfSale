@@ -553,7 +553,7 @@
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginTop="25dp"
-                                    android:contentDescription="@string/settings"
+                                    android:contentDescription="@string/action_settings"
                                     app:srcCompat="@drawable/stock" />
 
                                 <TextView
