@@ -61,6 +61,13 @@ public class Constant {
     public static final String PRODUCT_WEIGHT_UNIT = "product_weight_unit";
     public static final String PRODUCT_WEIGHT_UNIT_ID = "product_weight_unit_id";
     public static final String SHARED_PREF_NAME = "com.app.restaurantpos";
+    public static final String SHOP = "shop";
+    public static final String SHOP_ADDRESS = "shop_address";
+    public static final String SHOP_CONTACT = "shop_contact";
+    public static final String SHOP_CURRENCY = "shop_currency";
+    public static final String SHOP_EMAIL = "shop_email";
+    public static final String SHOP_ID = "shop_id";
+    public static final String SHOP_NAME = "shop_name";
     public static final String SP_PASSWORD = "password";
     public static final String SP_PHONE = "phone";
     public static final String SP_USER_NAME = "user_name";
