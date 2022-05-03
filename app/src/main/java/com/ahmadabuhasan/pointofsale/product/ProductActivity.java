@@ -1,16 +1,14 @@
 package com.ahmadabuhasan.pointofsale.product;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
-import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityProductBinding;
 
 import java.util.HashMap;
@@ -34,8 +32,7 @@ public class ProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.all_product);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        binding.productRecyclerview.setLayoutManager(layoutManager);
+        binding.productRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         binding.productRecyclerview.setHasFixedSize(true);
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
@@ -47,7 +44,9 @@ public class ProductActivity extends AppCompatActivity {
             this.binding.ivNoProduct.setImageResource(R.drawable.no_data);
         } else {
             this.binding.ivNoProduct.setVisibility(View.GONE);
-            this.binding.productRecyclerview.setAdapter(adapter);
+            ProductAdapter adapter1 = new ProductAdapter(this, productData);
+            this.adapter = adapter1;
+            this.binding.productRecyclerview.setAdapter(adapter1);
         }
 
     }
