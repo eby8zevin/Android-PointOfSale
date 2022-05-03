@@ -37,6 +37,7 @@ public class Constant {
     public static final String ORDER_STATUS = "order_status";
     public static final String ORDER_TIME = "order_time";
     public static final String ORDER_TYPE = "order_type";
+    public static final String ORDER_TYPE_ID = "order_type_id";
     public static final String PAYMENT_METHOD_ID = "payment_method_id";
     public static final String PAYMENT_METHOD_NAME = "payment_method_name";
     public static final String PENDING = "Pending";
