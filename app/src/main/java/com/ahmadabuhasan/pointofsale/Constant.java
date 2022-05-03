@@ -63,6 +63,7 @@ public class Constant {
     public static final String SP_PHONE = "phone";
     public static final String SP_USER_NAME = "user_name";
     public static final String SP_USER_TYPE = "user_type";
+    public static final String STOCK = "stock";
     public static final String SUPPLIERS_ADDRESS = "suppliers_address";
     public static final String SUPPLIERS_CELL = "suppliers_cell";
     public static final String SUPPLIERS_CONTACT_PERSON = "suppliers_contact_person";
