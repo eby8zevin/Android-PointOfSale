@@ -34,11 +34,11 @@
             android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
-            android:id="@+id/image_no_product"
+            android:id="@+id/iv_no_product"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="50dp"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/no_product_found" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,7 +55,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:clickable="true"
-            android:contentDescription="@string/add"
+            android:contentDescription="@string/add_product"
             android:focusable="true"
             app:srcCompat="@drawable/ic_add"
             app:tint="@color/white" />
