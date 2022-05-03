@@ -44,6 +44,7 @@ public class Constant {
     public static final String PENDING = "Pending";
     public static final String PRICE = "price";
     public static final String PROCESSING = "Processing";
+    public static final String PRODUCT_BUY_PRICE = "product_buy_price";
     public static final String PRODUCT_CATEGORY = "product_category";
     public static final String PRODUCT_CODE = "product_code";
     public static final String PRODUCT_DESCRIPTION = "product_description";
@@ -54,6 +55,7 @@ public class Constant {
     public static final String PRODUCT_PRICE = "product_price";
     public static final String PRODUCT_QTY = "product_qty";
     public static final String PRODUCT_SELL_PRICE = "product_sell_price";
+    public static final String PRODUCT_STOCK = "product_stock";
     public static final String PRODUCT_SUPPLIER = "product_supplier";
     public static final String PRODUCT_WEIGHT = "product_weight";
     public static final String PRODUCT_WEIGHT_UNIT = "product_weight_unit";
