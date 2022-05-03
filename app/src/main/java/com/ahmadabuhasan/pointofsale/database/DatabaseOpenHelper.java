@@ -202,4 +202,15 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.SHOP_CURRENCY + "TEXT,"
                     + Constant.TAX + "TEXT"
                     + ")";
+
+    //suppliers
+    private static final String CREATE_SUPPLIERS =
+            "CREATE TABLE " + Constant.suppliers + "("
+                    + Constant.SUPPLIERS_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.SUPPLIERS_NAME + "TEXT,"
+                    + Constant.SUPPLIERS_CONTACT_PERSON + "TEXT,"
+                    + Constant.SUPPLIERS_CELL + "TEXT,"
+                    + Constant.SUPPLIERS_EMAIL + "TEXT,"
+                    + Constant.SUPPLIERS_ADDRESS + "TEXT,"
+                    + ")";
 }
