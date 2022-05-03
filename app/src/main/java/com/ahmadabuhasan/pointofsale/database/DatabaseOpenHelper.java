@@ -148,4 +148,15 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.PAYMENT_METHOD_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + Constant.PAYMENT_METHOD_NAME + "TEXT"
                     + ")";
+
+    //product_cart
+    private static final String CREATE_PRODUCT_CART =
+            "CREATE TABLE " + Constant.productCart + "("
+                    + Constant.PRODUCT_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.PRODUCT_WEIGHT + "TEXT,"
+                    + Constant.PRODUCT_WEIGHT_UNIT + "TEXT,"
+                    + Constant.PRODUCT_PRICE + "TEXT,"
+                    + Constant.PRODUCT_QTY + "INTEGER,"
+                    + Constant.STOCK + "TEXT"
+                    + ")";
 }
