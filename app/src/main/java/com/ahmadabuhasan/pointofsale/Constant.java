@@ -76,6 +76,8 @@ public class Constant {
     public static final String USER_PASSWORD = "user_password";
     public static final String USER_PHONE = "user_phone";
     public static final String USER_TYPE = "user_type";
+    public static final String WEIGHT_ID = "weight_id";
+    public static final String WEIGHT_UNIT = "weight_unit";
     public static final String YEARLY = "yearly";
     public static String customers = "customers";
     public static String expense = "expense";
