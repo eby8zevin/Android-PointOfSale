@@ -24,7 +24,8 @@
             android:hint="@string/search_here"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:padding="10dp" />
+            android:padding="10dp"
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/product_recyclerview"
@@ -58,7 +59,8 @@
             android:contentDescription="@string/add_product"
             android:focusable="true"
             app:srcCompat="@drawable/ic_add"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            tools:ignore="ImageContrastCheck" />
     </LinearLayout>
 
 </RelativeLayout>
