@@ -2,6 +2,7 @@ package com.ahmadabuhasan.pointofsale.database;
 
 import android.content.Context;
 
+import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -19,7 +20,7 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
     private Context context;
 
     public DatabaseOpenHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
 
@@ -82,4 +83,26 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
             e.printStackTrace();
         }
     }
+
+    // Create Table
+    //customers
+    private static final String CREATE_CUSTOMERS =
+            "CREATE TABLE " + Constant.customers + "("
+                    + Constant.CUSTOMER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.CUSTOMER_NAME + " TEXT,"
+                    + Constant.CUSTOMER_CELL + " TEXT,"
+                    + Constant.CUSTOMER_EMAIL + " TEXT,"
+                    + Constant.CUSTOMER_ADDRESS + " TEXT"
+                    + ")";
+
+    //expense
+    private static final String CREATE_EXPENSE =
+            "CREATE TABLE " + Constant.expense + "("
+                    + Constant.EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.EXPENSE_NAME + " TEXT,"
+                    + Constant.EXPENSE_NOTE + " TEXT,"
+                    + Constant.EXPENSE_AMOUNT + " TEXT,"
+                    + Constant.EXPENSE_DATE + " TEXT,"
+                    + Constant.EXPENSE_TIME + " TEXT,"
+                    + ")";
 }
