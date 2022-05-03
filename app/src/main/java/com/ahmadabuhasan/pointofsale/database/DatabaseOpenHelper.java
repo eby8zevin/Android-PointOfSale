@@ -190,4 +190,16 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.PRODUCT_WEIGHT_UNIT_ID + "TEXT,"
                     + Constant.PRODUCT_WEIGHT + "TEXT"
                     + ")";
+
+    //shop
+    private static final String CREATE_SHOP =
+            "CREATE TABLE " + Constant.SHOP + "("
+                    + Constant.SHOP_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.SHOP_NAME + "TEXT,"
+                    + Constant.SHOP_CONTACT + "TEXT,"
+                    + Constant.SHOP_EMAIL + "TEXT,"
+                    + Constant.SHOP_ADDRESS + "TEXT,"
+                    + Constant.SHOP_CURRENCY + "TEXT,"
+                    + Constant.TAX + "TEXT"
+                    + ")";
 }
