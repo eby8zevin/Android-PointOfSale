@@ -159,4 +159,11 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.PRODUCT_QTY + "INTEGER,"
                     + Constant.STOCK + "TEXT"
                     + ")";
+
+    //product_category
+    private static final String CREATE_PRODUCT_CATEGORY =
+            "CREATE TABLE " + Constant.productCategory + "("
+                    + Constant.CATEGORY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.CATEGORY_NAME + "TEXT"
+                    + ")";
 }
