@@ -134,4 +134,11 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
                     + Constant.DISCOUNT + " TEXT,"
                     + Constant.ORDER_STATUS + " TEXT"
                     + ")";
+
+    //order_type
+    private static final String CREATE_ORDER_TYPE =
+            "CREATE TABLE " + Constant.ORDER_TYPE + "("
+                    + Constant.ORDER_TYPE_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Constant.ORDER_TYPE_NAME + "TEXT"
+                    + ")";
 }
