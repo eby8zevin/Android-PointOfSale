@@ -260,7 +260,7 @@
                 android:fontFamily="@font/sailec_regular"
                 android:hint="@string/product_weight_unit"
                 android:importantForAutofill="no"
-                android:inputType="number"
+                android:inputType="numberSigned"
                 android:padding="16dp"
                 android:textColor="@color/deep_sky_blue"
                 android:textSize="16sp" />
