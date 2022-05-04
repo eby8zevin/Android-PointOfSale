@@ -3,6 +3,7 @@
 
     <string name="admob_application_id" translatable="false">ca-app-pub-8638037215789792~9492303485</string>
     <string name="admob_banner_ads_id" translatable="false">ca-app-pub-8638037215789792/9766802475</string>
+    <string name="admob_interstitial_ads_id" translatable="false">ca-app-pub-8638037215789792/7238627897</string>
 
     <string name="hello">Hello</string>
     <string name="username">Zaid</string>
