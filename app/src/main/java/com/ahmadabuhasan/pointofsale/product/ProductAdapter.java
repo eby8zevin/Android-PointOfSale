@@ -110,7 +110,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(ProductAdapter.this.context, DashboardActivity.class);
+            Intent i = new Intent(ProductAdapter.this.context, EditProductActivity.class);
             i.putExtra(Constant.PRODUCT_ID, (String) ((HashMap) ProductAdapter.this.productData.get(getAdapterPosition())).get(Constant.PRODUCT_ID));
             ProductAdapter.this.context.startActivity(i);
         }
