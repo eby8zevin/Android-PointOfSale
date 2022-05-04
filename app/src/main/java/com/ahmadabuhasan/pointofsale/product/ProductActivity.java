@@ -13,13 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.database.DatabaseOpenHelper;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityProductBinding;
+import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
@@ -30,7 +30,7 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends BaseActivity {
 
     private ActivityProductBinding binding;
     ProductAdapter adapter;
