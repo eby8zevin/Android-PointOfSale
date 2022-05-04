@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmadabuhasan.pointofsale.Constant;
-import com.ahmadabuhasan.pointofsale.DashboardActivity;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ProductItemBinding;
@@ -60,7 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
         holder.binding.tvProductName.setText(this.productData.get(position).get(Constant.PRODUCT_NAME));
         holder.binding.tvProductSupplier.setText(this.context.getString(R.string.supplier) + supplier_name);
-        holder.binding.tvProductBuyPrice.setText(this.context.getString(R.string.buy_price) + currency + this.productData.get(position).get("product_buy_price"));
+        holder.binding.tvProductBuyPrice.setText(this.context.getString(R.string.buy_price) + currency + this.productData.get(position).get(Constant.PRODUCT_BUY_PRICE));
         holder.binding.tvProductSellPrice.setText(this.context.getString(R.string.sell_price) + currency + this.productData.get(position).get(Constant.PRODUCT_SELL_PRICE));
 
         if (base64Image != null) {
