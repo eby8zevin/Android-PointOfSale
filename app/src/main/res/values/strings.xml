@@ -65,7 +65,7 @@
     <string name="bottom_sheet_behavior">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
     <string name="bottomsheet_action_expand_halfway">Expand halfway</string>
     <string name="button_scan">Scan devices</string>
-    <string name="buy_price">Buy Price:</string>
+    <string name="buy_price">Buy Price:&#160;</string>
     <string name="camera_permission">Camera Permission Required</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_order">Cancel Order</string>
@@ -334,7 +334,7 @@
     <string name="select_product_weight_unit">Select Product Weight Unit</string>
     <string name="select_supplier">Select Supplier</string>
     <string name="select_year">Select Year</string>
-    <string name="sell_price">Sell Price:</string>
+    <string name="sell_price">Sell Price:&#160;</string>
     <string name="share">Share</string>
     <string name="shop_address">Shop Address</string>
     <string name="shop_address_cannot_be_empty">Shop address can\'t be empty</string>
@@ -357,7 +357,7 @@
     <string name="submit_order">Submit Order</string>
     <string name="successfully_added">Successfully Added</string>
     <string name="successfully_updated">Successfully Updated</string>
-    <string name="supplier">Supplier:</string>
+    <string name="supplier">Supplier:&#160;</string>
     <string name="supplier_address">Supplier Address</string>
     <string name="supplier_cell">Supplier Cell</string>
     <string name="supplier_contact_person">Supplier Contact Person</string>
