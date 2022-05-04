@@ -15,11 +15,13 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_sales_report.xml" value="0.15694444444444444" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_search.xml" value="0.16332046332046332" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/round_border.xml" value="0.16332046332046332" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/rounded_button.xml" value="0.1527777777777778" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/white_rectangle_background.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_add_product.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_dashboard.xml" value="0.12" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_main.xml" value="0.10461956521739131" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_product.xml" value="0.1" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_scanner_view.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/product_item.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/menu/all_product_menu.xml" value="0.7428571428571429" />
