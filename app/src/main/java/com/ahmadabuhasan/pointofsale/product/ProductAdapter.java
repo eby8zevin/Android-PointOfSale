@@ -59,7 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         String supplier_name = databaseAccess.getSupplierName(this.productData.get(position).get(Constant.PRODUCT_SUPPLIER));
 
         holder.binding.tvProductName.setText(this.productData.get(position).get(Constant.PRODUCT_NAME));
-        holder.binding.tvProductSupplier.setText(this.context.getString(R.string.product_supplier) + supplier_name);
+        holder.binding.tvProductSupplier.setText(this.context.getString(R.string.supplier) + supplier_name);
         holder.binding.tvProductBuyPrice.setText(this.context.getString(R.string.buy_price) + currency + this.productData.get(position).get("product_buy_price"));
         holder.binding.tvProductSellPrice.setText(this.context.getString(R.string.sell_price) + currency + this.productData.get(position).get(Constant.PRODUCT_SELL_PRICE));
 
