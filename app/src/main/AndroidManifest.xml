@@ -20,6 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PointOfSale">
+        <activity android:name=".settings.backup.BackupActivity" />
+        <activity android:name=".settings.payment_method.PaymentMethodActivity" />
+        <activity android:name=".settings.weight.WeightActivity" />
+        <activity android:name=".settings.categories.CategoriesActivity" />
+        <activity android:name=".settings.shop.ShopInformationActivity" />
         <activity android:name=".settings.SettingsActivity" />
         <activity android:name=".product.EditProductScannerViewActivity" />
         <activity android:name=".product.EditProductActivity" />
