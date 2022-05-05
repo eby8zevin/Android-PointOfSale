@@ -1330,6 +1330,12 @@ public class DatabaseAccess {
         return check == 1;
     }
 
+    public boolean deleteWeight(String weight_id) {
+        long check = (long) this.database.delete(Constant.PRODUCT_WEIGHT, "weight_id=?", new String[]{weight_id});
+        close();
+        return check == 1;
+    }
+
     /*
             public boolean updateOrder(String invoiceId, String orderStatus) {
                 ContentValues contentValues = new ContentValues();
