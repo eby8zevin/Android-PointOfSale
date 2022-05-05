@@ -1,6 +1,8 @@
 package com.ahmadabuhasan.pointofsale.settings.categories;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +10,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ahmadabuhasan.pointofsale.Constant;
+import com.ahmadabuhasan.pointofsale.R;
+import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.CategoryItemBinding;
 
 import java.util.HashMap;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
 
@@ -33,6 +40,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        final String category_id = this.categoryData.get(position).get(Constant.CATEGORY_ID);
+
+        holder.binding.tvCategoryName.setText(this.categoryData.get(position).get(Constant.CATEGORY_NAME));
+        holder.binding.ivDelete.setOnClickListener(view -> new AlertDialog.Builder(CategoryAdapter.this.context)
+                .setMessage(R.string.want_to_delete_category)
+                .setCancelable(false)
+                .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(CategoryAdapter.this.context);
+                    databaseAccess.open();
+
+                    if (databaseAccess.deleteCategory(category_id)) {
+                        Toasty.success(CategoryAdapter.this.context, R.string.category_deleted, Toasty.LENGTH_SHORT).show();
+                        CategoryAdapter.this.categoryData.remove(holder.getAdapterPosition());
+                        CategoryAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                    } else {
+                        Toasty.error(CategoryAdapter.this.context, R.string.failed, Toasty.LENGTH_SHORT).show();
+                    }
+                    dialogInterface.cancel();
+                }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.cancel()).show());
     }
 
     @Override
@@ -52,7 +78,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         @Override
         public void onClick(View view) {
-
+            Intent i = new Intent(CategoryAdapter.this.context, EditCategoryActivity.class);
+            i.putExtra(Constant.CATEGORY_ID, (String) ((HashMap) CategoryAdapter.this.categoryData.get(getAdapterPosition())).get(Constant.CATEGORY_ID));
+            i.putExtra(Constant.CATEGORY_NAME, (String) ((HashMap) CategoryAdapter.this.categoryData.get(getAdapterPosition())).get(Constant.CATEGORY_NAME));
+            CategoryAdapter.this.context.startActivity(i);
         }
     }
 }
