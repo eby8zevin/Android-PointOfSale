@@ -24,6 +24,8 @@
         <activity android:name=".settings.payment_method.EditPaymentMethodActivity" />
         <activity android:name=".settings.payment_method.AddPaymentMethodActivity" />
         <activity android:name=".settings.payment_method.PaymentMethodActivity" />
+        <activity android:name=".settings.weight.EditWeightActivity" />
+        <activity android:name=".settings.weight.AddWeightActivity" />
         <activity android:name=".settings.weight.WeightActivity" />
         <activity android:name=".settings.categories.EditCategoryActivity" />
         <activity android:name=".settings.categories.AddCategoryActivity" />
