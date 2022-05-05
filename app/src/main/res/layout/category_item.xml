@@ -39,7 +39,8 @@
                     android:contentDescription="@string/categories"
                     android:padding="10dp"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/category" />
+                    app:srcCompat="@drawable/category"
+                    tools:ignore="InefficientWeight" />
             </LinearLayout>
 
             <LinearLayout
