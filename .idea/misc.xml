@@ -17,8 +17,11 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/round_border.xml" value="0.16332046332046332" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/rounded_button.xml" value="0.1527777777777778" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/white_rectangle_background.xml" value="0.165234375" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_add_category.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_add_product.xml" value="0.1" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_categories.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_dashboard.xml" value="0.12" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_edit_category.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_edit_product.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_edit_product_scanner_view.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_main.xml" value="0.10461956521739131" />
