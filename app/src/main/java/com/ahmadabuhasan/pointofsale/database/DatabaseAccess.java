@@ -1,5 +1,6 @@
 package com.ahmadabuhasan.pointofsale.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,7 +37,7 @@ public class DatabaseAccess {
             database.close();
         }
     }
-
+/*
     public boolean addCustomer(String customer_name, String customer_cell, String customer_email, String customer_address) {
         ContentValues values = new ContentValues();
         values.put(Constant.CUSTOMER_NAME, customer_name);
@@ -237,7 +238,7 @@ public class DatabaseAccess {
         this.database.close();
         return weight_unit_name;
     }
-
+*/
     public String getSupplierName(String supplier_id) {
         String supplier_name = "n/a";
         Cursor cursor = database.rawQuery("SELECT * FROM suppliers WHERE suppliers_id=" + supplier_id + "", null);
@@ -250,7 +251,7 @@ public class DatabaseAccess {
         close();
         return supplier_name;
     }
-
+/*
     public String getCategoryName(String category_id) {
         String product_category = "n/a";
         SQLiteDatabase sQLiteDatabase = this.database;
@@ -305,9 +306,9 @@ public class DatabaseAccess {
         this.database.close();
         return product;
     }
-
+*/
     /* JADX WARNING: Removed duplicated region for block: B:15:0x00c2 A[Catch:{ JSONException -> 0x0199 }] */
-    public void insertOrder(String order_id, JSONObject obj) {
+/*    public void insertOrder(String order_id, JSONObject obj) {
         ContentValues values;
         JSONException e;
         JSONArray result;
@@ -673,7 +674,7 @@ public class DatabaseAccess {
         this.database.close();
         return product_name;
     }
-
+*/
     public String getCurrency() {
         String currency = "n/a";
         Cursor cursor = this.database.rawQuery("SELECT * FROM shop", null);
@@ -686,7 +687,7 @@ public class DatabaseAccess {
         close();
         return currency;
     }
-
+/*
     public double getTotalPrice() {
         double total_price = Utils.DOUBLE_EPSILON;
         Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
@@ -1061,7 +1062,7 @@ public class DatabaseAccess {
         this.database.close();
         return shop_info;
     }
-
+*/
     public ArrayList<HashMap<String, String>> getProducts() {
         ArrayList<HashMap<String, String>> product = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM products ORDER BY product_id DESC", null);
@@ -1088,7 +1089,7 @@ public class DatabaseAccess {
         close();
         return product;
     }
-
+/*
     public ArrayList<HashMap<String, String>> getProductsInfo(String product_id) {
         ArrayList<HashMap<String, String>> product = new ArrayList<>();
         SQLiteDatabase sQLiteDatabase = this.database;
@@ -1237,7 +1238,7 @@ public class DatabaseAccess {
         this.database.close();
         return product;
     }
-
+*/
     public ArrayList<HashMap<String, String>> getSearchProducts(String search) {
         ArrayList<HashMap<String, String>> product = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM products WHERE product_name LIKE '%" + search + "%' OR product_code LIKE '%" + search + "%' ORDER BY product_id DESC", null);
@@ -1264,7 +1265,7 @@ public class DatabaseAccess {
         close();
         return product;
     }
-
+/*
     public int addToCart(String product_name, String price, String weight, int qty, String base64Image, String ref, String tva_tx, String product_id) {
         SQLiteDatabase sQLiteDatabase = this.database;
         if (sQLiteDatabase.rawQuery("SELECT * FROM cart WHERE product_name='" + product_name + "' AND price='" + price + "' AND weight='" + weight + "'", null).getCount() >= 1) {
@@ -1341,14 +1342,14 @@ public class DatabaseAccess {
         this.database.close();
         return check == 1;
     }
-
+*/
     public Boolean deleteProduct(String product_id) {
         long check = this.database.delete("products", "product_id=?", new String[]{product_id});
         long delete = this.database.delete("product_cart", "product_id=?", new String[]{product_id});
         close();
         return check == 1;
     }
-
+/*
     public boolean deleteExpense(String expense_id) {
         long check = (long) this.database.delete("expense", "expense_id=?", new String[]{expense_id});
         this.database.close();
@@ -1360,17 +1361,5 @@ public class DatabaseAccess {
         this.database.close();
         return check == 1;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 }
