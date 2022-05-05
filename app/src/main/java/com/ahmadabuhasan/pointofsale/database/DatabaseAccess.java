@@ -52,194 +52,197 @@ public class DatabaseAccess {
             }
             return true;
         }
+*/
+    public boolean addCategory(String category_name) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.CATEGORY_NAME, category_name);
 
-        public boolean addCategory(String category_name) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.CATEGORY_NAME, category_name);
-            long check = this.database.insert(Constant.PRODUCT_CATEGORY, null, values);
-            this.database.close();
-            if (check == -1) {
-                return false;
+        long check = this.database.insert(Constant.PRODUCT_CATEGORY, null, contentValues);
+        close();
+        //return check != -1;
+        if (check == -1) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+            public boolean addPaymentMethod(String payment_method_name) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
+                long check = this.database.insert("payment_method", null, values);
+                this.database.close();
+                if (check == -1) {
+                    return false;
+                }
+                return true;
             }
-            return true;
-        }
 
-        public boolean addPaymentMethod(String payment_method_name) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
-            long check = this.database.insert("payment_method", null, values);
-            this.database.close();
-            if (check == -1) {
-                return false;
+            public boolean updateCategory(String category_id, String category_name) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.CATEGORY_NAME, category_name);
+                long check = (long) this.database.update(Constant.PRODUCT_CATEGORY, values, "category_id=? ", new String[]{category_id});
+                this.database.close();
+                return check != -1;
             }
-            return true;
-        }
 
-        public boolean updateCategory(String category_id, String category_name) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.CATEGORY_NAME, category_name);
-            long check = (long) this.database.update(Constant.PRODUCT_CATEGORY, values, "category_id=? ", new String[]{category_id});
-            this.database.close();
-            return check != -1;
-        }
-
-        public boolean updatePaymentMethod(String payment_method_id, String payment_method_name) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
-            long check = (long) this.database.update("payment_method", values, "payment_method_id=? ", new String[]{payment_method_id});
-            this.database.close();
-            return check != -1;
-        }
-
-        public boolean updateCustomer(String customer_id, String customer_name, String customer_cell, String customer_email, String customer_address) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.CUSTOMER_NAME, customer_name);
-            values.put(Constant.CUSTOMER_CELL, customer_cell);
-            values.put(Constant.CUSTOMER_EMAIL, customer_email);
-            values.put(Constant.CUSTOMER_ADDRESS, customer_address);
-            long check = (long) this.database.update("customers", values, " customer_id=? ", new String[]{customer_id});
-            this.database.close();
-            return check != -1;
-        }
-
-        public boolean updateShopInformation(String shop_name, String shop_contact, String shop_email, String shop_address, String shop_currency, String tax) {
-            ContentValues values = new ContentValues();
-            values.put("shop_name", shop_name);
-            values.put("shop_contact", shop_contact);
-            values.put("shop_email", shop_email);
-            values.put("shop_address", shop_address);
-            values.put("shop_currency", shop_currency);
-            values.put(Constant.TAX, tax);
-            long check = (long) this.database.update("shop", values, "shop_id=? ", new String[]{"1"});
-            this.database.close();
-            return check != -1;
-        }
-
-        public boolean addProduct(String product_name, String product_code, String product_category, String product_description, String product_buy_price, String product_sell_price, String product_stock, String product_supplier, String product_image, String weight_unit_id, String product_weight) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.PRODUCT_NAME, product_name);
-            values.put(Constant.PRODUCT_CODE, product_code);
-            values.put(Constant.PRODUCT_CATEGORY, product_category);
-            values.put(Constant.PRODUCT_DESCRIPTION, product_description);
-            values.put("product_buy_price", product_buy_price);
-            values.put(Constant.PRODUCT_SELL_PRICE, product_sell_price);
-            values.put(Constant.PRODUCT_SUPPLIER, product_supplier);
-            values.put(Constant.PRODUCT_IMAGE, product_image);
-            values.put("product_stock", product_stock);
-            values.put(Constant.PRODUCT_WEIGHT_UNIT_ID, weight_unit_id);
-            values.put(Constant.PRODUCT_WEIGHT, product_weight);
-            long check = this.database.insert("products", null, values);
-            this.database.close();
-            if (check == -1) {
-                return false;
+            public boolean updatePaymentMethod(String payment_method_id, String payment_method_name) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
+                long check = (long) this.database.update("payment_method", values, "payment_method_id=? ", new String[]{payment_method_id});
+                this.database.close();
+                return check != -1;
             }
-            return true;
-        }
 
-        public boolean updateProduct(String product_name, String product_code, String product_category, String product_description, String product_buy_price, String product_sell_price, String product_stock, String product_supplier, String product_image, String weight_unit_id, String product_weight, String product_id) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.PRODUCT_NAME, product_name);
-            values.put(Constant.PRODUCT_CODE, product_code);
-            values.put(Constant.PRODUCT_CATEGORY, product_category);
-            values.put(Constant.PRODUCT_DESCRIPTION, product_description);
-            values.put("product_buy_price", product_buy_price);
-            values.put(Constant.PRODUCT_SELL_PRICE, product_sell_price);
-            values.put(Constant.PRODUCT_SUPPLIER, product_supplier);
-            values.put(Constant.PRODUCT_IMAGE, product_image);
-            values.put("product_stock", product_stock);
-            values.put(Constant.PRODUCT_WEIGHT_UNIT_ID, weight_unit_id);
-            values.put(Constant.PRODUCT_WEIGHT, product_weight);
-            SQLiteDatabase sQLiteDatabase = this.database;
-            String[] strArr = {product_id};
-            this.database.close();
-            if (((long) sQLiteDatabase.update("products", values, "product_id=?", strArr)) == -1) {
-                return false;
+            public boolean updateCustomer(String customer_id, String customer_name, String customer_cell, String customer_email, String customer_address) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.CUSTOMER_NAME, customer_name);
+                values.put(Constant.CUSTOMER_CELL, customer_cell);
+                values.put(Constant.CUSTOMER_EMAIL, customer_email);
+                values.put(Constant.CUSTOMER_ADDRESS, customer_address);
+                long check = (long) this.database.update("customers", values, " customer_id=? ", new String[]{customer_id});
+                this.database.close();
+                return check != -1;
             }
-            return true;
-        }
 
-        public boolean addExpense(String expense_name, String expense_amount, String expense_note, String date, String time) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.EXPENSE_NAME, expense_name);
-            values.put(Constant.EXPENSE_AMOUNT, expense_amount);
-            values.put(Constant.EXPENSE_NOTE, expense_note);
-            values.put(Constant.EXPENSE_DATE, date);
-            values.put(Constant.EXPENSE_TIME, time);
-            long check = this.database.insert("expense", null, values);
-            this.database.close();
-            if (check == -1) {
-                return false;
+            public boolean updateShopInformation(String shop_name, String shop_contact, String shop_email, String shop_address, String shop_currency, String tax) {
+                ContentValues values = new ContentValues();
+                values.put("shop_name", shop_name);
+                values.put("shop_contact", shop_contact);
+                values.put("shop_email", shop_email);
+                values.put("shop_address", shop_address);
+                values.put("shop_currency", shop_currency);
+                values.put(Constant.TAX, tax);
+                long check = (long) this.database.update("shop", values, "shop_id=? ", new String[]{"1"});
+                this.database.close();
+                return check != -1;
             }
-            return true;
-        }
 
-        public boolean updateExpense(String expense_id, String expense_name, String expense_amount, String expense_note, String date, String time) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.EXPENSE_NAME, expense_name);
-            values.put(Constant.EXPENSE_AMOUNT, expense_amount);
-            values.put(Constant.EXPENSE_NOTE, expense_note);
-            values.put(Constant.EXPENSE_DATE, date);
-            values.put(Constant.EXPENSE_TIME, time);
-            long check = (long) this.database.update("expense", values, "expense_id=?", new String[]{expense_id});
-            this.database.close();
-            return check != -1;
-        }
-
-        public boolean addSuppliers(String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.SUPPLIERS_NAME, suppliers_name);
-            values.put(Constant.SUPPLIERS_CONTACT_PERSON, suppliers_contact_person);
-            values.put(Constant.SUPPLIERS_CELL, suppliers_cell);
-            values.put(Constant.SUPPLIERS_EMAIL, suppliers_email);
-            values.put(Constant.SUPPLIERS_ADDRESS, suppliers_address);
-            long check = this.database.insert("suppliers", null, values);
-            this.database.close();
-            if (check == -1) {
-                return false;
+            public boolean addProduct(String product_name, String product_code, String product_category, String product_description, String product_buy_price, String product_sell_price, String product_stock, String product_supplier, String product_image, String weight_unit_id, String product_weight) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.PRODUCT_NAME, product_name);
+                values.put(Constant.PRODUCT_CODE, product_code);
+                values.put(Constant.PRODUCT_CATEGORY, product_category);
+                values.put(Constant.PRODUCT_DESCRIPTION, product_description);
+                values.put("product_buy_price", product_buy_price);
+                values.put(Constant.PRODUCT_SELL_PRICE, product_sell_price);
+                values.put(Constant.PRODUCT_SUPPLIER, product_supplier);
+                values.put(Constant.PRODUCT_IMAGE, product_image);
+                values.put("product_stock", product_stock);
+                values.put(Constant.PRODUCT_WEIGHT_UNIT_ID, weight_unit_id);
+                values.put(Constant.PRODUCT_WEIGHT, product_weight);
+                long check = this.database.insert("products", null, values);
+                this.database.close();
+                if (check == -1) {
+                    return false;
+                }
+                return true;
             }
-            return true;
-        }
 
-        public boolean updateSuppliers(String suppliers_id, String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.SUPPLIERS_NAME, suppliers_name);
-            values.put(Constant.SUPPLIERS_CONTACT_PERSON, suppliers_contact_person);
-            values.put(Constant.SUPPLIERS_CELL, suppliers_cell);
-            values.put(Constant.SUPPLIERS_EMAIL, suppliers_email);
-            values.put(Constant.SUPPLIERS_ADDRESS, suppliers_address);
-            long check = (long) this.database.update("suppliers", values, "suppliers_id=?", new String[]{suppliers_id});
-            this.database.close();
-            return check != -1;
-        }
-
-        public String getProductImage(String product_id) {
-            String image = "n/a";
-            SQLiteDatabase sQLiteDatabase = this.database;
-            Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
-            if (cursor.moveToFirst()) {
-                do {
-                    image = cursor.getString(8);
-                } while (cursor.moveToNext());
+            public boolean updateProduct(String product_name, String product_code, String product_category, String product_description, String product_buy_price, String product_sell_price, String product_stock, String product_supplier, String product_image, String weight_unit_id, String product_weight, String product_id) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.PRODUCT_NAME, product_name);
+                values.put(Constant.PRODUCT_CODE, product_code);
+                values.put(Constant.PRODUCT_CATEGORY, product_category);
+                values.put(Constant.PRODUCT_DESCRIPTION, product_description);
+                values.put("product_buy_price", product_buy_price);
+                values.put(Constant.PRODUCT_SELL_PRICE, product_sell_price);
+                values.put(Constant.PRODUCT_SUPPLIER, product_supplier);
+                values.put(Constant.PRODUCT_IMAGE, product_image);
+                values.put("product_stock", product_stock);
+                values.put(Constant.PRODUCT_WEIGHT_UNIT_ID, weight_unit_id);
+                values.put(Constant.PRODUCT_WEIGHT, product_weight);
+                SQLiteDatabase sQLiteDatabase = this.database;
+                String[] strArr = {product_id};
+                this.database.close();
+                if (((long) sQLiteDatabase.update("products", values, "product_id=?", strArr)) == -1) {
+                    return false;
+                }
+                return true;
             }
-            cursor.close();
-            this.database.close();
-            return image;
-        }
 
-        public String getWeightUnitName(String weight_unit_id) {
-            String weight_unit_name = "n/a";
-            SQLiteDatabase sQLiteDatabase = this.database;
-            Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM product_weight WHERE weight_id=" + weight_unit_id + "", null);
-            if (cursor.moveToFirst()) {
-                do {
-                    weight_unit_name = cursor.getString(1);
-                } while (cursor.moveToNext());
+            public boolean addExpense(String expense_name, String expense_amount, String expense_note, String date, String time) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.EXPENSE_NAME, expense_name);
+                values.put(Constant.EXPENSE_AMOUNT, expense_amount);
+                values.put(Constant.EXPENSE_NOTE, expense_note);
+                values.put(Constant.EXPENSE_DATE, date);
+                values.put(Constant.EXPENSE_TIME, time);
+                long check = this.database.insert("expense", null, values);
+                this.database.close();
+                if (check == -1) {
+                    return false;
+                }
+                return true;
             }
-            cursor.close();
-            this.database.close();
-            return weight_unit_name;
-        }
-    */
+
+            public boolean updateExpense(String expense_id, String expense_name, String expense_amount, String expense_note, String date, String time) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.EXPENSE_NAME, expense_name);
+                values.put(Constant.EXPENSE_AMOUNT, expense_amount);
+                values.put(Constant.EXPENSE_NOTE, expense_note);
+                values.put(Constant.EXPENSE_DATE, date);
+                values.put(Constant.EXPENSE_TIME, time);
+                long check = (long) this.database.update("expense", values, "expense_id=?", new String[]{expense_id});
+                this.database.close();
+                return check != -1;
+            }
+
+            public boolean addSuppliers(String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.SUPPLIERS_NAME, suppliers_name);
+                values.put(Constant.SUPPLIERS_CONTACT_PERSON, suppliers_contact_person);
+                values.put(Constant.SUPPLIERS_CELL, suppliers_cell);
+                values.put(Constant.SUPPLIERS_EMAIL, suppliers_email);
+                values.put(Constant.SUPPLIERS_ADDRESS, suppliers_address);
+                long check = this.database.insert("suppliers", null, values);
+                this.database.close();
+                if (check == -1) {
+                    return false;
+                }
+                return true;
+            }
+
+            public boolean updateSuppliers(String suppliers_id, String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.SUPPLIERS_NAME, suppliers_name);
+                values.put(Constant.SUPPLIERS_CONTACT_PERSON, suppliers_contact_person);
+                values.put(Constant.SUPPLIERS_CELL, suppliers_cell);
+                values.put(Constant.SUPPLIERS_EMAIL, suppliers_email);
+                values.put(Constant.SUPPLIERS_ADDRESS, suppliers_address);
+                long check = (long) this.database.update("suppliers", values, "suppliers_id=?", new String[]{suppliers_id});
+                this.database.close();
+                return check != -1;
+            }
+
+            public String getProductImage(String product_id) {
+                String image = "n/a";
+                SQLiteDatabase sQLiteDatabase = this.database;
+                Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        image = cursor.getString(8);
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                this.database.close();
+                return image;
+            }
+
+            public String getWeightUnitName(String weight_unit_id) {
+                String weight_unit_name = "n/a";
+                SQLiteDatabase sQLiteDatabase = this.database;
+                Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM product_weight WHERE weight_id=" + weight_unit_id + "", null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        weight_unit_name = cursor.getString(1);
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                this.database.close();
+                return weight_unit_name;
+            }
+        */
     public String getSupplierName(String supplier_id) {
         String supplier_name = "n/a";
         Cursor cursor = database.rawQuery("SELECT * FROM suppliers WHERE suppliers_id=" + supplier_id + "", null);
