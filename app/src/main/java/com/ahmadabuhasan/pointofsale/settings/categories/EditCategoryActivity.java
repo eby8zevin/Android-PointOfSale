@@ -2,8 +2,10 @@ package com.ahmadabuhasan.pointofsale.settings.categories;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.internal.view.SupportMenu;
 
 import com.ahmadabuhasan.pointofsale.Constant;
@@ -11,6 +13,7 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityEditCategoryBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
+//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.Objects;
 
@@ -34,12 +37,13 @@ public class EditCategoryActivity extends BaseActivity {
 
         this.binding.etCategoryName.setText(getIntent().getExtras().getString(Constant.CATEGORY_NAME));
         this.binding.etCategoryName.setEnabled(false);
-        this.binding.tvUpdateCategory.setVisibility(View.INVISIBLE);
+        this.binding.tvUpdateCategory.setVisibility(View.GONE);
 
         this.binding.tvEditCategory.setOnClickListener(view -> {
             EditCategoryActivity.this.binding.etCategoryName.setEnabled(true);
-            EditCategoryActivity.this.binding.tvUpdateCategory.setVisibility(View.VISIBLE);
             EditCategoryActivity.this.binding.etCategoryName.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditCategoryActivity.this.binding.tvEditCategory.setVisibility(View.GONE);
+            EditCategoryActivity.this.binding.tvUpdateCategory.setVisibility(View.VISIBLE);
         });
 
         this.binding.tvUpdateCategory.setOnClickListener(view -> {
@@ -57,11 +61,19 @@ public class EditCategoryActivity extends BaseActivity {
                 Toasty.success(EditCategoryActivity.this, R.string.category_updated, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(EditCategoryActivity.this, CategoriesActivity.class);
                 //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 EditCategoryActivity.this.startActivity(i);
                 return;
             }
             Toasty.error(EditCategoryActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() != android.R.id.home) {
+            return super.onOptionsItemSelected(item);
+        }
+        finish();
+        return true;
     }
 }
