@@ -148,6 +148,7 @@
     <string name="enter_suppliers_contact_person_name">Enter Suppliers Contact Person Name</string>
     <string name="enter_suppliers_name">Enter Suppliers Name</string>
     <string name="enter_valid_email">Enter Valid Email</string>
+    <string name="enter_weight_name">Enter Weight Unit Name</string>
     <string name="error">Error</string>
     <string name="error_icon_content_description">Error</string>
     <string name="error_on_import">Error on import</string>
@@ -402,8 +403,10 @@
     <string name="want_to_delete_product">Want to Delete Product ?</string>
     <string name="want_to_delete_supplier">Want to Delete Supplier ?</string>
     <string name="weight">Weight:</string>
+    <string name="weight_added_successfully">Weight Unit Added Successfully</string>
     <string name="weight_name">Weight Name</string>
     <string name="weight_unit_deleted">Weight Unit Deleted</string>
+    <string name="weight_updated">Weight Updated</string>
     <string name="year">Year</string>
     <string name="year_2020">Year 2020</string>
     <string name="yearly">Yearly</string>
