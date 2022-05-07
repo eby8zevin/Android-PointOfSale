@@ -56,7 +56,6 @@ public class DatabaseAccess {
     public boolean addCategory(String category_name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.CATEGORY_NAME, category_name);
-
         long check = this.database.insert(Constant.PRODUCT_CATEGORY, null, contentValues);
         close();
         //return check != -1;
@@ -70,6 +69,18 @@ public class DatabaseAccess {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
         long check = this.database.insert("payment_method", null, contentValues);
+        close();
+        //return check != -1;
+        if (check == -1) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean addWeight(String weight_name) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.WEIGHT_UNIT, weight_name);
+        long check = this.database.insert(Constant.PRODUCT_WEIGHT, null, contentValues);
         close();
         //return check != -1;
         if (check == -1) {
