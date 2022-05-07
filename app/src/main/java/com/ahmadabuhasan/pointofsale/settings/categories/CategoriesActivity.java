@@ -33,7 +33,7 @@ public class CategoriesActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.categories);
 
         this.binding.categoryRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
