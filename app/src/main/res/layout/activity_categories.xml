@@ -58,8 +58,8 @@
             android:clickable="true"
             android:contentDescription="@string/add_category"
             android:focusable="true"
-            app:srcCompat="@drawable/ic_add"
-            app:tint="@color/white" />
+            app:backgroundTint="@color/deep_sky_blue"
+            app:srcCompat="@drawable/ic_add" />
     </LinearLayout>
 
 </RelativeLayout>
