@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityWeightBinding;
-import com.ahmadabuhasan.pointofsale.settings.categories.CategoryAdapter;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 
 import java.util.HashMap;
@@ -50,7 +49,7 @@ public class WeightActivity extends BaseActivity {
             this.binding.ivNoWeight.setImageResource(R.drawable.no_data);
         } else {
             this.binding.ivNoWeight.setVisibility(View.GONE);
-            this.binding.weightRecyclerview.setAdapter(new CategoryAdapter(this, weightData));
+            this.binding.weightRecyclerview.setAdapter(new WeightAdapter(this, weightData));
         }
 
         this.binding.etWeUnNameSearch.addTextChangedListener(new TextWatcher() {
