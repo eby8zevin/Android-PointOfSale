@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PointOfSale" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Theme.PointOfSale" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/deep_sky_blue</item>
         <item name="colorPrimaryVariant">@color/deep_sky_blue</item>
@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/deep_sky_blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondary</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
