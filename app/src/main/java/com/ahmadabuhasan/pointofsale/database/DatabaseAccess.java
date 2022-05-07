@@ -1164,6 +1164,23 @@ public class DatabaseAccess {
         return product_category;
     }
 
+    public ArrayList<HashMap<String, String>> getProductWeight() {
+        ArrayList<HashMap<String, String>> product_weight = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM product_weight ORDER BY weight_id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.WEIGHT_ID, cursor.getString(0));
+                map.put(Constant.WEIGHT_UNIT, cursor.getString(1));
+
+                product_weight.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return product_weight;
+    }
+
     public ArrayList<HashMap<String, String>> searchProductCategory(String search) {
         ArrayList<HashMap<String, String>> product_category = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM product_category WHERE category_name LIKE '%" + search + "%' ORDER BY category_id DESC ", null);
