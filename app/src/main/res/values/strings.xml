@@ -47,6 +47,7 @@
     <string name="add_supplier">Add Supplier</string>
     <string name="add_suppliers">Add Suppliers</string>
     <string name="add_to_cart">Add To Cart</string>
+    <string name="add_weight">Add Weight</string>
     <string name="all_customer">All Customer</string>
     <string name="all_expense">All Expense</string>
     <string name="all_expense_report">All Expense Report</string>
@@ -393,6 +394,7 @@
     <string name="update_information">Update Information</string>
     <string name="update_payment_method">Update Payment Method</string>
     <string name="update_successfully">Update Successfully</string>
+    <string name="update_weight">Update Weight</string>
     <string name="want_to_delete">Want to delete ?</string>
     <string name="want_to_delete_category">Want to delete category ?</string>
     <string name="want_to_delete_customer">Want to Delete Customer ?</string>
