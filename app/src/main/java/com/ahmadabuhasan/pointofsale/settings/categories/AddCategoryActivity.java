@@ -31,7 +31,7 @@ public class AddCategoryActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.add_category);
 
         this.binding.tvAddCategory.setOnClickListener(view -> {
-            String category_name = AddCategoryActivity.this.binding.etCategoryName.toString().trim();
+            String category_name = AddCategoryActivity.this.binding.etCategoryName.getText().toString().trim();
             if (category_name.isEmpty()) {
                 AddCategoryActivity.this.binding.etCategoryName.setError(AddCategoryActivity.this.getString(R.string.enter_category_name));
                 AddCategoryActivity.this.binding.etCategoryName.requestFocus();
@@ -45,7 +45,6 @@ public class AddCategoryActivity extends BaseActivity {
                 Toasty.success(AddCategoryActivity.this, R.string.category_added_successfully, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(AddCategoryActivity.this, CategoriesActivity.class);
                 //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 AddCategoryActivity.this.startActivity(i);
                 return;
             }
