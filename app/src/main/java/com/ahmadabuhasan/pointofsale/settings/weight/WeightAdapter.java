@@ -79,7 +79,7 @@ public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.MyViewHold
 
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(WeightAdapter.this.context, EditCategoryActivity.class);
+            Intent i = new Intent(WeightAdapter.this.context, EditWeightActivity.class);
             i.putExtra(Constant.WEIGHT_ID, (String) ((HashMap) WeightAdapter.this.weightData.get(getAdapterPosition())).get(Constant.WEIGHT_ID));
             i.putExtra(Constant.WEIGHT_UNIT, (String) ((HashMap) WeightAdapter.this.weightData.get(getAdapterPosition())).get(Constant.WEIGHT_UNIT));
             WeightAdapter.this.context.startActivity(i);
