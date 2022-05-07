@@ -1181,76 +1181,76 @@ public class DatabaseAccess {
         return product_category;
     }
 
+    public ArrayList<HashMap<String, String>> searchPaymentMethod(String search) {
+        ArrayList<HashMap<String, String>> payment_method = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM payment_method WHERE payment_method_name LIKE '%" + search + "%' ORDER BY payment_method_id DESC ", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.PAYMENT_METHOD_ID, cursor.getString(0));
+                map.put(Constant.PAYMENT_METHOD_NAME, cursor.getString(1));
+
+                payment_method.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return payment_method;
+    }
+
     /*
-                public ArrayList<HashMap<String, String>> searchPaymentMethod(String s) {
-                    ArrayList<HashMap<String, String>> payment_method = new ArrayList<>();
-                    SQLiteDatabase sQLiteDatabase = this.database;
-                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM payment_method WHERE payment_method_name LIKE '%" + s + "%' ORDER BY payment_method_id DESC ", null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            HashMap<String, String> map = new HashMap<>();
-                            map.put(Constant.PAYMENT_METHOD_ID, cursor.getString(0));
-                            map.put(Constant.PAYMENT_METHOD_NAME, cursor.getString(1));
-                            payment_method.add(map);
-                        } while (cursor.moveToNext());
+                    public ArrayList<HashMap<String, String>> getProductSupplier() {
+                        ArrayList<HashMap<String, String>> product_suppliers = new ArrayList<>();
+                        Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers", null);
+                        if (cursor.moveToFirst()) {
+                            do {
+                                HashMap<String, String> map = new HashMap<>();
+                                map.put(Constant.SUPPLIERS_ID, cursor.getString(0));
+                                map.put(Constant.SUPPLIERS_NAME, cursor.getString(1));
+                                product_suppliers.add(map);
+                            } while (cursor.moveToNext());
+                        }
+                        cursor.close();
+                        this.database.close();
+                        return product_suppliers;
                     }
-                    cursor.close();
-                    this.database.close();
-                    return payment_method;
-                }
 
-                public ArrayList<HashMap<String, String>> getProductSupplier() {
-                    ArrayList<HashMap<String, String>> product_suppliers = new ArrayList<>();
-                    Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers", null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            HashMap<String, String> map = new HashMap<>();
-                            map.put(Constant.SUPPLIERS_ID, cursor.getString(0));
-                            map.put(Constant.SUPPLIERS_NAME, cursor.getString(1));
-                            product_suppliers.add(map);
-                        } while (cursor.moveToNext());
+                    public ArrayList<HashMap<String, String>> getWeightUnit() {
+                        ArrayList<HashMap<String, String>> product_weight_unit = new ArrayList<>();
+                        Cursor cursor = this.database.rawQuery("SELECT * FROM product_weight", null);
+                        if (cursor.moveToFirst()) {
+                            do {
+                                HashMap<String, String> map = new HashMap<>();
+                                map.put("weight_id", cursor.getString(0));
+                                map.put("weight_unit", cursor.getString(1));
+                                product_weight_unit.add(map);
+                            } while (cursor.moveToNext());
+                        }
+                        cursor.close();
+                        this.database.close();
+                        return product_weight_unit;
                     }
-                    cursor.close();
-                    this.database.close();
-                    return product_suppliers;
-                }
 
-                public ArrayList<HashMap<String, String>> getWeightUnit() {
-                    ArrayList<HashMap<String, String>> product_weight_unit = new ArrayList<>();
-                    Cursor cursor = this.database.rawQuery("SELECT * FROM product_weight", null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            HashMap<String, String> map = new HashMap<>();
-                            map.put("weight_id", cursor.getString(0));
-                            map.put("weight_unit", cursor.getString(1));
-                            product_weight_unit.add(map);
-                        } while (cursor.moveToNext());
+                    public ArrayList<HashMap<String, String>> searchExpense(String s) {
+                        ArrayList<HashMap<String, String>> product = new ArrayList<>();
+                        SQLiteDatabase sQLiteDatabase = this.database;
+                        Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM expense WHERE expense_name LIKE '%" + s + "%' ORDER BY expense_id DESC", null);
+                        if (cursor.moveToFirst()) {
+                            do {
+                                HashMap<String, String> map = new HashMap<>();
+                                map.put(Constant.EXPENSE_ID, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_ID)));
+                                map.put(Constant.EXPENSE_NAME, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_NAME)));
+                                map.put(Constant.EXPENSE_NOTE, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_NOTE)));
+                                map.put(Constant.EXPENSE_AMOUNT, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_AMOUNT)));
+                                map.put(Constant.EXPENSE_DATE, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_DATE)));
+                                map.put(Constant.EXPENSE_TIME, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_TIME)));
+                                product.add(map);
+                            } while (cursor.moveToNext());
+                        }
+                        this.database.close();
+                        return product;
                     }
-                    cursor.close();
-                    this.database.close();
-                    return product_weight_unit;
-                }
-
-                public ArrayList<HashMap<String, String>> searchExpense(String s) {
-                    ArrayList<HashMap<String, String>> product = new ArrayList<>();
-                    SQLiteDatabase sQLiteDatabase = this.database;
-                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM expense WHERE expense_name LIKE '%" + s + "%' ORDER BY expense_id DESC", null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            HashMap<String, String> map = new HashMap<>();
-                            map.put(Constant.EXPENSE_ID, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_ID)));
-                            map.put(Constant.EXPENSE_NAME, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_NAME)));
-                            map.put(Constant.EXPENSE_NOTE, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_NOTE)));
-                            map.put(Constant.EXPENSE_AMOUNT, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_AMOUNT)));
-                            map.put(Constant.EXPENSE_DATE, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_DATE)));
-                            map.put(Constant.EXPENSE_TIME, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_TIME)));
-                            product.add(map);
-                        } while (cursor.moveToNext());
-                    }
-                    this.database.close();
-                    return product;
-                }
-            */
+                */
     public ArrayList<HashMap<String, String>> getSearchProducts(String search) {
         ArrayList<HashMap<String, String>> product = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM products WHERE product_name LIKE '%" + search + "%' OR product_code LIKE '%" + search + "%' ORDER BY product_id DESC", null);
