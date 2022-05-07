@@ -14,7 +14,6 @@ import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.WeightItemBinding;
-import com.ahmadabuhasan.pointofsale.settings.categories.EditCategoryActivity;
 
 import java.util.HashMap;
 import java.util.List;
