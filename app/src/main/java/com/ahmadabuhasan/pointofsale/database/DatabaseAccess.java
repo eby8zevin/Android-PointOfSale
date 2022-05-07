@@ -101,7 +101,15 @@ public class DatabaseAccess {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
         long check = (long) this.database.update(Constant.paymentMethod, contentValues, "payment_method_id=? ", new String[]{payment_method_id});
-        this.database.close();
+        close();
+        return check != -1;
+    }
+
+    public boolean updateWeight(String weight_id, String weight_name) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.WEIGHT_UNIT, weight_name);
+        long check = (long) this.database.update(Constant.PRODUCT_WEIGHT, contentValues, "weight_id=? ", new String[]{weight_id});
+        close();
         return check != -1;
     }
 
