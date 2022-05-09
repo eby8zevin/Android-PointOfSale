@@ -26,12 +26,11 @@ public class LocalBackup {
 
         Permissions.verifyStoragePermissions(activity);
 
-        File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "PointOfSale/");
+        File folder = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getResources().getString(R.string.app_name));
 
         boolean success = true;
-        if (!folder.exists()) {
+        if (!folder.exists())
             success = folder.mkdirs();
-        }
         if (success) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
@@ -49,9 +48,8 @@ public class LocalBackup {
             builder.setNegativeButton(R.string.no, (dialogInterface, which) -> dialogInterface.cancel());
 
             builder.show();
-        } else {
+        } else
             Toast.makeText(this.activity, R.string.unable_to_create_directory_retry, Toast.LENGTH_SHORT).show();
-        }
     }
 
     //ask to the user what backup to restore
@@ -59,12 +57,12 @@ public class LocalBackup {
 
         Permissions.verifyStoragePermissions(activity);
 
-        File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "PointOfSale/");
+        File folder = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getResources().getString(R.string.app_name));
         if (folder.exists()) {
 
             final File[] files = folder.listFiles();
 
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this.activity, android.R.layout.select_dialog_item);
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this.activity, android.R.layout.select_dialog_item);
             for (File file : files)
                 arrayAdapter.add(file.getName());
 
@@ -81,9 +79,8 @@ public class LocalBackup {
                         }
                     });
             builderSingle.show();
-        } else {
+        } else
             Toast.makeText(this.activity, R.string.backup_folder_not_present, Toast.LENGTH_SHORT).show();
-        }
     }
     // https://github.com/prof18/Database-Backup-Restore.git
 }
