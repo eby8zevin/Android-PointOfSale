@@ -31,8 +31,8 @@ public class AddWeightActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.add_weight);
 
         this.binding.tvAddWeight.setOnClickListener(view -> {
-            String Weight_name = AddWeightActivity.this.binding.etWeUnNameName.getText().toString().trim();
-            if (Weight_name.isEmpty()) {
+            String weight_name = AddWeightActivity.this.binding.etWeUnNameName.getText().toString().trim();
+            if (weight_name.isEmpty()) {
                 AddWeightActivity.this.binding.etWeUnNameName.setError(AddWeightActivity.this.getString(R.string.enter_weight_name));
                 AddWeightActivity.this.binding.etWeUnNameName.requestFocus();
                 return;
@@ -41,7 +41,7 @@ public class AddWeightActivity extends BaseActivity {
             DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddWeightActivity.this);
             databaseAccess.open();
 
-            if (databaseAccess.addWeight(Weight_name)) {
+            if (databaseAccess.addWeight(weight_name)) {
                 Toasty.success(AddWeightActivity.this, R.string.weight_added_successfully, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(AddWeightActivity.this, WeightActivity.class);
                 //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
