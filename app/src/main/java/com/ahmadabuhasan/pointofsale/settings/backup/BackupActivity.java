@@ -52,11 +52,14 @@ public class BackupActivity extends BaseActivity {
     //True stands for backup, False for restore
     private boolean isBackup = true;
 
+    private BackupActivity activity;
+
     private LocalBackup localBackup;
     private RemoteBackup remoteBackup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.activity = this;
         super.onCreate(savedInstanceState);
         binding = ActivityBackupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -69,15 +72,17 @@ public class BackupActivity extends BaseActivity {
             requestPermission();
         }
 
-        this.localBackup = new LocalBackup(BackupActivity.this);
-        this.remoteBackup = new RemoteBackup(BackupActivity.this);
+        this.localBackup = new LocalBackup(this);
+        this.remoteBackup = new RemoteBackup(this);
 
         final DatabaseOpenHelper db = new DatabaseOpenHelper(getApplicationContext());
 
         this.binding.cvLocalBackup.setOnClickListener(view -> {
-            String outFileName = Environment.getExternalStorageState() + File.separator + getResources().getString(R.string.app_name) + File.separator;
+            String outFileName = Environment.getExternalStorageDirectory() + File.separator + getResources().getString(R.string.app_name) + File.separator;
             BackupActivity.this.localBackup.performBackup(db, outFileName);
         });
+
+        this.binding.cvLocalDbImport.setOnClickListener(view -> BackupActivity.this.localBackup.performRestore(db));
 
         this.binding.cvExportToExcel.setOnClickListener(view -> BackupActivity.this.folderChooser());
 
