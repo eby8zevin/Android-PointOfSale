@@ -1374,13 +1374,13 @@ public class DatabaseAccess {
             this.database.close();
             return supplier;
         }
+*/
+    public boolean deleteCustomer(String customer_id) {
+        long check = (long) this.database.delete(Constant.customers, "customer_id=?", new String[]{customer_id});
+        close();
+        return check == 1;
+    }
 
-        public boolean deleteCustomer(String customer_id) {
-            long check = (long) this.database.delete("customers", "customer_id=?", new String[]{customer_id});
-            this.database.close();
-            return check == 1;
-        }
-    */
     public boolean deleteCategory(String category_id) {
         long check = (long) this.database.delete(Constant.PRODUCT_CATEGORY, "category_id=?", new String[]{category_id});
         close();
