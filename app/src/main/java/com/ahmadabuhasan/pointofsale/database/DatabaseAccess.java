@@ -1425,17 +1425,18 @@ public class DatabaseAccess {
         close();
         return check == 1;
     }
-/*
-    public boolean deleteExpense(String expense_id) {
-        long check = (long) this.database.delete("expense", "expense_id=?", new String[]{expense_id});
-        this.database.close();
+
+    /*
+        public boolean deleteExpense(String expense_id) {
+            long check = (long) this.database.delete("expense", "expense_id=?", new String[]{expense_id});
+            this.database.close();
+            return check == 1;
+        }
+    */
+    public boolean deleteSupplier(String supplier_id) {
+        long check = (long) this.database.delete(Constant.suppliers, "suppliers_id=?", new String[]{supplier_id});
+        close();
         return check == 1;
     }
 
-    public boolean deleteSupplier(String customer_id) {
-        long check = (long) this.database.delete("suppliers", "suppliers_id=?", new String[]{customer_id});
-        this.database.close();
-        return check == 1;
-    }
-*/
 }
