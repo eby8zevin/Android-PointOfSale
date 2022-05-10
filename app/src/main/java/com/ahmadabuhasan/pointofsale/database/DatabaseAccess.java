@@ -1356,26 +1356,28 @@ public class DatabaseAccess {
             }
             return 1;
         }
-
-        public ArrayList<HashMap<String, String>> getSuppliers() {
-            ArrayList<HashMap<String, String>> supplier = new ArrayList<>();
-            Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers ORDER BY suppliers_id DESC", null);
-            if (cursor.moveToFirst()) {
-                do {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put(Constant.SUPPLIERS_ID, cursor.getString(0));
-                    map.put(Constant.SUPPLIERS_NAME, cursor.getString(1));
-                    map.put(Constant.SUPPLIERS_CONTACT_PERSON, cursor.getString(2));
-                    map.put(Constant.SUPPLIERS_CELL, cursor.getString(3));
-                    map.put(Constant.SUPPLIERS_EMAIL, cursor.getString(4));
-                    map.put(Constant.SUPPLIERS_ADDRESS, cursor.getString(5));
-                    supplier.add(map);
-                } while (cursor.moveToNext());
-            }
-            this.database.close();
-            return supplier;
-        }
 */
+    public ArrayList<HashMap<String, String>> getSuppliers() {
+        ArrayList<HashMap<String, String>> supplier = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers ORDER BY suppliers_id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.SUPPLIERS_ID, cursor.getString(0));
+                map.put(Constant.SUPPLIERS_NAME, cursor.getString(1));
+                map.put(Constant.SUPPLIERS_CONTACT_PERSON, cursor.getString(2));
+                map.put(Constant.SUPPLIERS_CELL, cursor.getString(3));
+                map.put(Constant.SUPPLIERS_EMAIL, cursor.getString(4));
+                map.put(Constant.SUPPLIERS_ADDRESS, cursor.getString(5));
+
+                supplier.add(map);
+            } while (cursor.moveToNext());
+        }
+        //cursor.close();
+        close();
+        return supplier;
+    }
+
     public boolean deleteCustomer(String customer_id) {
         long check = (long) this.database.delete(Constant.customers, "customer_id=?", new String[]{customer_id});
         close();
