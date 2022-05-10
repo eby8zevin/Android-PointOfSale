@@ -113,18 +113,17 @@ public class DatabaseAccess {
         return check != -1;
     }
 
-    /*
-                    public boolean updateCustomer(String customer_id, String customer_name, String customer_cell, String customer_email, String customer_address) {
-                        ContentValues values = new ContentValues();
-                        values.put(Constant.CUSTOMER_NAME, customer_name);
-                        values.put(Constant.CUSTOMER_CELL, customer_cell);
-                        values.put(Constant.CUSTOMER_EMAIL, customer_email);
-                        values.put(Constant.CUSTOMER_ADDRESS, customer_address);
-                        long check = (long) this.database.update("customers", values, " customer_id=? ", new String[]{customer_id});
-                        this.database.close();
-                        return check != -1;
-                    }
-*/
+    public boolean updateCustomer(String customer_id, String customer_name, String customer_cell, String customer_email, String customer_address) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.CUSTOMER_NAME, customer_name);
+        contentValues.put(Constant.CUSTOMER_CELL, customer_cell);
+        contentValues.put(Constant.CUSTOMER_EMAIL, customer_email);
+        contentValues.put(Constant.CUSTOMER_ADDRESS, customer_address);
+        long check = (long) this.database.update(Constant.customers, contentValues, " customer_id=? ", new String[]{customer_id});
+        close();
+        return check != -1;
+    }
+
     public boolean updateShopInformation(String shop_name, String shop_contact, String shop_email, String shop_address, String shop_currency, String tax) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.SHOP_NAME, shop_name);
