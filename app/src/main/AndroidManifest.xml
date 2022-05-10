@@ -42,6 +42,12 @@
         <activity android:name=".product.ScannerViewActivity" />
         <activity android:name=".product.AddProductActivity" />
         <activity android:name=".product.ProductActivity" />
+        <activity android:name=".suppliers.EditSuppliersActivity" />
+        <activity android:name=".suppliers.AddSuppliersActivity" />
+        <activity android:name=".suppliers.SuppliersActivity" />
+        <activity android:name=".customers.EditCustomersActivity" />
+        <activity android:name=".customers.AddCustomersActivity" />
+        <activity android:name=".customers.CustomersActivity" />
         <activity android:name=".DashboardActivity" />
         <activity
             android:name=".SplashScreenActivity"
