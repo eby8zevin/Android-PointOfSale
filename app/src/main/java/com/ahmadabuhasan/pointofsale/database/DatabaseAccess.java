@@ -1070,27 +1070,28 @@ public class DatabaseAccess {
                 this.database.close();
                 return customer;
             }
+*/
+    public ArrayList<HashMap<String, String>> getShopInformation() {
+        ArrayList<HashMap<String, String>> shop_info = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM shop", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.SHOP_NAME, cursor.getString(1));
+                map.put(Constant.SHOP_CONTACT, cursor.getString(2));
+                map.put(Constant.SHOP_EMAIL, cursor.getString(3));
+                map.put(Constant.SHOP_ADDRESS, cursor.getString(4));
+                map.put(Constant.SHOP_CURRENCY, cursor.getString(5));
+                map.put(Constant.TAX, cursor.getString(6));
 
-            public ArrayList<HashMap<String, String>> getShopInformation() {
-                ArrayList<HashMap<String, String>> shop_info = new ArrayList<>();
-                Cursor cursor = this.database.rawQuery("SELECT * FROM shop", null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("shop_name", cursor.getString(1));
-                        map.put("shop_contact", cursor.getString(2));
-                        map.put("shop_email", cursor.getString(3));
-                        map.put("shop_address", cursor.getString(4));
-                        map.put("shop_currency", cursor.getString(5));
-                        map.put(Constant.TAX, cursor.getString(6));
-                        shop_info.add(map);
-                    } while (cursor.moveToNext());
-                }
-                cursor.close();
-                this.database.close();
-                return shop_info;
-            }
-        */
+                shop_info.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return shop_info;
+    }
+
     public ArrayList<HashMap<String, String>> getProducts() {
         ArrayList<HashMap<String, String>> product = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM products ORDER BY product_id DESC", null);
