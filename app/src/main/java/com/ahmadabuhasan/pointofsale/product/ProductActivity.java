@@ -15,6 +15,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.database.DatabaseOpenHelper;
@@ -33,7 +34,6 @@ import es.dmoral.toasty.Toasty;
 public class ProductActivity extends BaseActivity {
 
     private ActivityProductBinding binding;
-    ProductAdapter adapter;
     ProgressDialog dialog;
 
     @Override
@@ -58,9 +58,8 @@ public class ProductActivity extends BaseActivity {
             this.binding.ivNoProduct.setImageResource(R.drawable.no_data);
         } else {
             this.binding.ivNoProduct.setVisibility(View.GONE);
-            ProductAdapter adapter1 = new ProductAdapter(this, productData);
-            this.adapter = adapter1;
-            this.binding.productRecyclerview.setAdapter(adapter1);
+            ProductAdapter adapter = new ProductAdapter(this, productData);
+            this.binding.productRecyclerview.setAdapter(adapter);
         }
 
         this.binding.etSearch.addTextChangedListener(new TextWatcher() {
@@ -79,12 +78,11 @@ public class ProductActivity extends BaseActivity {
                     ProductActivity.this.binding.ivNoProduct.setImageResource(R.drawable.no_data);
                     return;
                 }
-                ProductActivity.this.binding.productRecyclerview.setVisibility(View.VISIBLE);
                 ProductActivity.this.binding.ivNoProduct.setVisibility(View.GONE);
+                ProductActivity.this.binding.productRecyclerview.setVisibility(View.VISIBLE);
 
-                ProductActivity productActivity = ProductActivity.this;
-                productActivity.adapter = new ProductAdapter(productActivity, searchProductList);
-                ProductActivity.this.binding.productRecyclerview.setAdapter(ProductActivity.this.adapter);
+                ProductAdapter adapter1 = new ProductAdapter(ProductActivity.this, searchProductList);
+                ProductActivity.this.binding.productRecyclerview.setAdapter(adapter1);
             }
 
             @Override
@@ -104,14 +102,14 @@ public class ProductActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        } else if (item.getItemId() != R.id.menu_export) {
-            return super.onOptionsItemSelected(item);
-        } else {
+        if (item.getItemId() == R.id.menu_export) {
             folderChooser();
             return true;
+        } else if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -133,7 +131,7 @@ public class ProductActivity extends BaseActivity {
             file.mkdirs();
         }
         new SQLiteToExcel(getApplicationContext(), DatabaseOpenHelper.DATABASE_NAME, path)
-                .exportSingleTable("products", "products.xls", new SQLiteToExcel.ExportListener() {
+                .exportSingleTable(Constant.products, "products.xls", new SQLiteToExcel.ExportListener() {
                     @Override
                     public void onStart() {
                         ProductActivity.this.dialog = new ProgressDialog(ProductActivity.this);
