@@ -38,21 +38,21 @@ public class DatabaseAccess {
         }
     }
 
-    /*
-        public boolean addCustomer(String customer_name, String customer_cell, String customer_email, String customer_address) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.CUSTOMER_NAME, customer_name);
-            values.put(Constant.CUSTOMER_CELL, customer_cell);
-            values.put(Constant.CUSTOMER_EMAIL, customer_email);
-            values.put(Constant.CUSTOMER_ADDRESS, customer_address);
-            long check = this.database.insert("customers", null, values);
-            this.database.close();
-            if (check == -1) {
-                return false;
-            }
-            return true;
+    public boolean addCustomer(String customer_name, String customer_cell, String customer_email, String customer_address) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.CUSTOMER_NAME, customer_name);
+        contentValues.put(Constant.CUSTOMER_CELL, customer_cell);
+        contentValues.put(Constant.CUSTOMER_EMAIL, customer_email);
+        contentValues.put(Constant.CUSTOMER_ADDRESS, customer_address);
+        long check = this.database.insert(Constant.customers, null, contentValues);
+        close();
+        //return check != -1;
+        if (check == -1) {
+            return false;
         }
-*/
+        return true;
+    }
+
     public boolean addCategory(String category_name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.CATEGORY_NAME, category_name);
