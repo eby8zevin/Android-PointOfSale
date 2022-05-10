@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ahmadabuhasan.pointofsale.customers.CustomersActivity;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
 import com.ahmadabuhasan.pointofsale.product.ProductActivity;
 import com.ahmadabuhasan.pointofsale.settings.SettingsActivity;
@@ -59,6 +60,7 @@ public class DashboardActivity extends BaseActivity {
         });
         this.binding.adView.loadAd(new AdRequest.Builder().build());
 
+        this.binding.cardCustomers.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, CustomersActivity.class)));
         this.binding.cardProducts.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ProductActivity.class)));
         this.binding.cardSettings.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, SettingsActivity.class)));
 
