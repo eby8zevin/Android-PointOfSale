@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +27,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.DashboardActivity;
@@ -36,7 +34,7 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.database.DatabaseOpenHelper;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityAddProductBinding;
-import com.ahmadabuhasan.pointofsale.databinding.DialogListSearchBinding;
+import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ajts.androidmads.library.ExcelToSQLite;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
@@ -50,7 +48,7 @@ import java.util.Objects;
 import es.dmoral.toasty.Toasty;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 
-public class AddProductActivity extends AppCompatActivity {
+public class AddProductActivity extends BaseActivity {
 
     public static EditText etProductCode;
     private ActivityAddProductBinding binding;
@@ -65,6 +63,8 @@ public class AddProductActivity extends AppCompatActivity {
 
     String encodedImage = "N/A";
     String selectedCategoryID;
+    String selectedWeightUnitID;
+    String selectedSupplierID;
     String mediaPath;
     ProgressDialog loading;
 
@@ -122,80 +122,157 @@ public class AddProductActivity extends AppCompatActivity {
             this.supplierNames.add(productSupplier.get(i2).get(Constant.SUPPLIERS_NAME));
         }
 
-        this.binding.etProductCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddProductActivity.this.categoryAdapter = new ArrayAdapter<>(AddProductActivity.this, android.R.layout.simple_list_item_1);
-                AddProductActivity.this.categoryAdapter.addAll(AddProductActivity.this.categoryNames);
+        this.binding.etProductCategory.setOnClickListener(view -> {
+            AddProductActivity.this.categoryAdapter = new ArrayAdapter<>(AddProductActivity.this, android.R.layout.simple_list_item_1);
+            AddProductActivity.this.categoryAdapter.addAll(AddProductActivity.this.categoryNames);
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(AddProductActivity.this);
-                View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
-                dialog.setView(dialogView);
-                dialog.setCancelable(false);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(AddProductActivity.this);
+            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            dialog.setView(dialogView);
+            dialog.setCancelable(false);
 
-                TextView title = dialogView.findViewById(R.id.tv_dialog_title);
-                EditText search = dialogView.findViewById(R.id.et_dialog_search);
-                ListView dialogListView = dialogView.findViewById(R.id.dialog_listView);
-                Button btnCancel = dialogView.findViewById(R.id.btn_dialog_cancel);
+            TextView title = dialogView.findViewById(R.id.tv_dialog_title);
+            EditText search = dialogView.findViewById(R.id.et_dialog_search);
+            ListView dialogListView = dialogView.findViewById(R.id.dialog_listView);
+            Button btnCancel = dialogView.findViewById(R.id.btn_dialog_cancel);
 
-                title.setText(R.string.product_category);
-                dialogListView.setVerticalScrollBarEnabled(true);
-                dialogListView.setAdapter((ListAdapter) AddProductActivity.this.categoryAdapter);
-                search.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            title.setText(R.string.product_category);
+            dialogListView.setVerticalScrollBarEnabled(true);
+            dialogListView.setAdapter((ListAdapter) AddProductActivity.this.categoryAdapter);
+            search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    AddProductActivity.this.categoryAdapter.getFilter().filter(charSequence);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+            final AlertDialog alertDialog = dialog.create();
+            btnCancel.setOnClickListener(view1 -> alertDialog.dismiss());
+            alertDialog.show();
+            dialogListView.setOnItemClickListener((adapterView, view1, i, l) -> {
+                alertDialog.dismiss();
+                String selectedItem = AddProductActivity.this.categoryAdapter.getItem(i);
+                String category_id = "0";
+                AddProductActivity.this.binding.etProductCategory.setText(selectedItem);
+                for (int i3 = 0; i3 < AddProductActivity.this.categoryNames.size(); i3++) {
+                    if (AddProductActivity.this.categoryNames.get(i3).equalsIgnoreCase(selectedItem)) {
+                        category_id = (String) ((HashMap) productCategory.get(i3)).get(Constant.CATEGORY_ID);
                     }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        AddProductActivity.this.categoryAdapter.getFilter().filter(charSequence);
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-
-                    }
-                });
-                final AlertDialog alertDialog = dialog.create();
-                btnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.show();
-                dialogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        alertDialog.dismiss();
-                        String selectedItem = AddProductActivity.this.categoryAdapter.getItem(i);
-                        String category_id = "0";
-                        AddProductActivity.this.binding.etProductCategory.setText(selectedItem);
-                        for (int i3 = 0; i3 < AddProductActivity.this.categoryNames.size(); i3++) {
-                            if (AddProductActivity.this.categoryNames.get(i3).equalsIgnoreCase(selectedItem)) {
-                                category_id = (String) ((HashMap) productCategory.get(i3)).get(Constant.CATEGORY_ID);
-                            }
-                        }
-                        AddProductActivity.this.selectedCategoryID = category_id;
-                        Log.d(Constant.CATEGORY_ID, category_id);
-                    }
-                });
-            }
+                }
+                AddProductActivity.this.selectedCategoryID = category_id;
+                Log.d(Constant.CATEGORY_ID, category_id);
+            });
         });
 
-        this.binding.etProductWeightUnit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        this.binding.etProductWeightUnit.setOnClickListener(view -> {
+            AddProductActivity.this.weightUnitAdapter = new ArrayAdapter<>(AddProductActivity.this, android.R.layout.simple_list_item_1);
+            AddProductActivity.this.weightUnitAdapter.addAll(AddProductActivity.this.weightUnitNames);
 
-            }
+            AlertDialog.Builder dialog = new AlertDialog.Builder(AddProductActivity.this);
+            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            dialog.setView(dialogView);
+            dialog.setCancelable(false);
+
+            TextView title = dialogView.findViewById(R.id.tv_dialog_title);
+            EditText search = dialogView.findViewById(R.id.et_dialog_search);
+            ListView dialogListView = dialogView.findViewById(R.id.dialog_listView);
+            Button btnCancel = dialogView.findViewById(R.id.btn_dialog_cancel);
+
+            title.setText(R.string.product_weight_unit);
+            dialogListView.setVerticalScrollBarEnabled(true);
+            dialogListView.setAdapter((ListAdapter) AddProductActivity.this.weightUnitAdapter);
+            search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    AddProductActivity.this.weightUnitAdapter.getFilter().filter(charSequence);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+            final AlertDialog alertDialog = dialog.create();
+            btnCancel.setOnClickListener(view13 -> alertDialog.dismiss());
+            alertDialog.show();
+            dialogListView.setOnItemClickListener((adapterView, view11, i, l) -> {
+                alertDialog.dismiss();
+                String selectedItem = AddProductActivity.this.weightUnitAdapter.getItem(i);
+                String weight_unit_id = "0";
+                AddProductActivity.this.binding.etProductWeightUnit.setText(selectedItem);
+                for (int i4 = 0; i4 < AddProductActivity.this.weightUnitNames.size(); i4++) {
+                    if (AddProductActivity.this.weightUnitNames.get(i4).equalsIgnoreCase(selectedItem)) {
+                        weight_unit_id = (String) ((HashMap) weightUnit.get(i4)).get(Constant.WEIGHT_ID);
+                    }
+                }
+                AddProductActivity.this.selectedWeightUnitID = weight_unit_id;
+                Log.d(Constant.WEIGHT_UNIT, AddProductActivity.this.selectedWeightUnitID);
+            });
         });
 
-        this.binding.etSupplier.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        this.binding.etSupplier.setOnClickListener(view -> {
+            AddProductActivity.this.supplierAdapter = new ArrayAdapter<>(AddProductActivity.this, android.R.layout.simple_list_item_1);
+            AddProductActivity.this.supplierAdapter.addAll(AddProductActivity.this.supplierNames);
 
-            }
+            AlertDialog.Builder dialog = new AlertDialog.Builder(AddProductActivity.this);
+            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            dialog.setView(dialogView);
+            dialog.setCancelable(false);
+
+            TextView title = dialogView.findViewById(R.id.tv_dialog_title);
+            EditText search = dialogView.findViewById(R.id.et_dialog_search);
+            ListView dialogListView = dialogView.findViewById(R.id.dialog_listView);
+            Button btnCancel = dialogView.findViewById(R.id.btn_dialog_cancel);
+
+            title.setText(R.string.suppliers);
+            dialogListView.setVerticalScrollBarEnabled(true);
+            dialogListView.setAdapter((ListAdapter) AddProductActivity.this.supplierAdapter);
+            search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    AddProductActivity.this.supplierAdapter.getFilter().filter(charSequence);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+            final AlertDialog alertDialog = dialog.create();
+            btnCancel.setOnClickListener(view12 -> alertDialog.dismiss());
+            alertDialog.show();
+            dialogListView.setOnItemClickListener((adapterView, view111, i, l) -> {
+                alertDialog.dismiss();
+                String selectedItem = AddProductActivity.this.supplierAdapter.getItem(i);
+                String supplier_id = "0";
+                AddProductActivity.this.binding.etSupplier.setText(selectedItem);
+                for (int i5 = 0; i5 < AddProductActivity.this.supplierNames.size(); i5++) {
+                    if (AddProductActivity.this.supplierNames.get(i5).equalsIgnoreCase(selectedItem)) {
+                        supplier_id = (String) ((HashMap) productSupplier.get(i5)).get(Constant.SUPPLIERS_ID);
+                    }
+                }
+                AddProductActivity.this.selectedSupplierID = supplier_id;
+                Log.d(Constant.SUPPLIERS_ID, selectedSupplierID);
+            });
         });
 
         this.binding.tvAddProduct.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +294,7 @@ public class AddProductActivity extends AppCompatActivity {
                 this.binding.ivProduct.setImageBitmap(selectedImage);
                 this.encodedImage = encodeImage(selectedImage);
             } catch (Exception e) {
-                Toast.makeText(this, R.string.something_went_wrong, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.something_went_wrong, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -226,8 +303,7 @@ public class AddProductActivity extends AppCompatActivity {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
-        String encImage = Base64.encodeToString(bytes, Base64.DEFAULT);
-        return encImage;
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
     @Override
