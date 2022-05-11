@@ -1254,23 +1254,23 @@ public class DatabaseAccess {
         return product_weight;
     }
 
-    /*
-                    public ArrayList<HashMap<String, String>> getProductSupplier() {
-                        ArrayList<HashMap<String, String>> product_suppliers = new ArrayList<>();
-                        Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers", null);
-                        if (cursor.moveToFirst()) {
-                            do {
-                                HashMap<String, String> map = new HashMap<>();
-                                map.put(Constant.SUPPLIERS_ID, cursor.getString(0));
-                                map.put(Constant.SUPPLIERS_NAME, cursor.getString(1));
-                                product_suppliers.add(map);
-                            } while (cursor.moveToNext());
-                        }
-                        cursor.close();
-                        this.database.close();
-                        return product_suppliers;
-                    }
-*/
+    public ArrayList<HashMap<String, String>> getProductSupplier() {
+        ArrayList<HashMap<String, String>> product_suppliers = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.SUPPLIERS_ID, cursor.getString(0));
+                map.put(Constant.SUPPLIERS_NAME, cursor.getString(1));
+
+                product_suppliers.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return product_suppliers;
+    }
+
     public ArrayList<HashMap<String, String>> getWeightUnit() {
         ArrayList<HashMap<String, String>> product_weight_unit = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM product_weight", null);
