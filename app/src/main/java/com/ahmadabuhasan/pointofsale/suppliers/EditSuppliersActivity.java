@@ -47,13 +47,13 @@ public class EditSuppliersActivity extends BaseActivity {
         this.binding.etSupplierEmail.setEnabled(false);
         this.binding.etSupplierAddress.setEnabled(false);
 
-        this.binding.tvUpdateSupplier.setVisibility(View.INVISIBLE);
+        this.binding.tvUpdateSupplier.setVisibility(View.GONE);
         this.binding.tvEditSupplier.setOnClickListener(view -> {
-            EditSuppliersActivity.this.binding.etSupplierName.setEnabled(false);
-            EditSuppliersActivity.this.binding.etSupplierContactName.setEnabled(false);
-            EditSuppliersActivity.this.binding.etSupplierCell.setEnabled(false);
-            EditSuppliersActivity.this.binding.etSupplierEmail.setEnabled(false);
-            EditSuppliersActivity.this.binding.etSupplierAddress.setEnabled(false);
+            EditSuppliersActivity.this.binding.etSupplierName.setEnabled(true);
+            EditSuppliersActivity.this.binding.etSupplierContactName.setEnabled(true);
+            EditSuppliersActivity.this.binding.etSupplierCell.setEnabled(true);
+            EditSuppliersActivity.this.binding.etSupplierEmail.setEnabled(true);
+            EditSuppliersActivity.this.binding.etSupplierAddress.setEnabled(true);
 
             EditSuppliersActivity.this.binding.etSupplierName.setTextColor(SupportMenu.CATEGORY_MASK);
             EditSuppliersActivity.this.binding.etSupplierContactName.setTextColor(SupportMenu.CATEGORY_MASK);
