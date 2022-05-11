@@ -15,4 +15,8 @@
     <color name="red_ryb">#FF2E13</color>
     <color name="red_pigment">#EA1D2C</color>
     <color name="placeholder">#6FB6B6B6</color>
+
+    <color name="windowBackground">#EEEEEE</color>
+    <color name="dls_textColor">#666666</color>
+    <color name="dls_textColorHint">#757575</color>
 </resources>
