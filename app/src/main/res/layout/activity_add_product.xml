@@ -149,7 +149,7 @@
                 android:text="@string/unit_product_buy_price" />
 
             <EditText
-                android:id="@+id/et_buy_price"
+                android:id="@+id/et_product_buy_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
