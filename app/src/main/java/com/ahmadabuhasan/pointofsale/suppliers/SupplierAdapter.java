@@ -98,10 +98,10 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.MyView
             Intent i = new Intent(SupplierAdapter.this.context, EditSuppliersActivity.class);
             i.putExtra(Constant.SUPPLIERS_ID, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_ID));
             i.putExtra(Constant.SUPPLIERS_NAME, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_NAME));
-            i.putExtra(Constant.SUPPLIERS_CONTACT_PERSON, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_NAME));
-            i.putExtra(Constant.SUPPLIERS_CELL, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_NAME));
-            i.putExtra(Constant.SUPPLIERS_EMAIL, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_NAME));
-            i.putExtra(Constant.SUPPLIERS_ADDRESS, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_NAME));
+            i.putExtra(Constant.SUPPLIERS_CONTACT_PERSON, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_CONTACT_PERSON));
+            i.putExtra(Constant.SUPPLIERS_CELL, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_CELL));
+            i.putExtra(Constant.SUPPLIERS_EMAIL, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_EMAIL));
+            i.putExtra(Constant.SUPPLIERS_ADDRESS, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_ADDRESS));
             SupplierAdapter.this.context.startActivity(i);
         }
     }
