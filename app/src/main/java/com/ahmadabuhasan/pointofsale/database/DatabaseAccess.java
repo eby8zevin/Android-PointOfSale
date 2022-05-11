@@ -1051,28 +1051,27 @@ public class DatabaseAccess {
         return customer;
     }
 
-    /*
-                public ArrayList<HashMap<String, String>> searchSuppliers(String s) {
-                    ArrayList<HashMap<String, String>> customer = new ArrayList<>();
-                    SQLiteDatabase sQLiteDatabase = this.database;
-                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM suppliers WHERE suppliers_name LIKE '%" + s + "%' ORDER BY suppliers_id DESC", null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            HashMap<String, String> map = new HashMap<>();
-                            map.put(Constant.SUPPLIERS_ID, cursor.getString(0));
-                            map.put(Constant.SUPPLIERS_NAME, cursor.getString(1));
-                            map.put(Constant.SUPPLIERS_CONTACT_PERSON, cursor.getString(2));
-                            map.put(Constant.SUPPLIERS_CELL, cursor.getString(3));
-                            map.put(Constant.SUPPLIERS_EMAIL, cursor.getString(4));
-                            map.put(Constant.SUPPLIERS_ADDRESS, cursor.getString(5));
-                            customer.add(map);
-                        } while (cursor.moveToNext());
-                    }
-                    cursor.close();
-                    this.database.close();
-                    return customer;
-                }
-    */
+    public ArrayList<HashMap<String, String>> searchSuppliers(String search) {
+        ArrayList<HashMap<String, String>> supplier = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers WHERE suppliers_name LIKE '%" + search + "%' ORDER BY suppliers_id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.SUPPLIERS_ID, cursor.getString(0));
+                map.put(Constant.SUPPLIERS_NAME, cursor.getString(1));
+                map.put(Constant.SUPPLIERS_CONTACT_PERSON, cursor.getString(2));
+                map.put(Constant.SUPPLIERS_CELL, cursor.getString(3));
+                map.put(Constant.SUPPLIERS_EMAIL, cursor.getString(4));
+                map.put(Constant.SUPPLIERS_ADDRESS, cursor.getString(5));
+
+                supplier.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return supplier;
+    }
+
     public ArrayList<HashMap<String, String>> getShopInformation() {
         ArrayList<HashMap<String, String>> shop_info = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM shop", null);
