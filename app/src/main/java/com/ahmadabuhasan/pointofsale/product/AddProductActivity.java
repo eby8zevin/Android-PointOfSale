@@ -275,11 +275,63 @@ public class AddProductActivity extends BaseActivity {
             });
         });
 
-        this.binding.tvAddProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        this.binding.tvAddProduct.setOnClickListener(view -> {
+            String product_name = AddProductActivity.this.binding.etProductName.getText().toString();
+            String product_code = AddProductActivity.this.binding.etProductCode.getText().toString();
+            String product_categoryName = AddProductActivity.this.binding.etProductCategory.getText().toString();
+            String product_categoryID = AddProductActivity.this.selectedCategoryID;
+            String product_description = AddProductActivity.this.binding.etProductDescription.getText().toString();
+            String product_buyPrice = AddProductActivity.this.binding.etProductBuyPrice.getText().toString();
+            String product_sellPrice = AddProductActivity.this.binding.etProductSellPrice.getText().toString();
+            String product_stock = AddProductActivity.this.binding.etProductStock.getText().toString();
+            String product_weight = AddProductActivity.this.binding.etProductWeight.getText().toString();
+            String product_weightUnitName = AddProductActivity.this.binding.etProductWeightUnit.getText().toString();
+            String product_weightUnitID = AddProductActivity.this.selectedWeightUnitID;
+            String product_supplierName = AddProductActivity.this.binding.etSupplier.getText().toString();
+            String product_supplierID = AddProductActivity.this.selectedSupplierID;
 
+            if (product_name.isEmpty()) {
+                AddProductActivity.this.binding.etProductName.setError(AddProductActivity.this.getString(R.string.product_name_cannot_be_empty));
+                AddProductActivity.this.binding.etProductName.requestFocus();
+                return;
             }
+            if (!product_categoryName.isEmpty() && !product_categoryID.isEmpty()) {
+                if (product_sellPrice.isEmpty()) {
+                    AddProductActivity.this.binding.etProductSellPrice.setError(AddProductActivity.this.getString(R.string.product_sell_price_cannot_be_empty));
+                    AddProductActivity.this.binding.etProductSellPrice.requestFocus();
+                    return;
+                }
+                if (!product_weightUnitName.isEmpty() && !product_weight.isEmpty()) {
+                    if (product_stock.isEmpty()) {
+                        AddProductActivity.this.binding.etProductStock.setError(AddProductActivity.this.getString(R.string.product_stock_cannot_be_empty));
+                        AddProductActivity.this.binding.etProductStock.requestFocus();
+                        return;
+                    }
+                    if (!product_supplierName.isEmpty() && !product_supplierID.isEmpty()) {
+                        DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(AddProductActivity.this);
+                        databaseAccess1.open();
+
+                        boolean check = databaseAccess1.addProduct(product_name, product_code, product_categoryID, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplierID, AddProductActivity.this.encodedImage, product_weightUnitID, product_weight);
+                        if (check) {
+                            Toasty.success(AddProductActivity.this, R.string.product_successfully_added, Toasty.LENGTH_SHORT).show();
+                            Intent i = new Intent(AddProductActivity.this, ProductActivity.class);
+                            //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                            AddProductActivity.this.startActivity(i);
+                            return;
+                        }
+                        Toasty.error(AddProductActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                        return;
+                    }
+                    AddProductActivity.this.binding.etSupplier.setError(AddProductActivity.this.getString(R.string.product_supplier_cannot_be_empty));
+                    AddProductActivity.this.binding.etSupplier.requestFocus();
+                    return;
+                }
+                AddProductActivity.this.binding.etProductWeight.setError(AddProductActivity.this.getString(R.string.product_weight_cannot_be_empty));
+                AddProductActivity.this.binding.etProductWeight.requestFocus();
+                return;
+            }
+            AddProductActivity.this.binding.etProductCategory.setError(AddProductActivity.this.getString(R.string.product_category_cannot_be_empty));
+            AddProductActivity.this.binding.etProductCategory.requestFocus();
         });
     }
 
