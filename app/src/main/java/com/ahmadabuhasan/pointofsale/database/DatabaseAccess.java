@@ -223,47 +223,47 @@ public class DatabaseAccess {
         return true;
     }
 
+    public boolean updateSuppliers(String suppliers_id, String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.SUPPLIERS_NAME, suppliers_name);
+        contentValues.put(Constant.SUPPLIERS_CONTACT_PERSON, suppliers_contact_person);
+        contentValues.put(Constant.SUPPLIERS_CELL, suppliers_cell);
+        contentValues.put(Constant.SUPPLIERS_EMAIL, suppliers_email);
+        contentValues.put(Constant.SUPPLIERS_ADDRESS, suppliers_address);
+        long check = (long) this.database.update(Constant.suppliers, contentValues, "suppliers_id=?", new String[]{suppliers_id});
+        close();
+        return check != -1;
+    }
+
     /*
-                            public boolean updateSuppliers(String suppliers_id, String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
-                                ContentValues values = new ContentValues();
-                                values.put(Constant.SUPPLIERS_NAME, suppliers_name);
-                                values.put(Constant.SUPPLIERS_CONTACT_PERSON, suppliers_contact_person);
-                                values.put(Constant.SUPPLIERS_CELL, suppliers_cell);
-                                values.put(Constant.SUPPLIERS_EMAIL, suppliers_email);
-                                values.put(Constant.SUPPLIERS_ADDRESS, suppliers_address);
-                                long check = (long) this.database.update("suppliers", values, "suppliers_id=?", new String[]{suppliers_id});
-                                this.database.close();
-                                return check != -1;
-                            }
-
-                            public String getProductImage(String product_id) {
-                                String image = "n/a";
-                                SQLiteDatabase sQLiteDatabase = this.database;
-                                Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
-                                if (cursor.moveToFirst()) {
-                                    do {
-                                        image = cursor.getString(8);
-                                    } while (cursor.moveToNext());
+                                public String getProductImage(String product_id) {
+                                    String image = "n/a";
+                                    SQLiteDatabase sQLiteDatabase = this.database;
+                                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
+                                    if (cursor.moveToFirst()) {
+                                        do {
+                                            image = cursor.getString(8);
+                                        } while (cursor.moveToNext());
+                                    }
+                                    cursor.close();
+                                    this.database.close();
+                                    return image;
                                 }
-                                cursor.close();
-                                this.database.close();
-                                return image;
-                            }
 
-                            public String getWeightUnitName(String weight_unit_id) {
-                                String weight_unit_name = "n/a";
-                                SQLiteDatabase sQLiteDatabase = this.database;
-                                Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM product_weight WHERE weight_id=" + weight_unit_id + "", null);
-                                if (cursor.moveToFirst()) {
-                                    do {
-                                        weight_unit_name = cursor.getString(1);
-                                    } while (cursor.moveToNext());
+                                public String getWeightUnitName(String weight_unit_id) {
+                                    String weight_unit_name = "n/a";
+                                    SQLiteDatabase sQLiteDatabase = this.database;
+                                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM product_weight WHERE weight_id=" + weight_unit_id + "", null);
+                                    if (cursor.moveToFirst()) {
+                                        do {
+                                            weight_unit_name = cursor.getString(1);
+                                        } while (cursor.moveToNext());
+                                    }
+                                    cursor.close();
+                                    this.database.close();
+                                    return weight_unit_name;
                                 }
-                                cursor.close();
-                                this.database.close();
-                                return weight_unit_name;
-                            }
-                        */
+                            */
     public String getSupplierName(String supplier_id) {
         String supplier_name = "n/a";
         Cursor cursor = database.rawQuery("SELECT * FROM suppliers WHERE suppliers_id=" + supplier_id + "", null);
