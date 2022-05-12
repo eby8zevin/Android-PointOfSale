@@ -46,11 +46,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.CUSTOMER_ADDRESS, customer_address);
         long check = this.database.insert(Constant.customers, null, contentValues);
         close();
-        //return check != -1;
-        if (check == -1) {
-            return false;
-        }
-        return true;
+        return check != -1;
     }
 
     public boolean addCategory(String category_name) {
@@ -58,11 +54,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.CATEGORY_NAME, category_name);
         long check = this.database.insert(Constant.PRODUCT_CATEGORY, null, contentValues);
         close();
-        //return check != -1;
-        if (check == -1) {
-            return false;
-        }
-        return true;
+        return check != -1;
     }
 
     public boolean addPaymentMethod(String payment_method_name) {
@@ -70,11 +62,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
         long check = this.database.insert(Constant.paymentMethod, null, contentValues);
         close();
-        //return check != -1;
-        if (check == -1) {
-            return false;
-        }
-        return true;
+        return check != -1;
     }
 
     public boolean addWeight(String weight_name) {
@@ -82,11 +70,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.WEIGHT_UNIT, weight_name);
         long check = this.database.insert(Constant.PRODUCT_WEIGHT, null, contentValues);
         close();
-        //return check != -1;
-        if (check == -1) {
-            return false;
-        }
-        return true;
+        return check != -1;
     }
 
     public boolean updateCategory(String category_id, String category_name) {
@@ -152,10 +136,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.PRODUCT_WEIGHT, product_weight);
         long check = this.database.insert(Constant.products, null, contentValues);
         close();
-        if (check == -1) {
-            return false;
-        }
-        return true;
+        return check != -1;
     }
 
     public boolean updateProduct(String product_name, String product_code, String product_category, String product_description, String product_buy_price, String product_sell_price, String product_stock, String product_supplier, String product_image, String weight_unit_id, String product_weight, String product_id) {
@@ -173,7 +154,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.PRODUCT_WEIGHT, product_weight);
         long check = this.database.update(Constant.products, contentValues, "product_id=?", new String[]{product_id});
         close();
-        return check != 1;
+        return check != -1;
     }
 
     /*
@@ -213,10 +194,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.SUPPLIERS_ADDRESS, suppliers_address);
         long check = this.database.insert(Constant.suppliers, null, contentValues);
         close();
-        if (check == -1) {
-            return false;
-        }
-        return true;
+        return check != -1;
     }
 
     public boolean updateSuppliers(String suppliers_id, String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
@@ -1369,7 +1347,7 @@ public class DatabaseAccess {
                 supplier.add(map);
             } while (cursor.moveToNext());
         }
-        //cursor.close();
+        cursor.close();
         close();
         return supplier;
     }
