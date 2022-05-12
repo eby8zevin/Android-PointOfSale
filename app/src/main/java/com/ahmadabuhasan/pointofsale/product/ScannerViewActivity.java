@@ -68,11 +68,6 @@ public class ScannerViewActivity extends BaseActivity implements ZXingScannerVie
         onBackPressed();
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
     private void requestCameraPermission() {
         Dexter.withContext(this)
                 .withPermission(Manifest.permission.CAMERA)
