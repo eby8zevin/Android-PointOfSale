@@ -249,23 +249,22 @@ public class DatabaseAccess {
                                     this.database.close();
                                     return image;
                                 }
+*/
+    public String getWeightUnitName(String weight_unit_id) {
+        String weight_unit_name = "N/A";
+        Cursor cursor = this.database.rawQuery("SELECT * FROM product_weight WHERE weight_id=" + weight_unit_id + "", null);
+        if (cursor.moveToFirst()) {
+            do {
+                weight_unit_name = cursor.getString(1);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return weight_unit_name;
+    }
 
-                                public String getWeightUnitName(String weight_unit_id) {
-                                    String weight_unit_name = "n/a";
-                                    SQLiteDatabase sQLiteDatabase = this.database;
-                                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM product_weight WHERE weight_id=" + weight_unit_id + "", null);
-                                    if (cursor.moveToFirst()) {
-                                        do {
-                                            weight_unit_name = cursor.getString(1);
-                                        } while (cursor.moveToNext());
-                                    }
-                                    cursor.close();
-                                    this.database.close();
-                                    return weight_unit_name;
-                                }
-                            */
     public String getSupplierName(String supplier_id) {
-        String supplier_name = "n/a";
+        String supplier_name = "N/A";
         Cursor cursor = database.rawQuery("SELECT * FROM suppliers WHERE suppliers_id=" + supplier_id + "", null);
         if (cursor.moveToFirst()) {
             do {
@@ -701,7 +700,7 @@ public class DatabaseAccess {
     }
 */
     public String getCurrency() {
-        String currency = "n/a";
+        String currency = "N/A";
         Cursor cursor = this.database.rawQuery("SELECT * FROM shop", null);
         if (cursor.moveToFirst()) {
             do {
