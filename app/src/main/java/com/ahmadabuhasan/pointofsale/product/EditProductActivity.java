@@ -102,16 +102,16 @@ public class EditProductActivity extends BaseActivity {
             EditProductActivity.this.binding.tvChooseImage.setEnabled(true);
             EditProductActivity.this.binding.ivProduct.setEnabled(true);
 
-            EditProductActivity.this.binding.etProductName.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.etProductCode.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductCategory.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductDescription.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductBuyPrice.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductSellPrice.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductStock.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductWeight.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductWeightUnit.setText(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etSupplier.setText(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etProductName.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.etProductCode.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etProductCategory.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etProductDescription.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etProductBuyPrice.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etProductSellPrice.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etProductStock.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etProductWeight.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etProductWeightUnit.setTextColor(SupportMenu.CATEGORY_MASK);
+            EditProductActivity.this.binding.etSupplier.setTextColor(SupportMenu.CATEGORY_MASK);
 
             EditProductActivity.this.binding.tvEditProduct.setVisibility(View.GONE);
             EditProductActivity.this.binding.tvUpdateProduct.setVisibility(View.VISIBLE);
@@ -350,19 +350,19 @@ public class EditProductActivity extends BaseActivity {
         this.binding.tvUpdateProduct.setOnClickListener(view -> {
             String product_name = EditProductActivity.this.binding.etProductName.getText().toString();
             String product_code = EditProductActivity.this.binding.etProductCode.getText().toString();
-            String product_categoryID1 = EditProductActivity.this.selectedCategoryID;
+            String product_category = EditProductActivity.this.selectedCategoryID;
             String product_description = EditProductActivity.this.binding.etProductDescription.getText().toString();
             String product_buyPrice = EditProductActivity.this.binding.etProductBuyPrice.getText().toString();
             String product_sellPrice = EditProductActivity.this.binding.etProductSellPrice.getText().toString();
             String product_stock = EditProductActivity.this.binding.etProductStock.getText().toString();
             String product_weight = EditProductActivity.this.binding.etProductWeight.getText().toString();
-            String product_weightUnitID1 = EditProductActivity.this.selectedWeightUnitID;
-            String product_supplierID1 = EditProductActivity.this.selectedSupplierID;
+            String product_weightUnit = EditProductActivity.this.selectedWeightUnitID;
+            String product_supplier = EditProductActivity.this.selectedSupplierID;
 
             if (product_name.isEmpty()) {
                 EditProductActivity.this.binding.etProductName.setError(EditProductActivity.this.getString(R.string.product_name_cannot_be_empty));
                 EditProductActivity.this.binding.etProductName.requestFocus();
-            } else if (product_categoryID1.isEmpty()) {
+            } else if (product_category.isEmpty()) {
                 EditProductActivity.this.binding.etProductCategory.setError(EditProductActivity.this.getString(R.string.product_category_cannot_be_empty));
                 EditProductActivity.this.binding.etProductCategory.requestFocus();
             } else if (product_sellPrice.isEmpty()) {
@@ -374,14 +374,14 @@ public class EditProductActivity extends BaseActivity {
             } else if (product_weight.isEmpty()) {
                 EditProductActivity.this.binding.etProductWeight.setError(EditProductActivity.this.getString(R.string.product_weight_cannot_be_empty));
                 EditProductActivity.this.binding.etProductWeight.requestFocus();
-            } else if (product_supplierID1.isEmpty()) {
+            } else if (product_supplier.isEmpty()) {
                 EditProductActivity.this.binding.etSupplier.setError(EditProductActivity.this.getString(R.string.product_supplier_cannot_be_empty));
                 EditProductActivity.this.binding.etSupplier.requestFocus();
             } else {
                 DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(EditProductActivity.this);
                 databaseAccess1.open();
 
-                boolean check = databaseAccess1.updateProduct(product_name, product_code, product_categoryID1, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplierID1, EditProductActivity.this.encodedImage, product_weightUnitID1, product_weight, EditProductActivity.this.productID);
+                boolean check = databaseAccess1.updateProduct(product_name, product_code, product_category, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplier, EditProductActivity.this.encodedImage, product_weightUnit, product_weight, EditProductActivity.this.productID);
                 if (check) {
                     Toasty.success(EditProductActivity.this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(EditProductActivity.this, ProductActivity.class);
