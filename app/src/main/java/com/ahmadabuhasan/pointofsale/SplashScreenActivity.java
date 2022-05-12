@@ -27,7 +27,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         new Handler().postDelayed(() -> {
-            SplashScreenActivity.this.startActivity(new Intent(SplashScreenActivity.this, DashboardActivity.class));
+            Intent i = new Intent(SplashScreenActivity.this, DashboardActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            SplashScreenActivity.this.startActivity(i);
             SplashScreenActivity.this.finish();
         }, splashTimeOut);
     }
