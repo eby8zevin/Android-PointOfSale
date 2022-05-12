@@ -68,7 +68,7 @@ public class DatabaseAccess {
     public boolean addPaymentMethod(String payment_method_name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
-        long check = this.database.insert("payment_method", null, contentValues);
+        long check = this.database.insert(Constant.paymentMethod, null, contentValues);
         close();
         //return check != -1;
         if (check == -1) {
@@ -158,56 +158,52 @@ public class DatabaseAccess {
         return true;
     }
 
+    public boolean updateProduct(String product_name, String product_code, String product_category, String product_description, String product_buy_price, String product_sell_price, String product_stock, String product_supplier, String product_image, String weight_unit_id, String product_weight, String product_id) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.PRODUCT_NAME, product_name);
+        contentValues.put(Constant.PRODUCT_CODE, product_code);
+        contentValues.put(Constant.PRODUCT_CATEGORY, product_category);
+        contentValues.put(Constant.PRODUCT_DESCRIPTION, product_description);
+        contentValues.put(Constant.PRODUCT_BUY_PRICE, product_buy_price);
+        contentValues.put(Constant.PRODUCT_SELL_PRICE, product_sell_price);
+        contentValues.put(Constant.PRODUCT_SUPPLIER, product_supplier);
+        contentValues.put(Constant.PRODUCT_IMAGE, product_image);
+        contentValues.put(Constant.PRODUCT_STOCK, product_stock);
+        contentValues.put(Constant.PRODUCT_WEIGHT_UNIT_ID, weight_unit_id);
+        contentValues.put(Constant.PRODUCT_WEIGHT, product_weight);
+        long check = this.database.update(Constant.products, contentValues, "product_id=?", new String[]{product_id});
+        close();
+        return check != 1;
+    }
+
     /*
-                            public boolean updateProduct(String product_name, String product_code, String product_category, String product_description, String product_buy_price, String product_sell_price, String product_stock, String product_supplier, String product_image, String weight_unit_id, String product_weight, String product_id) {
-                                ContentValues values = new ContentValues();
-                                values.put(Constant.PRODUCT_NAME, product_name);
-                                values.put(Constant.PRODUCT_CODE, product_code);
-                                values.put(Constant.PRODUCT_CATEGORY, product_category);
-                                values.put(Constant.PRODUCT_DESCRIPTION, product_description);
-                                values.put("product_buy_price", product_buy_price);
-                                values.put(Constant.PRODUCT_SELL_PRICE, product_sell_price);
-                                values.put(Constant.PRODUCT_SUPPLIER, product_supplier);
-                                values.put(Constant.PRODUCT_IMAGE, product_image);
-                                values.put("product_stock", product_stock);
-                                values.put(Constant.PRODUCT_WEIGHT_UNIT_ID, weight_unit_id);
-                                values.put(Constant.PRODUCT_WEIGHT, product_weight);
-                                SQLiteDatabase sQLiteDatabase = this.database;
-                                String[] strArr = {product_id};
-                                this.database.close();
-                                if (((long) sQLiteDatabase.update("products", values, "product_id=?", strArr)) == -1) {
-                                    return false;
+                                public boolean addExpense(String expense_name, String expense_amount, String expense_note, String date, String time) {
+                                    ContentValues values = new ContentValues();
+                                    values.put(Constant.EXPENSE_NAME, expense_name);
+                                    values.put(Constant.EXPENSE_AMOUNT, expense_amount);
+                                    values.put(Constant.EXPENSE_NOTE, expense_note);
+                                    values.put(Constant.EXPENSE_DATE, date);
+                                    values.put(Constant.EXPENSE_TIME, time);
+                                    long check = this.database.insert("expense", null, values);
+                                    this.database.close();
+                                    if (check == -1) {
+                                        return false;
+                                    }
+                                    return true;
                                 }
-                                return true;
-                            }
 
-                            public boolean addExpense(String expense_name, String expense_amount, String expense_note, String date, String time) {
-                                ContentValues values = new ContentValues();
-                                values.put(Constant.EXPENSE_NAME, expense_name);
-                                values.put(Constant.EXPENSE_AMOUNT, expense_amount);
-                                values.put(Constant.EXPENSE_NOTE, expense_note);
-                                values.put(Constant.EXPENSE_DATE, date);
-                                values.put(Constant.EXPENSE_TIME, time);
-                                long check = this.database.insert("expense", null, values);
-                                this.database.close();
-                                if (check == -1) {
-                                    return false;
+                                public boolean updateExpense(String expense_id, String expense_name, String expense_amount, String expense_note, String date, String time) {
+                                    ContentValues values = new ContentValues();
+                                    values.put(Constant.EXPENSE_NAME, expense_name);
+                                    values.put(Constant.EXPENSE_AMOUNT, expense_amount);
+                                    values.put(Constant.EXPENSE_NOTE, expense_note);
+                                    values.put(Constant.EXPENSE_DATE, date);
+                                    values.put(Constant.EXPENSE_TIME, time);
+                                    long check = (long) this.database.update("expense", values, "expense_id=?", new String[]{expense_id});
+                                    this.database.close();
+                                    return check != -1;
                                 }
-                                return true;
-                            }
-
-                            public boolean updateExpense(String expense_id, String expense_name, String expense_amount, String expense_note, String date, String time) {
-                                ContentValues values = new ContentValues();
-                                values.put(Constant.EXPENSE_NAME, expense_name);
-                                values.put(Constant.EXPENSE_AMOUNT, expense_amount);
-                                values.put(Constant.EXPENSE_NOTE, expense_note);
-                                values.put(Constant.EXPENSE_DATE, date);
-                                values.put(Constant.EXPENSE_TIME, time);
-                                long check = (long) this.database.update("expense", values, "expense_id=?", new String[]{expense_id});
-                                this.database.close();
-                                return check != -1;
-                            }
-    */
+        */
     public boolean addSuppliers(String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.SUPPLIERS_NAME, suppliers_name);
