@@ -94,7 +94,7 @@ public class AddProductActivity extends BaseActivity {
             i.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);
             i.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
             i.putExtra(ImageSelectActivity.FLAG_GALLERY, true);
-            AddProductActivity.this.startActivityForResult(i, 1213);
+            startActivityForResult(i, 1213);
         });
 
         this.categoryNames = new ArrayList<>();
