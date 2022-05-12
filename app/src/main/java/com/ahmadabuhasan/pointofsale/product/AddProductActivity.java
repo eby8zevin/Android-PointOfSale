@@ -16,11 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +35,7 @@ import com.ahmadabuhasan.pointofsale.databinding.ActivityAddProductBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ajts.androidmads.library.ExcelToSQLite;
 import com.obsez.android.lib.filechooser.ChooserDialog;
+//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -127,7 +126,7 @@ public class AddProductActivity extends BaseActivity {
             AddProductActivity.this.categoryAdapter.addAll(AddProductActivity.this.categoryNames);
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(AddProductActivity.this);
-            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog.setView(dialogView);
             dialog.setCancelable(false);
 
@@ -138,7 +137,7 @@ public class AddProductActivity extends BaseActivity {
 
             title.setText(R.string.product_category);
             dialogListView.setVerticalScrollBarEnabled(true);
-            dialogListView.setAdapter((ListAdapter) AddProductActivity.this.categoryAdapter);
+            dialogListView.setAdapter(AddProductActivity.this.categoryAdapter);
             search.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -178,7 +177,7 @@ public class AddProductActivity extends BaseActivity {
             AddProductActivity.this.weightUnitAdapter.addAll(AddProductActivity.this.weightUnitNames);
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(AddProductActivity.this);
-            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog.setView(dialogView);
             dialog.setCancelable(false);
 
@@ -189,7 +188,7 @@ public class AddProductActivity extends BaseActivity {
 
             title.setText(R.string.product_weight_unit);
             dialogListView.setVerticalScrollBarEnabled(true);
-            dialogListView.setAdapter((ListAdapter) AddProductActivity.this.weightUnitAdapter);
+            dialogListView.setAdapter(AddProductActivity.this.weightUnitAdapter);
             search.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -229,7 +228,7 @@ public class AddProductActivity extends BaseActivity {
             AddProductActivity.this.supplierAdapter.addAll(AddProductActivity.this.supplierNames);
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(AddProductActivity.this);
-            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            View dialogView = AddProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog.setView(dialogView);
             dialog.setCancelable(false);
 
@@ -240,7 +239,7 @@ public class AddProductActivity extends BaseActivity {
 
             title.setText(R.string.suppliers);
             dialogListView.setVerticalScrollBarEnabled(true);
-            dialogListView.setAdapter((ListAdapter) AddProductActivity.this.supplierAdapter);
+            dialogListView.setAdapter(AddProductActivity.this.supplierAdapter);
             search.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
