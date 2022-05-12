@@ -5,10 +5,13 @@ import static android.content.pm.PackageManager.GET_META_DATA;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Locale;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -32,5 +35,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void applyOverrideConfiguration(Configuration overrideConfiguration) {
+        Locale locale = new Locale(LocaleManager.getLanguagePref(this));
+        Locale.setDefault(locale);
+        overrideConfiguration.setLocale(locale);
+        super.applyOverrideConfiguration(overrideConfiguration);
     }
 }
