@@ -68,14 +68,15 @@
                                     android:src="@drawable/data_backup" />
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="25dp"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/sailec_regular"
                                     android:text="@string/database_backup"
                                     android:textColor="@color/light_gray"
-                                    android:textSize="18sp" />
+                                    android:textSize="18sp"
+                                    tools:ignore="InefficientWeight" />
                             </LinearLayout>
 
                         </RelativeLayout>
@@ -134,14 +135,15 @@
                                     android:src="@drawable/data_import" />
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="25dp"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/sailec_regular"
                                     android:text="@string/database_import"
                                     android:textColor="@color/light_gray"
-                                    android:textSize="18sp" />
+                                    android:textSize="18sp"
+                                    tools:ignore="InefficientWeight" />
                             </LinearLayout>
 
                         </RelativeLayout>
