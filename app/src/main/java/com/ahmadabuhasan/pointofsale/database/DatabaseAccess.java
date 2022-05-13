@@ -1120,27 +1120,27 @@ public class DatabaseAccess {
         return product;
     }
 
-    /*
-            public ArrayList<HashMap<String, String>> getAllExpense() {
-                ArrayList<HashMap<String, String>> product = new ArrayList<>();
-                Cursor cursor = this.database.rawQuery("SELECT * FROM expense ORDER BY expense_id DESC", null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put(Constant.EXPENSE_ID, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_ID)));
-                        map.put(Constant.EXPENSE_NAME, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_NAME)));
-                        map.put(Constant.EXPENSE_NOTE, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_NOTE)));
-                        map.put(Constant.EXPENSE_AMOUNT, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_AMOUNT)));
-                        map.put(Constant.EXPENSE_DATE, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_DATE)));
-                        map.put(Constant.EXPENSE_TIME, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_TIME)));
-                        product.add(map);
-                    } while (cursor.moveToNext());
-                }
-                cursor.close();
-                this.database.close();
-                return product;
-            }
-    */
+    public ArrayList<HashMap<String, String>> getAllExpense() {
+        ArrayList<HashMap<String, String>> expense = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM expense ORDER BY expense_id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.EXPENSE_ID, cursor.getString(0));
+                map.put(Constant.EXPENSE_NAME, cursor.getString(1));
+                map.put(Constant.EXPENSE_NOTE, cursor.getString(2));
+                map.put(Constant.EXPENSE_AMOUNT, cursor.getString(3));
+                map.put(Constant.EXPENSE_DATE, cursor.getString(4));
+                map.put(Constant.EXPENSE_TIME, cursor.getString(5));
+
+                expense.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return expense;
+    }
+
     public ArrayList<HashMap<String, String>> getProductCategory() {
         ArrayList<HashMap<String, String>> product_category = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM product_category ORDER BY category_id DESC", null);
