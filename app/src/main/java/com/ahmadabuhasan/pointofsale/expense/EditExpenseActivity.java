@@ -54,11 +54,11 @@ public class EditExpenseActivity extends BaseActivity {
 
         this.binding.tvUpdateExpense.setVisibility(View.GONE);
         this.binding.tvEditExpense.setOnClickListener(view -> {
-            EditExpenseActivity.this.binding.etExpenseName.setEnabled(false);
-            EditExpenseActivity.this.binding.etExpenseNote.setEnabled(false);
-            EditExpenseActivity.this.binding.etExpenseAmount.setEnabled(false);
-            EditExpenseActivity.this.binding.etExpenseDate.setEnabled(false);
-            EditExpenseActivity.this.binding.etExpenseTime.setEnabled(false);
+            EditExpenseActivity.this.binding.etExpenseName.setEnabled(true);
+            EditExpenseActivity.this.binding.etExpenseNote.setEnabled(true);
+            EditExpenseActivity.this.binding.etExpenseAmount.setEnabled(true);
+            EditExpenseActivity.this.binding.etExpenseDate.setEnabled(true);
+            EditExpenseActivity.this.binding.etExpenseTime.setEnabled(true);
 
             EditExpenseActivity.this.binding.etExpenseName.setTextColor(SupportMenu.CATEGORY_MASK);
             EditExpenseActivity.this.binding.etExpenseNote.setTextColor(SupportMenu.CATEGORY_MASK);
