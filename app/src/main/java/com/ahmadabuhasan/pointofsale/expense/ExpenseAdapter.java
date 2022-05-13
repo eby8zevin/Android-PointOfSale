@@ -1,0 +1,106 @@
+package com.ahmadabuhasan.pointofsale.expense;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.ahmadabuhasan.pointofsale.Constant;
+import com.ahmadabuhasan.pointofsale.R;
+import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
+import com.ahmadabuhasan.pointofsale.databinding.ExpenseItemBinding;
+
+import java.util.HashMap;
+import java.util.List;
+
+import es.dmoral.toasty.Toasty;
+
+public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHolder> {
+
+    private Context context;
+    private List<HashMap<String, String>> expenseData;
+
+    public ExpenseAdapter(Context context1, List<HashMap<String, String>> expenseData1) {
+        this.context = context1;
+        this.expenseData = expenseData1;
+    }
+
+    @NonNull
+    @Override
+    public ExpenseAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ExpenseItemBinding binding = ExpenseItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new MyViewHolder(binding);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ExpenseAdapter.MyViewHolder holder, int position) {
+
+        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
+        databaseAccess.open();
+
+        String currency = databaseAccess.getCurrency();
+
+        final String expense_id = this.expenseData.get(position).get(Constant.EXPENSE_ID);
+        String expense_name = this.expenseData.get(position).get(Constant.EXPENSE_NAME);
+        String expense_amount = this.expenseData.get(position).get(Constant.EXPENSE_AMOUNT);
+        String expense_date = this.expenseData.get(position).get(Constant.EXPENSE_DATE);
+        String expense_time = this.expenseData.get(position).get(Constant.EXPENSE_TIME);
+        String expense_note = this.expenseData.get(position).get(Constant.EXPENSE_NOTE);
+
+        holder.binding.tvExpenseName.setText(expense_name);
+        holder.binding.tvExpenseAmount.setText(String.format("%s%s", currency, expense_amount));
+        holder.binding.tvExpenseDateTime.setText(String.format("%s %s", expense_date, expense_time));
+        holder.binding.tvExpenseNote.setText(String.format("%s%s", this.context.getString(R.string.note), expense_note));
+
+        holder.binding.ivExpenseDelete.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ExpenseAdapter.this.context);
+            builder.setMessage(R.string.want_to_delete_expense)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                        databaseAccess.open();
+                        if (databaseAccess.deleteExpense(expense_id)) {
+                            Toasty.error(ExpenseAdapter.this.context, R.string.expense_deleted, Toasty.LENGTH_SHORT).show();
+                            ExpenseAdapter.this.expenseData.remove(holder.getAdapterPosition());
+                            ExpenseAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                        } else {
+                            Toast.makeText(ExpenseAdapter.this.context, R.string.failed, Toast.LENGTH_SHORT).show();
+                        }
+                        dialogInterface.cancel();
+                    }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.cancel()).show();
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.expenseData.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private ExpenseItemBinding binding;
+
+        public MyViewHolder(@NonNull ExpenseItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(ExpenseAdapter.this.context, EditExpenseActivity.class);
+            i.putExtra(Constant.EXPENSE_ID, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_ID));
+            i.putExtra(Constant.EXPENSE_NAME, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_NAME));
+            i.putExtra(Constant.EXPENSE_AMOUNT, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_AMOUNT));
+            i.putExtra(Constant.EXPENSE_DATE, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_DATE));
+            i.putExtra(Constant.EXPENSE_TIME, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_TIME));
+            i.putExtra(Constant.EXPENSE_NOTE, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_NOTE));
+            ExpenseAdapter.this.context.startActivity(i);
+        }
+    }
+}
