@@ -78,7 +78,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return this.expenseData.size();
+        return expenseData.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
