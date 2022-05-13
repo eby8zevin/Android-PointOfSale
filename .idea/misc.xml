@@ -39,9 +39,14 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_edit_suppliers.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_edit_weight.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_expense.xml" value="0.1" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_expense_graph.xml" value="0.10040983606557377" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_expense_report.xml" value="0.10040983606557377" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_graph_report.xml" value="0.10040983606557377" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_main.xml" value="0.10461956521739131" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_payment_method.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_product.xml" value="0.1" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_report.xml" value="0.18" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_sales_report.xml" value="0.10040983606557377" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_scanner_view.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_settings.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_shop_information.xml" value="0.1" />
