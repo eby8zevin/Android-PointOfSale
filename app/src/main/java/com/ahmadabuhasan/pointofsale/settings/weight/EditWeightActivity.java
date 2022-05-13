@@ -37,8 +37,8 @@ public class EditWeightActivity extends BaseActivity {
 
         this.binding.etWeUnNameName.setText(getIntent().getExtras().getString(Constant.WEIGHT_UNIT));
         this.binding.etWeUnNameName.setEnabled(false);
-        this.binding.tvUpdateWeight.setVisibility(View.GONE);
 
+        this.binding.tvUpdateWeight.setVisibility(View.GONE);
         this.binding.tvEditWeight.setOnClickListener(view -> {
             EditWeightActivity.this.binding.etWeUnNameName.setEnabled(true);
             EditWeightActivity.this.binding.etWeUnNameName.setTextColor(SupportMenu.CATEGORY_MASK);
