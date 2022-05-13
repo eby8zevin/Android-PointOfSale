@@ -169,19 +169,18 @@ public class DatabaseAccess {
         return check != -1;
     }
 
-    /*
-                                    public boolean updateExpense(String expense_id, String expense_name, String expense_amount, String expense_note, String date, String time) {
-                                        ContentValues values = new ContentValues();
-                                        values.put(Constant.EXPENSE_NAME, expense_name);
-                                        values.put(Constant.EXPENSE_AMOUNT, expense_amount);
-                                        values.put(Constant.EXPENSE_NOTE, expense_note);
-                                        values.put(Constant.EXPENSE_DATE, date);
-                                        values.put(Constant.EXPENSE_TIME, time);
-                                        long check = (long) this.database.update("expense", values, "expense_id=?", new String[]{expense_id});
-                                        this.database.close();
-                                        return check != -1;
-                                    }
-            */
+    public boolean updateExpense(String expense_id, String expense_name, String expense_amount, String expense_note, String date, String time) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.EXPENSE_NAME, expense_name);
+        contentValues.put(Constant.EXPENSE_AMOUNT, expense_amount);
+        contentValues.put(Constant.EXPENSE_NOTE, expense_note);
+        contentValues.put(Constant.EXPENSE_DATE, date);
+        contentValues.put(Constant.EXPENSE_TIME, time);
+        long check = (long) this.database.update(Constant.expense, contentValues, "expense_id=?", new String[]{expense_id});
+        this.database.close();
+        return check != -1;
+    }
+
     public boolean addSuppliers(String suppliers_name, String suppliers_contact_person, String suppliers_cell, String suppliers_email, String suppliers_address) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.SUPPLIERS_NAME, suppliers_name);
