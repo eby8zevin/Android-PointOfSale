@@ -44,7 +44,7 @@ public class EditCustomersActivity extends BaseActivity {
         this.binding.etCustomerEmail.setEnabled(false);
         this.binding.etCustomerAddress.setEnabled(false);
 
-        this.binding.tvUpdateCustomer.setVisibility(View.INVISIBLE);
+        this.binding.tvUpdateCustomer.setVisibility(View.GONE);
         this.binding.tvEditCustomer.setOnClickListener(view -> {
             EditCustomersActivity.this.binding.etCustomerName.setEnabled(true);
             EditCustomersActivity.this.binding.etCustomerCell.setEnabled(true);
@@ -56,6 +56,7 @@ public class EditCustomersActivity extends BaseActivity {
             EditCustomersActivity.this.binding.etCustomerEmail.setTextColor(SupportMenu.CATEGORY_MASK);
             EditCustomersActivity.this.binding.etCustomerAddress.setTextColor(SupportMenu.CATEGORY_MASK);
 
+            EditCustomersActivity.this.binding.tvEditCustomer.setVisibility(View.GONE);
             EditCustomersActivity.this.binding.tvUpdateCustomer.setVisibility(View.VISIBLE);
         });
 
