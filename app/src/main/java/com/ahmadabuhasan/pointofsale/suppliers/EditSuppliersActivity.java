@@ -61,8 +61,8 @@ public class EditSuppliersActivity extends BaseActivity {
             EditSuppliersActivity.this.binding.etSupplierEmail.setTextColor(SupportMenu.CATEGORY_MASK);
             EditSuppliersActivity.this.binding.etSupplierAddress.setTextColor(SupportMenu.CATEGORY_MASK);
 
-            EditSuppliersActivity.this.binding.tvUpdateSupplier.setVisibility(View.VISIBLE);
             EditSuppliersActivity.this.binding.tvEditSupplier.setVisibility(View.GONE);
+            EditSuppliersActivity.this.binding.tvUpdateSupplier.setVisibility(View.VISIBLE);
         });
 
         this.binding.tvUpdateSupplier.setOnClickListener(view -> {
