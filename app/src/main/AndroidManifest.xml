@@ -46,6 +46,11 @@
         <activity android:name=".settings.categories.CategoriesActivity" />
         <activity android:name=".settings.shop.ShopInformationActivity" />
         <activity android:name=".settings.SettingsActivity" />
+        <activity android:name=".report.ExpenseGraphActivity" />
+        <activity android:name=".report.ExpenseReportActivity" />
+        <activity android:name=".report.GraphReportActivity" />
+        <activity android:name=".report.SalesReportActivity" />
+        <activity android:name=".report.ReportActivity" />
         <activity android:name=".expense.EditExpenseActivity" />
         <activity android:name=".expense.AddExpenseActivity" />
         <activity android:name=".expense.ExpenseActivity" />
