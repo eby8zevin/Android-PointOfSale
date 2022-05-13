@@ -46,6 +46,9 @@
         <activity android:name=".settings.categories.CategoriesActivity" />
         <activity android:name=".settings.shop.ShopInformationActivity" />
         <activity android:name=".settings.SettingsActivity" />
+        <activity android:name=".expense.EditExpenseActivity" />
+        <activity android:name=".expense.AddExpenseActivity" />
+        <activity android:name=".expense.ExpenseActivity" />
         <activity android:name=".product.EditProductScannerViewActivity" />
         <activity android:name=".product.EditProductActivity" />
         <activity android:name=".product.ScannerViewActivity" />
