@@ -37,8 +37,8 @@ public class EditPaymentMethodActivity extends BaseActivity {
 
         this.binding.etPaymentMethodName.setText(getIntent().getExtras().getString(Constant.PAYMENT_METHOD_NAME));
         this.binding.etPaymentMethodName.setEnabled(false);
-        this.binding.tvUpdatePaymentMethod.setVisibility(View.GONE);
 
+        this.binding.tvUpdatePaymentMethod.setVisibility(View.GONE);
         this.binding.tvEditPaymentMethod.setOnClickListener(view -> {
             EditPaymentMethodActivity.this.binding.etPaymentMethodName.setEnabled(true);
             EditPaymentMethodActivity.this.binding.etPaymentMethodName.setTextColor(SupportMenu.CATEGORY_MASK);
