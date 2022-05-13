@@ -127,6 +127,7 @@
     <string name="database_import">Database Import</string>
     <string name="database_restore">Database Restore:</string>
     <string name="date">Date:</string>
+    <string name="dateTime">Date Time</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Select</string>
     <string name="discount">Discount</string>
@@ -253,6 +254,7 @@
     <string name="none_paired">No device found</string>
     <string name="not_connected">Connection is not established</string>
     <string name="note">Note:</string>
+    <string name="noteSpace">Note&#160;</string>
     <string name="offline_notification_text">Tap to open ad</string>
     <string name="offline_notification_title">View the ad you saved when you were offline</string>
     <string name="offline_opt_in_confirm">OK</string>
