@@ -37,8 +37,8 @@ public class EditCategoryActivity extends BaseActivity {
 
         this.binding.etCategoryName.setText(getIntent().getExtras().getString(Constant.CATEGORY_NAME));
         this.binding.etCategoryName.setEnabled(false);
-        this.binding.tvUpdateCategory.setVisibility(View.GONE);
 
+        this.binding.tvUpdateCategory.setVisibility(View.GONE);
         this.binding.tvEditCategory.setOnClickListener(view -> {
             EditCategoryActivity.this.binding.etCategoryName.setEnabled(true);
             EditCategoryActivity.this.binding.etCategoryName.setTextColor(SupportMenu.CATEGORY_MASK);
