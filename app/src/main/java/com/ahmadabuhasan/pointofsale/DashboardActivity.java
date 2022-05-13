@@ -16,6 +16,7 @@ import com.ahmadabuhasan.pointofsale.customers.CustomersActivity;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
 import com.ahmadabuhasan.pointofsale.expense.ExpenseActivity;
 import com.ahmadabuhasan.pointofsale.product.ProductActivity;
+import com.ahmadabuhasan.pointofsale.report.ReportActivity;
 import com.ahmadabuhasan.pointofsale.settings.SettingsActivity;
 import com.ahmadabuhasan.pointofsale.suppliers.SuppliersActivity;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
@@ -62,6 +63,7 @@ public class DashboardActivity extends BaseActivity {
         this.binding.cardSuppliers.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, SuppliersActivity.class)));
         this.binding.cardProducts.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ProductActivity.class)));
         this.binding.cardExpense.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ExpenseActivity.class)));
+        this.binding.cardReport.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ReportActivity.class)));
         this.binding.cardSettings.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, SettingsActivity.class)));
 
     }
