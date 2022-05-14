@@ -74,7 +74,6 @@ public class ExpenseReportActivity extends BaseActivity {
         String currency = databaseAccess.getCurrency();
         databaseAccess.open();
         double total_price = databaseAccess.getTotalExpense("all");
-
         this.binding.tvTotalPrice.setText(String.format("%s%s%s", getString(R.string.total_expense), currency, this.decimalFormat.format(total_price)));
     }
 
