@@ -547,9 +547,9 @@ public class DatabaseAccess {
         this.database.close();
         return orderDetailsList;
     }
-
+*/
     public ArrayList<HashMap<String, String>> getExpenseReport(String type) {
-        ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
+        ArrayList<HashMap<String, String>> expenseList = new ArrayList<>();
         Cursor cursor = null;
         if (type.equals("all")) {
             cursor = this.database.rawQuery("SELECT * FROM expense  ORDER BY expense_id DESC", null);
@@ -567,36 +567,38 @@ public class DatabaseAccess {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> map = new HashMap<>();
-                map.put(Constant.EXPENSE_ID, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_ID)));
-                map.put(Constant.EXPENSE_NAME, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_NAME)));
-                map.put(Constant.EXPENSE_NOTE, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_NOTE)));
-                map.put(Constant.EXPENSE_AMOUNT, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_AMOUNT)));
-                map.put(Constant.EXPENSE_DATE, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_DATE)));
-                map.put(Constant.EXPENSE_TIME, cursor.getString(cursor.getColumnIndex(Constant.EXPENSE_TIME)));
-                orderDetailsList.add(map);
+                map.put(Constant.EXPENSE_ID, cursor.getString(0));
+                map.put(Constant.EXPENSE_NAME, cursor.getString(1));
+                map.put(Constant.EXPENSE_NOTE, cursor.getString(2));
+                map.put(Constant.EXPENSE_AMOUNT, cursor.getString(3));
+                map.put(Constant.EXPENSE_DATE, cursor.getString(4));
+                map.put(Constant.EXPENSE_TIME, cursor.getString(5));
+
+                expenseList.add(map);
             } while (cursor.moveToNext());
         }
         cursor.close();
-        this.database.close();
-        return orderDetailsList;
+        close();
+        return expenseList;
     }
 
-    public float getMonthlySalesAmount(String month, String getYear) {
-        float total_price = 0.0f;
-        Cursor cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND  strftime('%m', product_order_date) = '" + month + "' AND strftime('%Y', product_order_date) = '" + getYear + "'  ", null);
-        if (cursor.moveToFirst()) {
-            do {
-                total_price += ((float) Integer.parseInt(cursor.getString(4))) * Float.parseFloat(cursor.getString(5));
-            } while (cursor.moveToNext());
-        } else {
-            total_price = 0.0f;
+    /*
+        public float getMonthlySalesAmount(String month, String getYear) {
+            float total_price = 0.0f;
+            Cursor cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND  strftime('%m', product_order_date) = '" + month + "' AND strftime('%Y', product_order_date) = '" + getYear + "'  ", null);
+            if (cursor.moveToFirst()) {
+                do {
+                    total_price += ((float) Integer.parseInt(cursor.getString(4))) * Float.parseFloat(cursor.getString(5));
+                } while (cursor.moveToNext());
+            } else {
+                total_price = 0.0f;
+            }
+            cursor.close();
+            this.database.close();
+            Log.d("total_price", "" + total_price);
+            return total_price;
         }
-        cursor.close();
-        this.database.close();
-        Log.d("total_price", "" + total_price);
-        return total_price;
-    }
-*/
+    */
     public float getMonthlyExpenseAmount(String month, String getYear) {
         float total_cost = 0.0f;
         Cursor cursor = this.database.rawQuery("SELECT * FROM expense WHERE strftime('%m', expense_date) = '" + month + "' AND strftime('%Y', expense_date) = '" + getYear + "'  ", null);
