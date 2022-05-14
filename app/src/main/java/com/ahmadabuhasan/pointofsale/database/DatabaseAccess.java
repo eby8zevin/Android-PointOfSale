@@ -582,23 +582,22 @@ public class DatabaseAccess {
         return expenseList;
     }
 
-    /*
-        public float getMonthlySalesAmount(String month, String getYear) {
-            float total_price = 0.0f;
-            Cursor cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND  strftime('%m', product_order_date) = '" + month + "' AND strftime('%Y', product_order_date) = '" + getYear + "'  ", null);
-            if (cursor.moveToFirst()) {
-                do {
-                    total_price += ((float) Integer.parseInt(cursor.getString(4))) * Float.parseFloat(cursor.getString(5));
-                } while (cursor.moveToNext());
-            } else {
-                total_price = 0.0f;
-            }
-            cursor.close();
-            this.database.close();
-            Log.d("total_price", "" + total_price);
-            return total_price;
+    public float getMonthlySalesAmount(String month, String getYear) {
+        float total_price = 0.0f;
+        Cursor cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND  strftime('%m', product_order_date) = '" + month + "' AND strftime('%Y', product_order_date) = '" + getYear + "'  ", null);
+        if (cursor.moveToFirst()) {
+            do {
+                total_price += ((float) Integer.parseInt(cursor.getString(4))) * Float.parseFloat(cursor.getString(5));
+            } while (cursor.moveToNext());
+        } else {
+            total_price = 0.0f;
         }
-    */
+        cursor.close();
+        close();
+        Log.d("total_price", "" + total_price);
+        return total_price;
+    }
+
     public float getMonthlyExpenseAmount(String month, String getYear) {
         float total_cost = 0.0f;
         Cursor cursor = this.database.rawQuery("SELECT * FROM expense WHERE strftime('%m', expense_date) = '" + month + "' AND strftime('%Y', expense_date) = '" + getYear + "'  ", null);
