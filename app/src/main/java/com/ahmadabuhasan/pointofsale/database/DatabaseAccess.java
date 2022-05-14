@@ -819,38 +819,36 @@ public class DatabaseAccess {
         return total_tax;
     }
 
-    /*
-            public double getTotalOrderPrice(String type) {
-                Cursor cursor;
-                double total_price = Utils.DOUBLE_EPSILON;
-                if (type.equals(Constant.MONTHLY)) {
-                    String currentMonth = new SimpleDateFormat("MM", Locale.ENGLISH).format(new Date());
-                    cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND strftime('%m', product_order_date) = '" + currentMonth + "' ", null);
-                } else if (type.equals(Constant.YEARLY)) {
-                    String currentYear = new SimpleDateFormat("yyyy", Locale.ENGLISH).format(new Date());
-                    cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND  strftime('%Y', product_order_date) = '" + currentYear + "' ", null);
-                } else if (type.equals(Constant.DAILY)) {
-                    String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
-                    SQLiteDatabase sQLiteDatabase = this.database;
-                    cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND   product_order_date='" + currentDate + "' ORDER BY order_Details_id DESC", null);
-                } else {
-                    cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' ", null);
-                }
-                if (cursor.moveToFirst()) {
-                    do {
-                        double price = Double.parseDouble(cursor.getString(5));
-                        double parseInt = (double) Integer.parseInt(cursor.getString(4));
-                        Double.isNaN(parseInt);
-                        total_price += parseInt * price;
-                    } while (cursor.moveToNext());
-                } else {
-                    total_price = Utils.DOUBLE_EPSILON;
-                }
-                cursor.close();
-                this.database.close();
-                return total_price;
-            }
-    */
+    public double getTotalOrderPrice(String type) {
+        Cursor cursor;
+        double total_price = Utils.DOUBLE_EPSILON;
+        if (type.equals(Constant.MONTHLY)) {
+            String currentMonth = new SimpleDateFormat("MM", Locale.ENGLISH).format(new Date());
+            cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND strftime('%m', product_order_date) = '" + currentMonth + "' ", null);
+        } else if (type.equals(Constant.YEARLY)) {
+            String currentYear = new SimpleDateFormat("yyyy", Locale.ENGLISH).format(new Date());
+            cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND  strftime('%Y', product_order_date) = '" + currentYear + "' ", null);
+        } else if (type.equals(Constant.DAILY)) {
+            String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
+            cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'  AND   product_order_date='" + currentDate + "' ORDER BY order_Details_id DESC", null);
+        } else {
+            cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' ", null);
+        }
+        if (cursor.moveToFirst()) {
+            do {
+                double parseInt = (double) Integer.parseInt(cursor.getString(4));
+                double price = Double.parseDouble(cursor.getString(5));
+                Double.isNaN(parseInt);
+                total_price += parseInt * price;
+            } while (cursor.moveToNext());
+        } else {
+            total_price = Utils.DOUBLE_EPSILON;
+        }
+        cursor.close();
+        close();
+        return total_price;
+    }
+
     public double getTotalOrderPriceForGraph(String type, int currentYear) {
         Cursor cursor;
         double total_price = Utils.DOUBLE_EPSILON;
