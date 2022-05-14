@@ -8,9 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.ahmadabuhasan.pointofsale.Constant;
+import com.github.mikephil.charting.utils.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class DatabaseAccess {
 
@@ -920,34 +924,34 @@ public class DatabaseAccess {
             this.database.close();
             return total_cost;
         }
-
-        public double getTotalExpenseForGraph(String type, int currentYear) {
-            Cursor cursor;
-            double total_cost = Utils.DOUBLE_EPSILON;
-            if (type.equals(Constant.MONTHLY)) {
-                String currentMonth = new SimpleDateFormat("MM", Locale.ENGLISH).format(new Date());
-                cursor = this.database.rawQuery("SELECT * FROM expense WHERE strftime('%m', expense_date) = '" + currentMonth + "' ", null);
-            } else if (type.equals(Constant.YEARLY)) {
-                cursor = this.database.rawQuery("SELECT * FROM expense WHERE strftime('%Y', expense_date) = '" + currentYear + "' ", null);
-            } else if (type.equals(Constant.DAILY)) {
-                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
-                SQLiteDatabase sQLiteDatabase = this.database;
-                cursor = sQLiteDatabase.rawQuery("SELECT * FROM expense WHERE   expense_date='" + currentDate + "' ORDER BY expense_id DESC", null);
-            } else {
-                cursor = this.database.rawQuery("SELECT * FROM expense", null);
-            }
-            if (cursor.moveToFirst()) {
-                do {
-                    total_cost += Double.parseDouble(cursor.getString(3));
-                } while (cursor.moveToNext());
-            } else {
-                total_cost = Utils.DOUBLE_EPSILON;
-            }
-            cursor.close();
-            this.database.close();
-            return total_cost;
-        }
 */
+    public double getTotalExpenseForGraph(String type, int currentYear) {
+        Cursor cursor;
+        double total_cost = Utils.DOUBLE_EPSILON;
+        if (type.equals(Constant.MONTHLY)) {
+            String currentMonth = new SimpleDateFormat("MM", Locale.ENGLISH).format(new Date());
+            cursor = this.database.rawQuery("SELECT * FROM expense WHERE strftime('%m', expense_date) = '" + currentMonth + "' ", null);
+        } else if (type.equals(Constant.YEARLY)) {
+            cursor = this.database.rawQuery("SELECT * FROM expense WHERE strftime('%Y', expense_date) = '" + currentYear + "' ", null);
+        } else if (type.equals(Constant.DAILY)) {
+            String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
+            SQLiteDatabase sQLiteDatabase = this.database;
+            cursor = sQLiteDatabase.rawQuery("SELECT * FROM expense WHERE   expense_date='" + currentDate + "' ORDER BY expense_id DESC", null);
+        } else {
+            cursor = this.database.rawQuery("SELECT * FROM expense", null);
+        }
+        if (cursor.moveToFirst()) {
+            do {
+                total_cost += Double.parseDouble(cursor.getString(3));
+            } while (cursor.moveToNext());
+        } else {
+            total_cost = Utils.DOUBLE_EPSILON;
+        }
+        cursor.close();
+        close();
+        return total_cost;
+    }
+
     public ArrayList<HashMap<String, String>> getCustomers() {
         ArrayList<HashMap<String, String>> customer = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM customers ORDER BY customer_id DESC", null);
