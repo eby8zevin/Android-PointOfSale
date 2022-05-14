@@ -493,7 +493,7 @@ public class DatabaseAccess {
         this.database.close();
         return orderDetailsList;
     }
-
+*/
     public ArrayList<HashMap<String, String>> getAllSalesItems() {
         ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM order_details  WHERE order_status='Completed' ORDER BY order_details_id DESC", null);
@@ -506,48 +506,50 @@ public class DatabaseAccess {
                 map.put(Constant.PRODUCT_PRICE, cursor.getString(5));
                 map.put(Constant.PRODUCT_IMAGE, cursor.getString(6));
                 map.put(Constant.PRODUCT_ORDER_DATE, cursor.getString(7));
+
                 orderDetailsList.add(map);
             } while (cursor.moveToNext());
         }
         cursor.close();
-        this.database.close();
+        close();
         return orderDetailsList;
     }
 
-    public ArrayList<HashMap<String, String>> getSalesReport(String type) {
-        ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
-        Cursor cursor = null;
-        if (type.equals("all")) {
-            cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'   ORDER BY order_details_id DESC", null);
-        } else if (type.equals(Constant.DAILY)) {
-            String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
-            SQLiteDatabase sQLiteDatabase = this.database;
-            cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_details  WHERE order_status='Completed' AND product_order_date='" + currentDate + "' ORDER BY order_Details_id DESC", null);
-        } else if (type.equals(Constant.MONTHLY)) {
-            String currentMonth = new SimpleDateFormat("MM", Locale.ENGLISH).format(new Date());
-            cursor = this.database.rawQuery("SELECT * FROM order_details  WHERE order_status='Completed' AND strftime('%m', product_order_date) = '" + currentMonth + "' ", null);
-        } else if (type.equals(Constant.YEARLY)) {
-            String currentYear = new SimpleDateFormat("yyyy", Locale.ENGLISH).format(new Date());
-            Log.d("YEAR", currentYear);
-            cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' AND strftime('%Y', product_order_date) = '" + currentYear + "' ", null);
+    /*
+        public ArrayList<HashMap<String, String>> getSalesReport(String type) {
+            ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
+            Cursor cursor = null;
+            if (type.equals("all")) {
+                cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed'   ORDER BY order_details_id DESC", null);
+            } else if (type.equals(Constant.DAILY)) {
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
+                SQLiteDatabase sQLiteDatabase = this.database;
+                cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_details  WHERE order_status='Completed' AND product_order_date='" + currentDate + "' ORDER BY order_Details_id DESC", null);
+            } else if (type.equals(Constant.MONTHLY)) {
+                String currentMonth = new SimpleDateFormat("MM", Locale.ENGLISH).format(new Date());
+                cursor = this.database.rawQuery("SELECT * FROM order_details  WHERE order_status='Completed' AND strftime('%m', product_order_date) = '" + currentMonth + "' ", null);
+            } else if (type.equals(Constant.YEARLY)) {
+                String currentYear = new SimpleDateFormat("yyyy", Locale.ENGLISH).format(new Date());
+                Log.d("YEAR", currentYear);
+                cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' AND strftime('%Y', product_order_date) = '" + currentYear + "' ", null);
+            }
+            if (cursor.moveToFirst()) {
+                do {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put(Constant.PRODUCT_NAME, cursor.getString(2));
+                    map.put(Constant.PRODUCT_WEIGHT, cursor.getString(3));
+                    map.put(Constant.PRODUCT_QTY, cursor.getString(4));
+                    map.put(Constant.PRODUCT_PRICE, cursor.getString(5));
+                    map.put(Constant.PRODUCT_IMAGE, cursor.getString(6));
+                    map.put(Constant.PRODUCT_ORDER_DATE, cursor.getString(7));
+                    orderDetailsList.add(map);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            this.database.close();
+            return orderDetailsList;
         }
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<>();
-                map.put(Constant.PRODUCT_NAME, cursor.getString(2));
-                map.put(Constant.PRODUCT_WEIGHT, cursor.getString(3));
-                map.put(Constant.PRODUCT_QTY, cursor.getString(4));
-                map.put(Constant.PRODUCT_PRICE, cursor.getString(5));
-                map.put(Constant.PRODUCT_IMAGE, cursor.getString(6));
-                map.put(Constant.PRODUCT_ORDER_DATE, cursor.getString(7));
-                orderDetailsList.add(map);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        this.database.close();
-        return orderDetailsList;
-    }
-*/
+    */
     public ArrayList<HashMap<String, String>> getExpenseReport(String type) {
         ArrayList<HashMap<String, String>> expenseList = new ArrayList<>();
         Cursor cursor = null;
