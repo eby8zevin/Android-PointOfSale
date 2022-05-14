@@ -60,6 +60,7 @@ public class ExpenseGraphActivity extends BaseActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         String[] monthList = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         String[] monthNumber = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
             databaseAccess.open();
@@ -87,10 +88,8 @@ public class ExpenseGraphActivity extends BaseActivity {
 
         databaseAccess.open();
         String currency = databaseAccess.getCurrency();
-
         databaseAccess.open();
         double totalExpense = databaseAccess.getTotalExpenseForGraph(Constant.YEARLY, mYear);
-
         this.binding.tvTotalSales.setText(String.format("%s%s%s", getString(R.string.total_expense), currency, this.decimalFormat.format(totalExpense)));
 
         this.binding.layoutYear.setOnClickListener(view -> ExpenseGraphActivity.this.chooseYearOnly());
@@ -103,7 +102,9 @@ public class ExpenseGraphActivity extends BaseActivity {
                 ExpenseGraphActivity.this.mYear = selectedYear;
                 ExpenseGraphActivity.this.getGraphData(ExpenseGraphActivity.this.mYear);
             }, ExpenseGraphActivity.this.mYear, 0);
-            builder.showYearOnly().setTitle(ExpenseGraphActivity.this.getString(R.string.select_year)).setYearRange(1990, 2099).build().show();
+            builder.showYearOnly()
+                    .setTitle(ExpenseGraphActivity.this.getString(R.string.select_year)).setYearRange(1990, 2099)
+                    .build().show();
         });
     }
 
