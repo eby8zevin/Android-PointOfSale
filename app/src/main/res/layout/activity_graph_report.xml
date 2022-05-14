@@ -39,7 +39,7 @@
             android:orientation="vertical">
 
             <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barchart"
+                android:id="@+id/barChart"
                 android:layout_width="match_parent"
                 android:layout_height="400dp" />
 
