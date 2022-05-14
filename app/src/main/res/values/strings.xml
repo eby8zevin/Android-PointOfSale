@@ -371,7 +371,6 @@
     <string name="supplier_name">Supplier Name</string>
     <string name="suppliers">Suppliers</string>
     <string name="suppliers_successfully_added">Suppliers Successfully Added</string>
-    <string name="tatal_discount">Total Discount</string>
     <string name="tax">Tax</string>
     <string name="tax_in_percentage">Tax in percentage (%)</string>
     <string name="title_choose">Choose</string>
@@ -379,6 +378,7 @@
     <string name="title_other_devices">Other devices</string>
     <string name="title_paired_devices">Paired devices</string>
     <string name="toast_message">Toast message</string>
+    <string name="total_cost">Total Cost</string>
     <string name="total_discount">Total Discount</string>
     <string name="total_expense">Total Expense:</string>
     <string name="total_price">Total Price:</string>
