@@ -25,4 +25,11 @@
         <item name="android:textColorPrimary">@color/black</item> <!--days of the month-->
         <item name="android:textColorSecondary">@color/dls_textColor</item> <!--days of the week-->
     </style>
+
+    <style name="RippleStyleWhite">
+        <item name="mrl_rippleAlpha">0.2</item>
+        <item name="mrl_rippleColor">#80FFFFFF</item>
+        <item name="mrl_rippleHover">true</item>
+        <item name="mrl_rippleOverlay">true</item>
+    </style>
 </resources>
