@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/actionbar_gradient.xml" value="0.165234375" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/circle.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/gradiant.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/header_background.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_add.xml" value="0.16332046332046332" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_back.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_bg_topheader.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_call.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_delete.xml" value="0.16332046332046332" />
@@ -44,9 +46,12 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_graph_report.xml" value="0.10040983606557377" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_main.xml" value="0.10461956521739131" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_payment_method.xml" value="0.1" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_pos.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_product.xml" value="0.1" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_product_cart.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_report.xml" value="0.18" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_sales_report.xml" value="0.10040983606557377" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_scanner.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_scanner_view.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_settings.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/activity_shop_information.xml" value="0.1" />
@@ -58,6 +63,8 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/dialog_list_search.xml" value="0.153125" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/expense_item.xml" value="0.22" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/payment_method_item.xml" value="0.1" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/pos_product_item.xml" value="0.1" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/product_category_item.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/product_item.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/sales_report_item.xml" value="0.18" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/supplier_item.xml" value="0.21" />
@@ -68,6 +75,7 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/menu/all_sales_menu.xml" value="0.153125" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/menu/export_suppliers_menu.xml" value="0.153125" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/menu/language_menu.xml" value="0.153125" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/menu/menu_cart.xml" value="0.153125" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/xml/provider_paths.xml" value="0.1" />
       </map>
     </option>
