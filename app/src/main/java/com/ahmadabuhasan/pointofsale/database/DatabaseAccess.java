@@ -648,35 +648,35 @@ public class DatabaseAccess {
         return product;
     }
 
+    public int getCartItemCount() {
+        Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
+        int itemCount = cursor.getCount();
+        cursor.close();
+        close();
+        return itemCount;
+    }
+
     /*
-            public int getCartItemCount() {
-                Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
-                int itemCount = cursor.getCount();
-                cursor.close();
-                this.database.close();
-                return itemCount;
-            }
-
-            public void updateProductQty(String id, String qty) {
-                ContentValues values = new ContentValues();
-                values.put(Constant.PRODUCT_QTY, qty);
-                long update = (long) this.database.update("product_cart", values, "cart_id=?", new String[]{id});
-            }
-
-            public String getProductName(String product_id) {
-                String product_name = "n/a";
-                SQLiteDatabase sQLiteDatabase = this.database;
-                Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        product_name = cursor.getString(1);
-                    } while (cursor.moveToNext());
+                public void updateProductQty(String id, String qty) {
+                    ContentValues values = new ContentValues();
+                    values.put(Constant.PRODUCT_QTY, qty);
+                    long update = (long) this.database.update("product_cart", values, "cart_id=?", new String[]{id});
                 }
-                cursor.close();
-                this.database.close();
-                return product_name;
-            }
-        */
+
+                public String getProductName(String product_id) {
+                    String product_name = "n/a";
+                    SQLiteDatabase sQLiteDatabase = this.database;
+                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            product_name = cursor.getString(1);
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
+                    this.database.close();
+                    return product_name;
+                }
+            */
     public String getCurrency() {
         String currency = "N/A";
         Cursor cursor = this.database.rawQuery("SELECT * FROM shop", null);
