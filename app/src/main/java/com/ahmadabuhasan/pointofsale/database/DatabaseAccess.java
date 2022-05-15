@@ -264,48 +264,47 @@ public class DatabaseAccess {
         return product_category;
     }
 
-    /*
-            public int addToCart(String product_id, String weight, String weight_unit, String price, int qty, String stock) {
-                SQLiteDatabase sQLiteDatabase = this.database;
-                if (sQLiteDatabase.rawQuery("SELECT * FROM product_cart WHERE product_id='" + product_id + "'", null).getCount() >= 1) {
-                    return 2;
-                }
-                ContentValues values = new ContentValues();
-                values.put(Constant.PRODUCT_ID, product_id);
-                values.put(Constant.PRODUCT_WEIGHT, weight);
-                values.put(Constant.PRODUCT_WEIGHT_UNIT, weight_unit);
-                values.put(Constant.PRODUCT_PRICE, price);
-                values.put(Constant.PRODUCT_QTY, Integer.valueOf(qty));
-                values.put("stock", stock);
-                long check = this.database.insert("product_cart", null, values);
-                this.database.close();
-                if (check == -1) {
-                    return -1;
-                }
-                return 1;
-            }
+    public int addToCart(String product_id, String weight, String weight_unit, String price, int qty, String stock) {
+        if (this.database.rawQuery("SELECT * FROM product_cart WHERE product_id='" + product_id + "'", null).getCount() >= 1) {
+            return 2;
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.PRODUCT_ID, product_id);
+        contentValues.put(Constant.PRODUCT_WEIGHT, weight);
+        contentValues.put(Constant.PRODUCT_WEIGHT_UNIT, weight_unit);
+        contentValues.put(Constant.PRODUCT_PRICE, price);
+        contentValues.put(Constant.PRODUCT_QTY, Integer.valueOf(qty));
+        contentValues.put(Constant.STOCK, stock);
+        long check = this.database.insert(Constant.productCart, null, contentValues);
+        close();
+        if (check == -1) {
+            return -1;
+        }
+        return 1;
+    }
 
-            public ArrayList<HashMap<String, String>> getCartProduct() {
-                ArrayList<HashMap<String, String>> product = new ArrayList<>();
-                Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put(Constant.CART_ID, cursor.getString(0));
-                        map.put(Constant.PRODUCT_ID, cursor.getString(1));
-                        map.put(Constant.PRODUCT_WEIGHT, cursor.getString(2));
-                        map.put(Constant.PRODUCT_WEIGHT_UNIT, cursor.getString(3));
-                        map.put(Constant.PRODUCT_PRICE, cursor.getString(4));
-                        map.put(Constant.PRODUCT_QTY, cursor.getString(5));
-                        map.put("stock", cursor.getString(6));
-                        product.add(map);
-                    } while (cursor.moveToNext());
+    /*
+                public ArrayList<HashMap<String, String>> getCartProduct() {
+                    ArrayList<HashMap<String, String>> product = new ArrayList<>();
+                    Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put(Constant.CART_ID, cursor.getString(0));
+                            map.put(Constant.PRODUCT_ID, cursor.getString(1));
+                            map.put(Constant.PRODUCT_WEIGHT, cursor.getString(2));
+                            map.put(Constant.PRODUCT_WEIGHT_UNIT, cursor.getString(3));
+                            map.put(Constant.PRODUCT_PRICE, cursor.getString(4));
+                            map.put(Constant.PRODUCT_QTY, cursor.getString(5));
+                            map.put("stock", cursor.getString(6));
+                            product.add(map);
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
+                    this.database.close();
+                    return product;
                 }
-                cursor.close();
-                this.database.close();
-                return product;
-            }
-        */
+            */
     /* JADX WARNING: Removed duplicated region for block: B:15:0x00c2 A[Catch:{ JSONException -> 0x0199 }] */
 /*    public void insertOrder(String order_id, JSONObject obj) {
         ContentValues values;
