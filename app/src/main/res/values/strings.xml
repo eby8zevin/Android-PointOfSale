@@ -59,6 +59,7 @@
     <string name="all_suppliers">All Suppliers</string>
     <string name="appbar_scrolling_view_behavior">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="available_stock">Available Stock</string>
+    <string name="back">Back</string>
     <string name="backup_completed_successfully">Backup Completed Successfully</string>
     <string name="backup_folder_not_present">Backup folder not present</string>
     <string name="backup_successfully_loaded">Backup successfully loaded!</string>
@@ -373,6 +374,7 @@
     <string name="suppliers_successfully_added">Suppliers Successfully Added</string>
     <string name="tax">Tax</string>
     <string name="tax_in_percentage">Tax in percentage (%)</string>
+    <string name="ten">10</string>
     <string name="title_choose">Choose</string>
     <string name="title_choose_dict_file">Pick a dictionary</string>
     <string name="title_other_devices">Other devices</string>
