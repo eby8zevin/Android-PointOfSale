@@ -621,62 +621,63 @@ public class DatabaseAccess {
             this.database.close();
             return check == 1;
         }
+*/
+    public ArrayList<HashMap<String, String>> getTabProducts(String category_id) {
+        ArrayList<HashMap<String, String>> product = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM products WHERE product_category = '" + category_id + "' ORDER BY product_id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.PRODUCT_ID, cursor.getString(0));
+                map.put(Constant.PRODUCT_NAME, cursor.getString(1));
+                map.put(Constant.PRODUCT_CODE, cursor.getString(2));
+                map.put(Constant.PRODUCT_CATEGORY, cursor.getString(3));
+                map.put(Constant.PRODUCT_DESCRIPTION, cursor.getString(4));
+                map.put(Constant.PRODUCT_BUY_PRICE, cursor.getString(5));
+                map.put(Constant.PRODUCT_SELL_PRICE, cursor.getString(6));
+                map.put(Constant.PRODUCT_SUPPLIER, cursor.getString(7));
+                map.put(Constant.PRODUCT_IMAGE, cursor.getString(8));
+                map.put(Constant.PRODUCT_STOCK, cursor.getString(9));
+                map.put(Constant.PRODUCT_WEIGHT_UNIT_ID, cursor.getString(10));
+                map.put(Constant.PRODUCT_WEIGHT, cursor.getString(11));
 
-        public ArrayList<HashMap<String, String>> getTabProducts(String category_id) {
-            ArrayList<HashMap<String, String>> product = new ArrayList<>();
-            SQLiteDatabase sQLiteDatabase = this.database;
-            Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_category = '" + category_id + "' ORDER BY product_id DESC", null);
-            if (cursor.moveToFirst()) {
-                do {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put(Constant.PRODUCT_ID, cursor.getString(0));
-                    map.put(Constant.PRODUCT_NAME, cursor.getString(1));
-                    map.put(Constant.PRODUCT_CODE, cursor.getString(2));
-                    map.put(Constant.PRODUCT_CATEGORY, cursor.getString(3));
-                    map.put(Constant.PRODUCT_DESCRIPTION, cursor.getString(4));
-                    map.put("product_buy_price", cursor.getString(5));
-                    map.put(Constant.PRODUCT_SELL_PRICE, cursor.getString(6));
-                    map.put(Constant.PRODUCT_SUPPLIER, cursor.getString(7));
-                    map.put(Constant.PRODUCT_IMAGE, cursor.getString(8));
-                    map.put("product_stock", cursor.getString(9));
-                    map.put(Constant.PRODUCT_WEIGHT_UNIT_ID, cursor.getString(10));
-                    map.put(Constant.PRODUCT_WEIGHT, cursor.getString(11));
-                    product.add(map);
-                } while (cursor.moveToNext());
+                product.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return product;
+    }
+
+    /*
+            public int getCartItemCount() {
+                Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
+                int itemCount = cursor.getCount();
+                cursor.close();
+                this.database.close();
+                return itemCount;
             }
-            cursor.close();
-            this.database.close();
-            return product;
-        }
 
-        public int getCartItemCount() {
-            Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
-            int itemCount = cursor.getCount();
-            cursor.close();
-            this.database.close();
-            return itemCount;
-        }
-
-        public void updateProductQty(String id, String qty) {
-            ContentValues values = new ContentValues();
-            values.put(Constant.PRODUCT_QTY, qty);
-            long update = (long) this.database.update("product_cart", values, "cart_id=?", new String[]{id});
-        }
-
-        public String getProductName(String product_id) {
-            String product_name = "n/a";
-            SQLiteDatabase sQLiteDatabase = this.database;
-            Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
-            if (cursor.moveToFirst()) {
-                do {
-                    product_name = cursor.getString(1);
-                } while (cursor.moveToNext());
+            public void updateProductQty(String id, String qty) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.PRODUCT_QTY, qty);
+                long update = (long) this.database.update("product_cart", values, "cart_id=?", new String[]{id});
             }
-            cursor.close();
-            this.database.close();
-            return product_name;
-        }
-    */
+
+            public String getProductName(String product_id) {
+                String product_name = "n/a";
+                SQLiteDatabase sQLiteDatabase = this.database;
+                Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        product_name = cursor.getString(1);
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                this.database.close();
+                return product_name;
+            }
+        */
     public String getCurrency() {
         String currency = "N/A";
         Cursor cursor = this.database.rawQuery("SELECT * FROM shop", null);
