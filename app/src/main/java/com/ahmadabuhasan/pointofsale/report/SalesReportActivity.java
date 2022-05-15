@@ -1,8 +1,11 @@
 package com.ahmadabuhasan.pointofsale.report;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
+import com.ahmadabuhasan.pointofsale.database.DatabaseOpenHelper;
 import com.ahmadabuhasan.pointofsale.databinding.ActivitySalesReportBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
+import com.ajts.androidmads.library.SQLiteToExcel;
+import com.obsez.android.lib.filechooser.ChooserDialog;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,10 +121,92 @@ public class SalesReportActivity extends BaseActivity {
     }
 
     public void getReport(String type) {
+        DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(this);
+        databaseAccess1.open();
 
+        Log.d("TYPE", type);
+        ArrayList<HashMap<String, String>> salesReport = databaseAccess1.getSalesReport(type);
+        if (salesReport.size() <= 0) {
+            Toasty.info(this, R.string.no_data_found, Toasty.LENGTH_SHORT).show();
+            this.binding.salesReportRecyclerview.setVisibility(View.GONE);
+            this.binding.tvTotalPrice.setVisibility(View.GONE);
+            this.binding.tvNoData.setVisibility(View.VISIBLE);
+            this.binding.ivNoData.setVisibility(View.VISIBLE);
+            this.binding.ivNoData.setImageResource(R.drawable.not_found);
+        } else {
+            this.binding.tvNoData.setVisibility(View.GONE);
+            this.binding.ivNoData.setVisibility(View.GONE);
+            this.binding.tvTotalPrice.setVisibility(View.VISIBLE);
+            this.binding.salesReportRecyclerview.setVisibility(View.VISIBLE);
+
+            SalesReportAdapter adapter1 = new SalesReportAdapter(this, salesReport);
+            this.binding.salesReportRecyclerview.setAdapter(adapter1);
+        }
+
+        databaseAccess1.open();
+        String currency = databaseAccess1.getCurrency();
+
+        databaseAccess1.open();
+        double sub_total = databaseAccess1.getTotalOrderPrice(type);
+        this.binding.tvTotalPrice.setText(String.format("%s%s%s", getString(R.string.total_sales), currency, this.decimalFormat.format(sub_total)));
+
+        databaseAccess1.open();
+        double get_tax = databaseAccess1.getTotalTax(type);
+        this.binding.tvTotalTax.setText(String.format("%s(+) : %s%s", getString(R.string.tax), currency, this.decimalFormat.format(get_tax)));
+
+        databaseAccess1.open();
+        double get_discount = databaseAccess1.getTotalDiscount(type);
+        this.binding.tvTotalDiscount.setText(String.format("%s(-) : %s%s", getString(R.string.discount), currency, this.decimalFormat.format(get_discount)));
+
+        double net_sale = (sub_total + get_tax) - get_discount;
+        this.binding.tvNetSales.setText(String.format("%s: %s%s", getString(R.string.net_sales), currency, this.decimalFormat.format(net_sale)));
     }
 
     public void folderChooser() {
+        new ChooserDialog((Activity) this)
+                .displayPath(true)
+                .withFilter(true, false, new String[0])
+                .withChosenListener(new ChooserDialog.Result() {
+                    @Override
+                    public void onChoosePath(String dir, File dirFile) {
+                        SalesReportActivity.this.onExport(dir);
+                        Log.d("PATH", dir);
+                    }
+                }).build().show();
+    }
 
+    public void onExport(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(), DatabaseOpenHelper.DATABASE_NAME, path);
+        sqLiteToExcel.exportSingleTable(Constant.orderDetails, "order_details.xls", new SQLiteToExcel.ExportListener() {
+            @Override
+            public void onStart() {
+                SalesReportActivity.this.loading = new ProgressDialog(SalesReportActivity.this);
+                SalesReportActivity.this.loading.setMessage(SalesReportActivity.this.getString(R.string.data_exporting_please_wait));
+                SalesReportActivity.this.loading.setCancelable(false);
+                SalesReportActivity.this.loading.show();
+            }
+
+            @Override
+            public void onCompleted(String filePath) {
+                Handler mHand = new Handler();
+                mHand.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        SalesReportActivity.this.loading.dismiss();
+                        Toasty.success(SalesReportActivity.this, R.string.data_successfully_exported, Toasty.LENGTH_SHORT).show();
+                    }
+                }, 5000L);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                SalesReportActivity.this.loading.dismiss();
+                Toasty.error(SalesReportActivity.this, R.string.data_export_fail, Toasty.LENGTH_SHORT).show();
+            }
+        });
     }
 }
