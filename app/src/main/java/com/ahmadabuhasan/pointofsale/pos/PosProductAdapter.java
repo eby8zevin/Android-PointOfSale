@@ -74,6 +74,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         String weightUnit_name = databaseAccess.getWeightUnitName(product_weightUnitID);
         holder.binding.tvWeight.setText(String.format("%s %s", product_weight, weightUnit_name));
 
+        databaseAccess.open();
         String currency = databaseAccess.getCurrency();
         holder.binding.tvPrice.setText(String.format("%s%s", currency, product_price));
 
