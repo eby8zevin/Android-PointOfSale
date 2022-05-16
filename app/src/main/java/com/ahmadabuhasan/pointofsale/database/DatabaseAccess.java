@@ -693,9 +693,9 @@ public class DatabaseAccess {
         if (cursor.moveToFirst()) {
             do {
                 double price = Double.parseDouble(cursor.getString(4));
-                double parseInt = Integer.parseInt(cursor.getString(5));
-                Double.isNaN(parseInt);
-                total_price += parseInt * price;
+                double qty = Integer.parseInt(cursor.getString(5));
+                Double.isNaN(qty);
+                total_price += qty * price;
             } while (cursor.moveToNext());
         } else {
             total_price = Utils.DOUBLE_EPSILON;
