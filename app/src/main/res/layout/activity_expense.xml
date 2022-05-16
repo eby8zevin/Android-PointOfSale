@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/round_border"
-            android:drawableRight="@drawable/ic_search"
+            android:drawableEnd="@drawable/ic_search"
             android:ems="10"
             android:fontFamily="@font/sailec_regular"
             android:hint="@string/search_here"
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="right"
+        android:gravity="end"
         android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -57,7 +57,7 @@
             android:clickable="true"
             android:contentDescription="@string/add_expense"
             android:focusable="true"
-            app:backgroundTint="@color/deep_sky_blue"
+            app:backgroundTint="?android:attr/colorAccent"
             app:srcCompat="@drawable/ic_add" />
     </LinearLayout>
 
