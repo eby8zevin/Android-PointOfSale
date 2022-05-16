@@ -27,7 +27,7 @@
         <item name="android:windowBackground">@color/white</item> <!--calendar background-->
         <item name="android:colorControlActivated">@color/deep_sky_blue</item> <!--selected day-->
         <item name="android:textColorPrimary">@color/black</item> <!--days of the month-->
-        <item name="android:textColorSecondary">@color/dls_textColor</item> <!--days of the week-->
+        <item name="android:textColorSecondary">@color/granite_gray</item> <!--days of the week-->
     </style>
 
     <style name="RippleStyleWhite">
