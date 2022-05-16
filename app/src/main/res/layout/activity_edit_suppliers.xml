@@ -38,7 +38,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -63,7 +63,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -89,7 +89,7 @@
                 android:importantForAutofill="no"
                 android:inputType="phone"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -114,7 +114,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -140,7 +140,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
