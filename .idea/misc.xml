@@ -12,6 +12,7 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_back.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_bg_topheader.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_call.xml" value="0.165234375" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_close.xml" value="0.11875" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_delete.xml" value="0.16332046332046332" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_loading.xml" value="0.16332046332046332" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/ic_menu.xml" value="0.165234375" />
@@ -64,6 +65,7 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/category_item.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/customer_item.xml" value="0.2" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/dialog_list_search.xml" value="0.153125" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/dialog_payment.xml" value="0.10894808743169399" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/expense_item.xml" value="0.22" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/payment_method_item.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/pos_product_item.xml" value="0.1" />
