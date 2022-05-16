@@ -210,21 +210,19 @@ public class DatabaseAccess {
         return check != -1;
     }
 
-    /*
-                                public String getProductImage(String product_id) {
-                                    String image = "n/a";
-                                    SQLiteDatabase sQLiteDatabase = this.database;
-                                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
-                                    if (cursor.moveToFirst()) {
-                                        do {
-                                            image = cursor.getString(8);
-                                        } while (cursor.moveToNext());
-                                    }
-                                    cursor.close();
-                                    this.database.close();
-                                    return image;
-                                }
-*/
+    public String getProductImage(String product_id) {
+        String image = "N/A";
+        Cursor cursor = this.database.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
+        if (cursor.moveToFirst()) {
+            do {
+                image = cursor.getString(8);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return image;
+    }
+
     public String getWeightUnitName(String weight_unit_id) {
         String weight_unit_name = "N/A";
         Cursor cursor = this.database.rawQuery("SELECT * FROM product_weight WHERE weight_id=" + weight_unit_id + "", null);
