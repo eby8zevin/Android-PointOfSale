@@ -53,7 +53,7 @@
                     android:id="@+id/tv_total_sales"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/deep_sky_blue"
+                    android:background="?android:attr/colorPrimary"
                     android:fontFamily="@font/sailec_regular"
                     android:padding="10dp"
                     android:text="@string/total_sales"
