@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ahmadabuhasan.pointofsale.customers.CustomersActivity;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
 import com.ahmadabuhasan.pointofsale.expense.ExpenseActivity;
+import com.ahmadabuhasan.pointofsale.pos.PosActivity;
 import com.ahmadabuhasan.pointofsale.product.ProductActivity;
 import com.ahmadabuhasan.pointofsale.report.ReportActivity;
 import com.ahmadabuhasan.pointofsale.settings.SettingsActivity;
@@ -59,12 +60,13 @@ public class DashboardActivity extends BaseActivity {
         });
         this.binding.adView.loadAd(new AdRequest.Builder().build());
 
-        this.binding.cardCustomers.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, CustomersActivity.class)));
-        this.binding.cardSuppliers.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, SuppliersActivity.class)));
-        this.binding.cardProducts.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ProductActivity.class)));
-        this.binding.cardExpense.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ExpenseActivity.class)));
-        this.binding.cardReport.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ReportActivity.class)));
-        this.binding.cardSettings.setOnClickListener(view -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, SettingsActivity.class)));
+        this.binding.cardCustomers.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, CustomersActivity.class)));
+        this.binding.cardSuppliers.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, SuppliersActivity.class)));
+        this.binding.cardProducts.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, ProductActivity.class)));
+        this.binding.cardPos.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, PosActivity.class)));
+        this.binding.cardExpense.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, ExpenseActivity.class)));
+        this.binding.cardReport.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, ReportActivity.class)));
+        this.binding.cardSettings.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, SettingsActivity.class)));
 
     }
 
