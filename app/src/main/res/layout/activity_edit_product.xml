@@ -39,7 +39,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -73,7 +73,7 @@
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:padding="16dp"
-                    android:textColor="@color/deep_sky_blue"
+                    android:textColor="?android:attr/colorPrimary"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -109,7 +109,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -135,7 +135,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -160,7 +160,7 @@
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -185,7 +185,7 @@
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -210,7 +210,7 @@
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -235,7 +235,7 @@
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -261,7 +261,7 @@
                 android:importantForAutofill="no"
                 android:inputType="numberSigned"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -287,7 +287,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:padding="16dp"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
