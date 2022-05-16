@@ -1,5 +1,6 @@
 package com.ahmadabuhasan.pointofsale.pos;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -28,9 +29,15 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class PosActivity extends BaseActivity {
 
+    @SuppressLint("StaticFieldLeak")
     public static EditText etSearch;
+    @SuppressLint("StaticFieldLeak")
     public static TextView tvCount;
 
     private ActivityPosBinding binding;
@@ -50,6 +57,14 @@ public class PosActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.all_product);
         getSupportActionBar().hide();
 
+        etSearch = binding.etSearch;
+        tvCount = binding.tvCount;
+
+        this.binding.ivNoProduct.setVisibility(View.GONE);
+        this.binding.tvNoProduct.setVisibility(View.GONE);
+
+        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             this.spanCount = Configuration.SCREENLAYOUT_SIZE_XLARGE;
         } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
@@ -60,10 +75,14 @@ public class PosActivity extends BaseActivity {
             this.spanCount = Configuration.SCREENLAYOUT_SIZE_XLARGE;
         }
 
-        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
-        this.binding.ivNoProduct.setVisibility(View.GONE);
-        this.binding.tvNoProduct.setVisibility(View.GONE);
+        databaseAccess.open();
+        int count = databaseAccess.getCartItemCount();
+        if (count == 0) {
+            tvCount.setVisibility(View.INVISIBLE);
+        } else {
+            tvCount.setVisibility(View.VISIBLE);
+            tvCount.setText(String.valueOf(count));
+        }
 
         this.binding.ivBack.setOnClickListener(view -> {
             startActivity(new Intent(PosActivity.this, DashboardActivity.class));
@@ -71,10 +90,6 @@ public class PosActivity extends BaseActivity {
         });
         this.binding.ivCart.setOnClickListener(view -> startActivity(new Intent(PosActivity.this, ProductCartActivity.class)));
         this.binding.ivScanner.setOnClickListener(view -> startActivity(new Intent(PosActivity.this, ScannerActivity.class)));
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL);
-        this.binding.posRecyclerview.setLayoutManager(gridLayoutManager);
-        this.binding.posRecyclerview.setHasFixedSize(true);
 
         this.binding.tvReset.setOnClickListener(view -> {
             databaseAccess.open();
@@ -95,9 +110,8 @@ public class PosActivity extends BaseActivity {
             binding.posRecyclerview.setAdapter(posProductAdapter);
         });
 
-        this.binding.categoryRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        this.binding.categoryRecyclerview.setLayoutManager(new LinearLayoutManager(PosActivity.this, LinearLayoutManager.HORIZONTAL, false));
         this.binding.categoryRecyclerview.setHasFixedSize(true);
-
         databaseAccess.open();
         List<HashMap<String, String>> categoryData = databaseAccess.getProductCategory();
         Log.d("data", "" + categoryData.size());
@@ -108,16 +122,11 @@ public class PosActivity extends BaseActivity {
             binding.categoryRecyclerview.setAdapter(productCategoryAdapter);
         }
 
-        databaseAccess.open();
-        int count = databaseAccess.getCartItemCount();
-        if (count == 0) {
-            binding.tvCount.setVisibility(View.INVISIBLE);
-        } else {
-            binding.tvCount.setVisibility(View.VISIBLE);
-            binding.tvCount.setText(String.valueOf(count));
-        }
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        this.binding.posRecyclerview.setLayoutManager(gridLayoutManager);
+        this.binding.posRecyclerview.setHasFixedSize(true);
 
-        this.binding.etSearch.addTextChangedListener(new TextWatcher() {
+        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -126,7 +135,6 @@ public class PosActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 databaseAccess.open();
-
                 List<HashMap<String, String>> searchProductList = databaseAccess.getSearchProducts(charSequence.toString());
                 if (searchProductList.size() <= 0) {
                     binding.posRecyclerview.setVisibility(View.GONE);
