@@ -10,9 +10,12 @@
         <item name="colorSecondaryVariant">@color/deep_sky_blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="android:datePickerDialogTheme">@style/datePickerTheme</item>
+        <item name="colorAccent">@color/deep_sky_blue</item>
     </style>
 </resources>
