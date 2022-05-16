@@ -2,6 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.PointOfSale" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
+        <!-- colorPrimary and colorSecondary represent the colors of your brand -->
+        <!-- colorPrimaryVariant and colorSecondaryVariant are lighter or darker shades of your brand colors -->
+        <!-- The various “On” colors (colorOnPrimary, colorOnSecondary, colorOnSurface, etc.) are used to tint foreground content (such as text and icons) displayed on top of the other colors. They need to meet accessibility requirements and have sufficient contrast against the colors they’re displayed on. -->
         <item name="colorPrimary">@color/deep_sky_blue</item>
         <item name="colorPrimaryVariant">@color/deep_sky_blue</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -10,16 +13,17 @@
         <item name="colorSecondaryVariant">@color/deep_sky_blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
         <item name="android:datePickerDialogTheme">@style/datePickerTheme</item>
+        <item name="colorAccent">@color/deep_sky_blue</item>
     </style>
 
     <style name="datePickerTheme" parent="ThemeOverlay.AppCompat.Dialog">
-        <item name="colorAccent">@color/deep_sky_blue</item> <!--header background-->
+        <item name="colorAccent">?android:attr/colorAccent</item> <!--header background-->
         <item name="android:windowBackground">@color/white</item> <!--calendar background-->
         <item name="android:colorControlActivated">@color/deep_sky_blue</item> <!--selected day-->
         <item name="android:textColorPrimary">@color/black</item> <!--days of the month-->
