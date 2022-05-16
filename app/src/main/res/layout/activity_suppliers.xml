@@ -57,7 +57,7 @@
             android:clickable="true"
             android:contentDescription="@string/add_supplier"
             android:focusable="true"
-            app:backgroundTint="@color/deep_sky_blue"
+            app:backgroundTint="?android:attr/colorAccent"
             app:srcCompat="@drawable/ic_add" />
     </LinearLayout>
 
