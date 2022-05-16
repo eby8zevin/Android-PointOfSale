@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:background="@color/deep_sky_blue"
+                    android:background="?android:attr/colorAccent"
                     android:gravity="end"
                     android:padding="5dp"
                     android:text="@string/total_price"
@@ -66,7 +66,7 @@
                     android:fontFamily="@font/sailec_regular"
                     android:gravity="center"
                     android:text="@string/no_data_found"
-                    android:textColor="@color/deep_sky_blue"
+                    android:textColor="?android:attr/colorPrimary"
                     android:textSize="24sp" />
             </LinearLayout>
 
