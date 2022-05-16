@@ -76,6 +76,7 @@
     <string name="camera_permission">Camera Permission Required</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_order">Cancel Order</string>
+    <string name="cash">CASH</string>
     <string name="categories">Categories</string>
     <string name="category_added_successfully">Category Added Successfully</string>
     <string name="category_deleted">Category Deleted</string>
@@ -291,6 +292,7 @@
     <string name="payment_method_name">Payment Method Name</string>
     <string name="payment_methods">Payment Methods</string>
     <string name="pic_load_error">Error in loading picture</string>
+    <string name="pick_up">PICK UP</string>
     <string name="please_change_order_status_to_complete_or_cancel">Please change order status to complete or cancel</string>
     <string name="pos">POS</string>
     <string name="press_once_again_to_exit">Press once again to exit!</string>
@@ -410,6 +412,7 @@
     <string name="want_to_delete_expense">Want to Delete Expense ?</string>
     <string name="want_to_delete_product">Want to Delete Product ?</string>
     <string name="want_to_delete_supplier">Want to Delete Supplier ?</string>
+    <string name="walk_in_customer">Walk In Customer</string>
     <string name="weight">Weight</string>
     <string name="weight_added_successfully">Weight Unit Added Successfully</string>
     <string name="weight_name">Weight Name</string>
@@ -419,5 +422,7 @@
     <string name="year_2020">Year 2020</string>
     <string name="yearly">Yearly</string>
     <string name="yes">Yes</string>
+    <string name="zero_zero">00</string>
+    <string name="zeroDecimal">0.00</string>
 
 </resources>
