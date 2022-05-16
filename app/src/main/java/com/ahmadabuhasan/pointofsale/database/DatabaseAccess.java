@@ -283,28 +283,28 @@ public class DatabaseAccess {
         return 1;
     }
 
-    /*
-                public ArrayList<HashMap<String, String>> getCartProduct() {
-                    ArrayList<HashMap<String, String>> product = new ArrayList<>();
-                    Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            HashMap<String, String> map = new HashMap<>();
-                            map.put(Constant.CART_ID, cursor.getString(0));
-                            map.put(Constant.PRODUCT_ID, cursor.getString(1));
-                            map.put(Constant.PRODUCT_WEIGHT, cursor.getString(2));
-                            map.put(Constant.PRODUCT_WEIGHT_UNIT, cursor.getString(3));
-                            map.put(Constant.PRODUCT_PRICE, cursor.getString(4));
-                            map.put(Constant.PRODUCT_QTY, cursor.getString(5));
-                            map.put("stock", cursor.getString(6));
-                            product.add(map);
-                        } while (cursor.moveToNext());
-                    }
-                    cursor.close();
-                    this.database.close();
-                    return product;
-                }
-            */
+    public ArrayList<HashMap<String, String>> getCartProduct() {
+        ArrayList<HashMap<String, String>> productCart = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.CART_ID, cursor.getString(0));
+                map.put(Constant.PRODUCT_ID, cursor.getString(1));
+                map.put(Constant.PRODUCT_WEIGHT, cursor.getString(2));
+                map.put(Constant.PRODUCT_WEIGHT_UNIT, cursor.getString(3));
+                map.put(Constant.PRODUCT_PRICE, cursor.getString(4));
+                map.put(Constant.PRODUCT_QTY, cursor.getString(5));
+                map.put(Constant.STOCK, cursor.getString(6));
+
+                productCart.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return productCart;
+    }
+
     /* JADX WARNING: Removed duplicated region for block: B:15:0x00c2 A[Catch:{ JSONException -> 0x0199 }] */
 /*    public void insertOrder(String order_id, JSONObject obj) {
         ContentValues values;
