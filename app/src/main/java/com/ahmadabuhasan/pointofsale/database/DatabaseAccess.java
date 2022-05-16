@@ -687,25 +687,24 @@ public class DatabaseAccess {
         return currency;
     }
 
-    /*
-        public double getTotalPrice() {
-            double total_price = Utils.DOUBLE_EPSILON;
-            Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
-            if (cursor.moveToFirst()) {
-                do {
-                    double price = Double.parseDouble(cursor.getString(4));
-                    double parseInt = (double) Integer.parseInt(cursor.getString(5));
-                    Double.isNaN(parseInt);
-                    total_price += parseInt * price;
-                } while (cursor.moveToNext());
-            } else {
-                total_price = Utils.DOUBLE_EPSILON;
-            }
-            cursor.close();
-            this.database.close();
-            return total_price;
+    public double getTotalPrice() {
+        double total_price = Utils.DOUBLE_EPSILON;
+        Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", null);
+        if (cursor.moveToFirst()) {
+            do {
+                double price = Double.parseDouble(cursor.getString(4));
+                double parseInt = Integer.parseInt(cursor.getString(5));
+                Double.isNaN(parseInt);
+                total_price += parseInt * price;
+            } while (cursor.moveToNext());
+        } else {
+            total_price = Utils.DOUBLE_EPSILON;
         }
-*/
+        cursor.close();
+        close();
+        return total_price;
+    }
+
     public double getTotalDiscount(String type) {
         Cursor cursor;
         double total_discount = Utils.DOUBLE_EPSILON;
