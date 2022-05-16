@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/deep_sky_blue"
+        android:background="?android:attr/colorPrimary"
         android:baselineAligned="false"
         android:weightSum="2">
 
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/deep_sky_blue"
+            android:background="?android:attr/colorPrimary"
             android:gravity="end"
             android:orientation="horizontal">
 
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@color/deep_sky_blue"
+                    android:background="?android:attr/colorPrimary"
                     android:fontFamily="@font/sailec_regular"
                     android:padding="5dp"
                     android:text="@string/product_category"
@@ -170,7 +170,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:background="@color/deep_sky_blue"
+                        android:background="?android:attr/colorPrimary"
                         android:fontFamily="@font/sailec_regular"
                         android:gravity="end"
                         android:paddingTop="5dp"
@@ -194,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@color/deep_sky_blue"
+                android:background="?android:attr/colorPrimary"
                 android:fontFamily="@font/sailec_regular"
                 android:padding="5dp"
                 android:text="@string/all_product"
@@ -231,7 +231,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/no_product_found"
-                    android:textColor="@color/deep_sky_blue"
+                    android:textColor="?android:attr/colorPrimary"
                     android:textSize="24sp"
                     app:fontFamily="@font/sailec_regular" />
             </LinearLayout>
