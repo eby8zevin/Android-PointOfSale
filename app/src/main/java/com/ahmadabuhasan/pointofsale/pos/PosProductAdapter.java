@@ -23,14 +23,18 @@ import com.ahmadabuhasan.pointofsale.product.EditProductActivity;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> productData;
-    public static int count;
+    private final Context context;
+    private final List<HashMap<String, String>> productData;
     MediaPlayer sound;
 
     public PosProductAdapter(Context context1, List<HashMap<String, String>> productData1) {
@@ -50,7 +54,6 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
     public void onBindViewHolder(@NonNull PosProductAdapter.MyViewHolder holder, int position) {
 
         final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
-        databaseAccess.open();
 
         final String product_id = this.productData.get(position).get(Constant.PRODUCT_ID);
         String product_name = this.productData.get(position).get(Constant.PRODUCT_NAME);
@@ -62,7 +65,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
 
         holder.binding.tvProductName.setText(product_name);
 
-        int getStock = Integer.parseInt(product_stock);
+        int getStock = Integer.parseInt(Objects.requireNonNull(product_stock));
         if (getStock > 5) {
             holder.binding.tvStock.setText(String.format("%s : %s", this.context.getString(R.string.stock), product_stock));
         } else {
@@ -93,18 +96,26 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
             PosProductAdapter.this.sound.start();
             Intent i = new Intent(PosProductAdapter.this.context, EditProductActivity.class);
             i.putExtra(Constant.PRODUCT_ID, product_id);
-            PosProductAdapter.this.context.startActivity(i);
+            this.context.startActivity(i);
         });
 
         holder.binding.btnAddCart.setOnClickListener(view -> {
             if (getStock <= 0) {
-                Toasty.warning(PosProductAdapter.this.context, R.string.stock_is_low_please_update_stock, Toasty.LENGTH_SHORT).show();
+                Toasty.warning(this.context, R.string.stock_is_low_please_update_stock, Toasty.LENGTH_SHORT).show();
                 return;
             }
             Log.d("weightUnitID", product_weightUnitID);
 
             databaseAccess.open();
             int check = databaseAccess.addToCart(product_id, product_weight, product_weightUnitID, product_price, 1, product_stock);
+            if (check == 1) {
+                Toasty.success(this.context, R.string.product_added_to_cart, Toasty.LENGTH_SHORT).show();
+                this.sound.start();
+            } else if (check == 2) {
+                Toasty.info(this.context, R.string.product_already_added_to_cart, Toasty.LENGTH_SHORT).show();
+            } else {
+                Toasty.error(this.context, R.string.product_added_to_cart_failed_try_again, Toasty.LENGTH_SHORT).show();
+            }
 
             databaseAccess.open();
             int count1 = databaseAccess.getCartItemCount();
@@ -114,15 +125,6 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                 PosActivity.tvCount.setVisibility(View.VISIBLE);
                 PosActivity.tvCount.setText(String.valueOf(count1));
             }
-
-            if (check == 1) {
-                Toasty.success(PosProductAdapter.this.context, R.string.product_added_to_cart, Toasty.LENGTH_SHORT).show();
-                PosProductAdapter.this.sound.start();
-            } else if (check == 2) {
-                Toasty.info(PosProductAdapter.this.context, R.string.product_already_added_to_cart, Toasty.LENGTH_SHORT).show();
-            } else {
-                Toasty.error(PosProductAdapter.this.context, R.string.product_added_to_cart_failed_try_again, Toasty.LENGTH_SHORT).show();
-            }
         });
     }
 
@@ -131,9 +133,9 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         return productData.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private PosProductItemBinding binding;
+        private final PosProductItemBinding binding;
 
         public MyViewHolder(@NonNull PosProductItemBinding binding) {
             super(binding.getRoot());
