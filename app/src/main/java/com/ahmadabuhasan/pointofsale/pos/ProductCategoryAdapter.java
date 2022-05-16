@@ -23,18 +23,18 @@ import java.util.List;
 
 public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategoryAdapter.MyViewHolder> {
 
-    private List<HashMap<String, String>> categoryData;
     private Context context;
-    TextView tvNoData;
-    ImageView ivNoData;
+    private List<HashMap<String, String>> categoryData;
     RecyclerView recyclerView;
+    ImageView ivNoData;
+    TextView tvNoData;
     MediaPlayer sound;
 
     public ProductCategoryAdapter(Context context1,
                                   List<HashMap<String, String>> categoryData1,
-                                  TextView tvNoData1,
+                                  RecyclerView recyclerView1,
                                   ImageView ivNoData1,
-                                  RecyclerView recyclerView1) {
+                                  TextView tvNoData1) {
         this.context = context1;
         this.categoryData = categoryData1;
         this.tvNoData = tvNoData1;
@@ -64,25 +64,25 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
 
             List<HashMap<String, String>> fromCategoryList = databaseAccess.getTabProducts(category_id);
             if (fromCategoryList.size() <= 0) {
-                ProductCategoryAdapter.this.recyclerView.setVisibility(View.INVISIBLE);
-                ProductCategoryAdapter.this.recyclerView.setVisibility(View.GONE);
-                ProductCategoryAdapter.this.tvNoData.setVisibility(View.VISIBLE);
-                ProductCategoryAdapter.this.ivNoData.setVisibility(View.VISIBLE);
-                ProductCategoryAdapter.this.ivNoData.setImageResource(R.drawable.not_found);
+                this.recyclerView.setVisibility(View.INVISIBLE);
+                this.recyclerView.setVisibility(View.GONE);
+                this.tvNoData.setVisibility(View.VISIBLE);
+                this.ivNoData.setVisibility(View.VISIBLE);
+                this.ivNoData.setImageResource(R.drawable.not_found);
                 return;
             }
-            ProductCategoryAdapter.this.tvNoData.setVisibility(View.GONE);
-            ProductCategoryAdapter.this.ivNoData.setVisibility(View.GONE);
-            ProductCategoryAdapter.this.recyclerView.setVisibility(View.VISIBLE);
+            this.tvNoData.setVisibility(View.GONE);
+            this.ivNoData.setVisibility(View.GONE);
+            this.recyclerView.setVisibility(View.VISIBLE);
 
             PosProductAdapter adapter = new PosProductAdapter(ProductCategoryAdapter.this.context, fromCategoryList);
-            ProductCategoryAdapter.this.recyclerView.setAdapter(adapter);
+            this.recyclerView.setAdapter(adapter);
         });
     }
 
     @Override
     public int getItemCount() {
-        return categoryData.size();
+        return this.categoryData.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
