@@ -662,21 +662,20 @@ public class DatabaseAccess {
                     values.put(Constant.PRODUCT_QTY, qty);
                     long update = (long) this.database.update("product_cart", values, "cart_id=?", new String[]{id});
                 }
+*/
+    public String getProductName(String product_id) {
+        String product_name = "N/A";
+        Cursor cursor = this.database.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
+        if (cursor.moveToFirst()) {
+            do {
+                product_name = cursor.getString(1);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return product_name;
+    }
 
-                public String getProductName(String product_id) {
-                    String product_name = "n/a";
-                    SQLiteDatabase sQLiteDatabase = this.database;
-                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            product_name = cursor.getString(1);
-                        } while (cursor.moveToNext());
-                    }
-                    cursor.close();
-                    this.database.close();
-                    return product_name;
-                }
-            */
     public String getCurrency() {
         String currency = "N/A";
         Cursor cursor = this.database.rawQuery("SELECT * FROM shop", null);
