@@ -965,23 +965,23 @@ public class DatabaseAccess {
         return customer;
     }
 
-    /*
-            public ArrayList<HashMap<String, String>> getOrderType() {
-                ArrayList<HashMap<String, String>> order_type = new ArrayList<>();
-                Cursor cursor = this.database.rawQuery("SELECT * FROM order_type ORDER BY order_type_id DESC", null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("order_type_id", cursor.getString(0));
-                        map.put("order_type_name", cursor.getString(1));
-                        order_type.add(map);
-                    } while (cursor.moveToNext());
-                }
-                cursor.close();
-                this.database.close();
-                return order_type;
-            }
-    */
+    public ArrayList<HashMap<String, String>> getOrderType() {
+        ArrayList<HashMap<String, String>> order_type = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM order_type ORDER BY order_type_id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.ORDER_TYPE_ID, cursor.getString(0));
+                map.put(Constant.ORDER_TYPE_NAME, cursor.getString(1));
+
+                order_type.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return order_type;
+    }
+
     public ArrayList<HashMap<String, String>> getPaymentMethod() {
         ArrayList<HashMap<String, String>> payment_method = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM payment_method ORDER BY payment_method_id DESC", null);
