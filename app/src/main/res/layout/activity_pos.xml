@@ -49,7 +49,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/deep_sky_blue"
-            android:gravity="center"
+            android:gravity="end"
             android:orientation="horizontal">
 
             <RelativeLayout
