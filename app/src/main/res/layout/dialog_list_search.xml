@@ -41,8 +41,8 @@
             android:importantForAutofill="no"
             android:inputType="textNoSuggestions"
             android:padding="5dp"
-            android:textColor="@color/dls_textColor"
-            android:textColorHint="@color/dls_textColorHint"
+            android:textColor="@color/granite_gray"
+            android:textColorHint="@color/sonic_silver"
             android:textSize="16sp" />
 
         <ListView
