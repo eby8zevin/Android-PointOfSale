@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:text="@string/total_price"
-            android:textColor="@color/deep_sky_blue"
+            android:textColor="?android:attr/colorPrimary"
             android:textSize="24sp"
             app:fontFamily="@font/sailec_regular" />
 
@@ -38,7 +38,7 @@
                 android:id="@+id/btn_submit_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/deep_sky_blue"
+                android:background="?android:attr/colorPrimary"
                 android:fontFamily="@font/sailec_regular"
                 android:text="@string/submit_order"
                 android:textColor="@color/white"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/no_product_in_cart"
-                android:textColor="@color/deep_sky_blue"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="24sp"
                 android:visibility="gone"
                 app:fontFamily="@font/sailec_regular" />
