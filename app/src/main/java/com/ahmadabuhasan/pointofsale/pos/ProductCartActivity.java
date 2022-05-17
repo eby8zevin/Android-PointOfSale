@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,7 +103,7 @@ public class ProductCartActivity extends BaseActivity {
         double getTax = Double.parseDouble(tax);
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_payment, (ViewGroup) null);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_payment, null);
         dialog.setView(dialogView);
         dialog.setCancelable(false);
 
@@ -135,26 +134,32 @@ public class ProductCartActivity extends BaseActivity {
 
         etDialogDiscount.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 String getDiscount = charSequence.toString();
-                double discount = Double.parseDouble(getDiscount);
                 if (getDiscount.isEmpty() || getDiscount.equals(".")) {
                     double calculated = (total_cost + calculated_tax) - Utils.DOUBLE_EPSILON;
                     tvDialogTotalCost.setText(String.format("%s%s", shop_currency, decimalFormat.format(calculated)));
-                } else if (discount > calculated_totalCost) {
+                    return;
+                }
+
+                double discount_bigger = total_cost + calculated_tax;
+                double discount = Double.parseDouble(getDiscount);
+                if (discount > discount_bigger) {
                     etDialogDiscount.setError(getString(R.string.discount_cant_be_greater_than_total_price));
                     etDialogDiscount.requestFocus();
                     btnSubmit.setVisibility(View.INVISIBLE);
-                } else {
-                    btnSubmit.setVisibility(View.VISIBLE);
-                    double calculated_withDiscount = (total_cost + calculated_tax) - discount;
-                    tvDialogTotalCost.setText(String.format("%s%s", shop_currency, decimalFormat.format(calculated_withDiscount)));
+                    return;
                 }
+
+                btnSubmit.setVisibility(View.VISIBLE);
+                double calculated_withDiscount = (total_cost + calculated_tax) - discount;
+                tvDialogTotalCost.setText(String.format("%s%s", shop_currency, decimalFormat.format(calculated_withDiscount)));
+
             }
 
             @Override
@@ -189,7 +194,7 @@ public class ProductCartActivity extends BaseActivity {
             customerAdapter.addAll(customerNames);
 
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(ProductCartActivity.this);
-            View dialogView1 = getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            View dialogView1 = getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog1.setView(dialogView1);
             dialog1.setCancelable(false);
 
@@ -232,7 +237,7 @@ public class ProductCartActivity extends BaseActivity {
             orderTypeAdapter.addAll(orderTypeNames);
 
             AlertDialog.Builder dialog2 = new AlertDialog.Builder(ProductCartActivity.this);
-            View dialogView2 = getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            View dialogView2 = getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog2.setView(dialogView2);
             dialog2.setCancelable(false);
 
@@ -275,7 +280,7 @@ public class ProductCartActivity extends BaseActivity {
             paymentMethodAdapter.addAll(paymentMethodNames);
 
             AlertDialog.Builder dialog3 = new AlertDialog.Builder(ProductCartActivity.this);
-            View dialogView3 = getLayoutInflater().inflate(R.layout.dialog_list_search, (ViewGroup) null);
+            View dialogView3 = getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog3.setView(dialogView3);
             dialog3.setCancelable(false);
 
@@ -315,7 +320,6 @@ public class ProductCartActivity extends BaseActivity {
 
         final AlertDialog closeSubmit = dialog.create();
         ibClose.setOnClickListener(view -> closeSubmit.dismiss());
-
         btnSubmit.setOnClickListener(view -> {
             String discount;
             String customer_name = tvDialogCustomer.getText().toString().trim();
@@ -330,6 +334,7 @@ public class ProductCartActivity extends BaseActivity {
             proceedOrder(customer_name, order_type1, payment_method1, calculated_tax, discount);
             closeSubmit.dismiss();
         });
+        closeSubmit.show();
     }
 
     public void proceedOrder(String customerName, String orderType, String paymentMethod, double tax, String discount) {
@@ -342,57 +347,59 @@ public class ProductCartActivity extends BaseActivity {
             List<HashMap<String, String>> lines = databaseAccess2.getCartProduct();
             if (lines.isEmpty()) {
                 Toasty.error(this, R.string.no_product_found, Toasty.LENGTH_SHORT).show();
-            } else {
-                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
-                String currentTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date());
-                String timeStamp = Long.valueOf(System.currentTimeMillis() / 1000).toString();
-                Log.d("Time", timeStamp);
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put(Constant.ORDER_DATE, currentDate);
-                    jsonObject.put(Constant.ORDER_TIME, currentTime);
-                    jsonObject.put(Constant.ORDER_TYPE, orderType);
-                    jsonObject.put(Constant.ORDER_PAYMENT_METHOD, paymentMethod);
-                    jsonObject.put(Constant.CUSTOMER_NAME, customerName);
-                    jsonObject.put(Constant.TAX, tax);
-                    jsonObject.put(Constant.DISCOUNT, discount);
-
-                    int i = 0;
-                    while (i < lines.size()) {
-                        databaseAccess2.open();
-                        String product_id = lines.get(i).get(productID);
-                        String product_name = databaseAccess2.getProductName(product_id);
-
-                        databaseAccess2.open();
-                        String weight_unit_id = lines.get(i).get(Constant.PRODUCT_WEIGHT_UNIT);
-                        String weight_unit = databaseAccess2.getWeightUnitName(weight_unit_id);
-
-                        databaseAccess2.open();
-                        String product_image = databaseAccess2.getProductImage(product_id);
-
-                        JSONArray array = new JSONArray();
-                        JSONObject obj = new JSONObject();
-                        try {
-                            obj.put(productID, product_id);
-                            obj.put(Constant.PRODUCT_NAME, product_name);
-                            obj.put(Constant.PRODUCT_WEIGHT, lines.get(i).get(Constant.PRODUCT_WEIGHT) + " " + weight_unit);
-                            obj.put(Constant.PRODUCT_QTY, lines.get(i).get(Constant.PRODUCT_QTY));
-                            obj.put(Constant.STOCK, lines.get(i).get(Constant.STOCK));
-                            obj.put(Constant.PRODUCT_PRICE, lines.get(i).get(Constant.PRODUCT_PRICE));
-                            obj.put(Constant.PRODUCT_IMAGE, product_image);
-                            obj.put(Constant.PRODUCT_ORDER_DATE, currentDate);
-                            array.put(obj);
-                            i++;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            saveOrderInOfflineDb(jsonObject);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    saveOrderInOfflineDb(jsonObject);
-                }
+                return;
             }
+            String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
+            String currentTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date());
+            String timeStamp = Long.valueOf(System.currentTimeMillis() / 1000).toString();
+            Log.d("Time", timeStamp);
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put(Constant.ORDER_DATE, currentDate);
+                jsonObject.put(Constant.ORDER_TIME, currentTime);
+                jsonObject.put(Constant.ORDER_TYPE, orderType);
+                jsonObject.put(Constant.ORDER_PAYMENT_METHOD, paymentMethod);
+                jsonObject.put(Constant.CUSTOMER_NAME, customerName);
+                jsonObject.put(Constant.TAX, tax);
+                jsonObject.put(Constant.DISCOUNT, discount);
+
+                int i = 0;
+                while (i < lines.size()) {
+                    databaseAccess2.open();
+                    String product_id = lines.get(i).get(productID);
+                    String product_name = databaseAccess2.getProductName(product_id);
+
+                    databaseAccess2.open();
+                    String weight_unit_id = lines.get(i).get(Constant.PRODUCT_WEIGHT_UNIT);
+                    String weight_unit = databaseAccess2.getWeightUnitName(weight_unit_id);
+
+                    databaseAccess2.open();
+                    String product_image = databaseAccess2.getProductImage(product_id);
+
+                    JSONArray array = new JSONArray();
+                    JSONObject obj = new JSONObject();
+                    try {
+                        obj.put(productID, product_id);
+                        obj.put(Constant.PRODUCT_NAME, product_name);
+                        obj.put(Constant.PRODUCT_WEIGHT, lines.get(i).get(Constant.PRODUCT_WEIGHT) + " " + weight_unit);
+                        obj.put(Constant.PRODUCT_QTY, lines.get(i).get(Constant.PRODUCT_QTY));
+                        obj.put(Constant.STOCK, lines.get(i).get(Constant.STOCK));
+                        obj.put(Constant.PRODUCT_PRICE, lines.get(i).get(Constant.PRODUCT_PRICE));
+                        obj.put(Constant.PRODUCT_IMAGE, product_image);
+                        obj.put(Constant.PRODUCT_ORDER_DATE, currentDate);
+                        array.put(obj);
+                        i++;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        saveOrderInOfflineDb(jsonObject);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                saveOrderInOfflineDb(jsonObject);
+            }
+            saveOrderInOfflineDb(jsonObject);
+            return;
         }
         Toasty.error(this, R.string.no_product_in_cart, Toasty.LENGTH_SHORT).show();
     }
