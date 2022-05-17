@@ -35,6 +35,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:icon"
         tools:targetApi="p">
+        <activity
+            android:name=".orders.OrdersActivity"
+            android:exported="false" />
         <activity android:name=".settings.backup.BackupActivity" />
         <activity android:name=".settings.payment_method.EditPaymentMethodActivity" />
         <activity android:name=".settings.payment_method.AddPaymentMethodActivity" />
