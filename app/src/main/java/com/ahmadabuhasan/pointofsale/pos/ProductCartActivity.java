@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,24 @@ import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityProductCartBinding;
+import com.ahmadabuhasan.pointofsale.orders.OrdersActivity;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.github.mikephil.charting.utils.Utils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
 
 /*
  * Created by Ahmad Abu Hasan (C) 2022
@@ -321,8 +332,80 @@ public class ProductCartActivity extends BaseActivity {
         });
     }
 
-    public void proceedOrder(String customer, String orderType, String paymentMethod, double tax, String discount) {
+    public void proceedOrder(String customerName, String orderType, String paymentMethod, double tax, String discount) {
+        DatabaseAccess databaseAccess2 = DatabaseAccess.getInstance(this);
 
+        String productID = Constant.PRODUCT_ID;
+        databaseAccess2.open();
+        if (databaseAccess2.getCartItemCount() > 0) {
+            databaseAccess2.open();
+            List<HashMap<String, String>> lines = databaseAccess2.getCartProduct();
+            if (lines.isEmpty()) {
+                Toasty.error(this, R.string.no_product_found, Toasty.LENGTH_SHORT).show();
+            } else {
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
+                String currentTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date());
+                String timeStamp = Long.valueOf(System.currentTimeMillis() / 1000).toString();
+                Log.d("Time", timeStamp);
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put(Constant.ORDER_DATE, currentDate);
+                    jsonObject.put(Constant.ORDER_TIME, currentTime);
+                    jsonObject.put(Constant.ORDER_TYPE, orderType);
+                    jsonObject.put(Constant.ORDER_PAYMENT_METHOD, paymentMethod);
+                    jsonObject.put(Constant.CUSTOMER_NAME, customerName);
+                    jsonObject.put(Constant.TAX, tax);
+                    jsonObject.put(Constant.DISCOUNT, discount);
+
+                    int i = 0;
+                    while (i < lines.size()) {
+                        databaseAccess2.open();
+                        String product_id = lines.get(i).get(productID);
+                        String product_name = databaseAccess2.getProductName(product_id);
+
+                        databaseAccess2.open();
+                        String weight_unit_id = lines.get(i).get(Constant.PRODUCT_WEIGHT_UNIT);
+                        String weight_unit = databaseAccess2.getWeightUnitName(weight_unit_id);
+
+                        databaseAccess2.open();
+                        String product_image = databaseAccess2.getProductImage(product_id);
+
+                        JSONArray array = new JSONArray();
+                        JSONObject obj = new JSONObject();
+                        try {
+                            obj.put(productID, product_id);
+                            obj.put(Constant.PRODUCT_NAME, product_name);
+                            obj.put(Constant.PRODUCT_WEIGHT, lines.get(i).get(Constant.PRODUCT_WEIGHT) + " " + weight_unit);
+                            obj.put(Constant.PRODUCT_QTY, lines.get(i).get(Constant.PRODUCT_QTY));
+                            obj.put(Constant.STOCK, lines.get(i).get(Constant.STOCK));
+                            obj.put(Constant.PRODUCT_PRICE, lines.get(i).get(Constant.PRODUCT_PRICE));
+                            obj.put(Constant.PRODUCT_IMAGE, product_image);
+                            obj.put(Constant.PRODUCT_ORDER_DATE, currentDate);
+                            array.put(obj);
+                            i++;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            saveOrderInOfflineDb(jsonObject);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    saveOrderInOfflineDb(jsonObject);
+                }
+            }
+        }
+        Toasty.error(this, R.string.no_product_in_cart, Toasty.LENGTH_SHORT).show();
+    }
+
+    private void saveOrderInOfflineDb(JSONObject obj) {
+        String timeStamp = Long.valueOf(System.currentTimeMillis() / 1000).toString();
+        DatabaseAccess databaseAccess3 = DatabaseAccess.getInstance(this);
+        databaseAccess3.open();
+        databaseAccess3.insertOrder(timeStamp, obj);
+        Toasty.success(this, R.string.order_done_successful, Toasty.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, OrdersActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
