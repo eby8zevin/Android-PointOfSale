@@ -10,6 +10,10 @@ import android.util.Log;
 import com.ahmadabuhasan.pointofsale.Constant;
 import com.github.mikephil.charting.utils.Utils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -303,194 +307,78 @@ public class DatabaseAccess {
         return productCart;
     }
 
-    /* JADX WARNING: Removed duplicated region for block: B:15:0x00c2 A[Catch:{ JSONException -> 0x0199 }] */
-/*    public void insertOrder(String order_id, JSONObject obj) {
-        ContentValues values;
-        JSONException e;
-        JSONArray result;
-        int i;
-        String product_order_date;
-        String product_id;
-        int updated_stock;
-        JSONException e2;
-        String str = Constant.PENDING;
-        String str2 = Constant.ORDER_STATUS;
-        String str3 = Constant.PRODUCT_ORDER_DATE;
-        String str4 = Constant.PRODUCT_IMAGE;
-        String str5 = Constant.PRODUCT_PRICE;
-        ContentValues values2 = new ContentValues();
-        ContentValues values22 = new ContentValues();
-        ContentValues values3 = new ContentValues();
-        String str6 = Constant.PRODUCT_QTY;
-        try {
-            String order_date = obj.getString(Constant.ORDER_DATE);
-            String order_time = obj.getString(Constant.ORDER_TIME);
-            String order_type = obj.getString(Constant.ORDER_TYPE);
-            String order_payment_method = obj.getString(Constant.ORDER_PAYMENT_METHOD);
-            String customer_name = obj.getString(Constant.CUSTOMER_NAME);
-            String tax = obj.getString(Constant.TAX);
-            String discount = obj.getString(Constant.DISCOUNT);
-            values = values2;
-            try {
-                values.put(Constant.INVOICE_ID, order_id);
-                values.put(Constant.ORDER_DATE, order_date);
-                values.put(Constant.ORDER_TIME, order_time);
-                values.put(Constant.ORDER_TYPE, order_type);
-                values.put(Constant.ORDER_PAYMENT_METHOD, order_payment_method);
-                values.put(Constant.CUSTOMER_NAME, customer_name);
-                values.put(Constant.TAX, tax);
-                values.put(Constant.DISCOUNT, discount);
-                values.put(str2, str);
-                this.database.insert("order_list", null, values);
-                this.database.delete("product_cart", null, null);
-            } catch (JSONException e3) {
-                e2 = e3;
+    public void insertOrder(String order_id, JSONObject jsonObject) {
+
+    }
+
+    /*
+        public ArrayList<HashMap<String, String>> getOrderList() {
+            ArrayList<HashMap<String, String>> orderList = new ArrayList<>();
+            Cursor cursor = this.database.rawQuery("SELECT * FROM order_list ORDER BY order_id DESC", null);
+            if (cursor.moveToFirst()) {
+                do {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put(Constant.INVOICE_ID, cursor.getString(1));
+                    map.put(Constant.ORDER_DATE, cursor.getString(2));
+                    map.put(Constant.ORDER_TIME, cursor.getString(3));
+                    map.put(Constant.ORDER_TYPE, cursor.getString(4));
+                    map.put(Constant.ORDER_PAYMENT_METHOD, cursor.getString(5));
+                    map.put(Constant.CUSTOMER_NAME, cursor.getString(6));
+                    map.put(Constant.TAX, cursor.getString(7));
+                    map.put(Constant.DISCOUNT, cursor.getString(8));
+                    map.put(Constant.ORDER_STATUS, cursor.getString(cursor.getColumnIndex(Constant.ORDER_STATUS)));
+                    orderList.add(map);
+                } while (cursor.moveToNext());
             }
-        } catch (JSONException e4) {
-            e2 = e4;
-            values = values2;
-            e2.printStackTrace();
-            result = obj.getJSONArray("lines");
-            i = 0;
-            while (i < result.length()) {
-            }
+            cursor.close();
             this.database.close();
+            return orderList;
         }
-        try {
-            result = obj.getJSONArray("lines");
-            i = 0;
-            while (i < result.length()) {
-                JSONObject jo = result.getJSONObject(i);
-                String product_name = jo.getString(Constant.PRODUCT_NAME);
-                String product_weight = jo.getString(Constant.PRODUCT_WEIGHT);
-                String product_qty = jo.getString(str6);
-                String product_price = jo.getString(str5);
-                String product_image = jo.getString(str4);
-                try {
-                    product_order_date = jo.getString(str3);
-                    product_id = jo.getString(Constant.PRODUCT_ID);
-                    updated_stock = Integer.parseInt(jo.getString("stock")) - Integer.parseInt(product_qty);
-                } catch (JSONException e5) {
-                    e = e5;
-                    e.printStackTrace();
-                    this.database.close();
-                }
-                try {
-                    values22.put(Constant.INVOICE_ID, order_id);
-                    values22.put(Constant.PRODUCT_NAME, product_name);
-                    values22.put(Constant.PRODUCT_WEIGHT, product_weight);
-                    values22.put(str6, product_qty);
-                    values22.put(str5, product_price);
-                    values22.put(str4, product_image);
-                    values22.put(str3, product_order_date);
-                    values22.put(str2, str);
-                } catch (JSONException e6) {
-                    e = e6;
-                    e.printStackTrace();
-                    this.database.close();
-                }
-                try {
-                    values3.put("product_stock", Integer.valueOf(updated_stock));
-                    this.database.insert("order_details", null, values22);
-                    try {
-                        this.database.update("products", values3, "product_id=?", new String[]{product_id});
-                        i++;
-                        str6 = str6;
-                        str5 = str5;
-                        result = result;
-                        str2 = str2;
-                        values22 = values22;
-                        values3 = values3;
-                        str3 = str3;
-                        values = values;
-                        str4 = str4;
-                        str = str;
-                    } catch (JSONException e7) {
-                        e = e7;
-                        e.printStackTrace();
-                        this.database.close();
-                    }
-                } catch (JSONException e8) {
-                    e = e8;
-                    e.printStackTrace();
-                    this.database.close();
-                }
+
+        public ArrayList<HashMap<String, String>> searchOrderList(String s) {
+            ArrayList<HashMap<String, String>> orderList = new ArrayList<>();
+            SQLiteDatabase sQLiteDatabase = this.database;
+            Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_list WHERE customer_name LIKE '%" + s + "%' OR invoice_id LIKE '%" + s + "%'  OR order_status LIKE '%" + s + "%' ORDER BY order_id DESC", null);
+            if (cursor.moveToFirst()) {
+                do {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put(Constant.INVOICE_ID, cursor.getString(1));
+                    map.put(Constant.ORDER_DATE, cursor.getString(2));
+                    map.put(Constant.ORDER_TIME, cursor.getString(3));
+                    map.put(Constant.ORDER_TYPE, cursor.getString(4));
+                    map.put(Constant.ORDER_PAYMENT_METHOD, cursor.getString(5));
+                    map.put(Constant.CUSTOMER_NAME, cursor.getString(6));
+                    map.put(Constant.TAX, cursor.getString(7));
+                    map.put(Constant.DISCOUNT, cursor.getString(8));
+                    map.put(Constant.ORDER_STATUS, cursor.getString(cursor.getColumnIndex(Constant.ORDER_STATUS)));
+                    orderList.add(map);
+                } while (cursor.moveToNext());
             }
-        } catch (JSONException e9) {
-            e = e9;
-            e.printStackTrace();
+            cursor.close();
             this.database.close();
+            return orderList;
         }
-        this.database.close();
-    }
 
-    public ArrayList<HashMap<String, String>> getOrderList() {
-        ArrayList<HashMap<String, String>> orderList = new ArrayList<>();
-        Cursor cursor = this.database.rawQuery("SELECT * FROM order_list ORDER BY order_id DESC", null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<>();
-                map.put(Constant.INVOICE_ID, cursor.getString(1));
-                map.put(Constant.ORDER_DATE, cursor.getString(2));
-                map.put(Constant.ORDER_TIME, cursor.getString(3));
-                map.put(Constant.ORDER_TYPE, cursor.getString(4));
-                map.put(Constant.ORDER_PAYMENT_METHOD, cursor.getString(5));
-                map.put(Constant.CUSTOMER_NAME, cursor.getString(6));
-                map.put(Constant.TAX, cursor.getString(7));
-                map.put(Constant.DISCOUNT, cursor.getString(8));
-                map.put(Constant.ORDER_STATUS, cursor.getString(cursor.getColumnIndex(Constant.ORDER_STATUS)));
-                orderList.add(map);
-            } while (cursor.moveToNext());
+        public ArrayList<HashMap<String, String>> getOrderDetailsList(String order_id) {
+            ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
+            SQLiteDatabase sQLiteDatabase = this.database;
+            Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_details WHERE invoice_id='" + order_id + "' ORDER BY order_details_id DESC", null);
+            if (cursor.moveToFirst()) {
+                do {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put(Constant.PRODUCT_NAME, cursor.getString(2));
+                    map.put(Constant.PRODUCT_WEIGHT, cursor.getString(3));
+                    map.put(Constant.PRODUCT_QTY, cursor.getString(4));
+                    map.put(Constant.PRODUCT_PRICE, cursor.getString(5));
+                    map.put(Constant.PRODUCT_IMAGE, cursor.getString(6));
+                    orderDetailsList.add(map);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            this.database.close();
+            return orderDetailsList;
         }
-        cursor.close();
-        this.database.close();
-        return orderList;
-    }
-
-    public ArrayList<HashMap<String, String>> searchOrderList(String s) {
-        ArrayList<HashMap<String, String>> orderList = new ArrayList<>();
-        SQLiteDatabase sQLiteDatabase = this.database;
-        Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_list WHERE customer_name LIKE '%" + s + "%' OR invoice_id LIKE '%" + s + "%'  OR order_status LIKE '%" + s + "%' ORDER BY order_id DESC", null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<>();
-                map.put(Constant.INVOICE_ID, cursor.getString(1));
-                map.put(Constant.ORDER_DATE, cursor.getString(2));
-                map.put(Constant.ORDER_TIME, cursor.getString(3));
-                map.put(Constant.ORDER_TYPE, cursor.getString(4));
-                map.put(Constant.ORDER_PAYMENT_METHOD, cursor.getString(5));
-                map.put(Constant.CUSTOMER_NAME, cursor.getString(6));
-                map.put(Constant.TAX, cursor.getString(7));
-                map.put(Constant.DISCOUNT, cursor.getString(8));
-                map.put(Constant.ORDER_STATUS, cursor.getString(cursor.getColumnIndex(Constant.ORDER_STATUS)));
-                orderList.add(map);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        this.database.close();
-        return orderList;
-    }
-
-    public ArrayList<HashMap<String, String>> getOrderDetailsList(String order_id) {
-        ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
-        SQLiteDatabase sQLiteDatabase = this.database;
-        Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_details WHERE invoice_id='" + order_id + "' ORDER BY order_details_id DESC", null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<>();
-                map.put(Constant.PRODUCT_NAME, cursor.getString(2));
-                map.put(Constant.PRODUCT_WEIGHT, cursor.getString(3));
-                map.put(Constant.PRODUCT_QTY, cursor.getString(4));
-                map.put(Constant.PRODUCT_PRICE, cursor.getString(5));
-                map.put(Constant.PRODUCT_IMAGE, cursor.getString(6));
-                orderDetailsList.add(map);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        this.database.close();
-        return orderDetailsList;
-    }
-*/
+    */
     public ArrayList<HashMap<String, String>> getAllSalesItems() {
         ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM order_details  WHERE order_status='Completed' ORDER BY order_details_id DESC", null);
