@@ -83,7 +83,7 @@
                     android:textColor="@color/granite_gray" />
 
                 <ImageButton
-                    android:id="@+id/ib_select_customer"
+                    android:id="@+id/ib_dialog_customer"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -117,7 +117,7 @@
                     android:textColor="@color/granite_gray" />
 
                 <ImageButton
-                    android:id="@+id/ib_order_type"
+                    android:id="@+id/ib_dialog_order_type"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -151,7 +151,7 @@
                     android:textColor="@color/granite_gray" />
 
                 <ImageButton
-                    android:id="@+id/ib_order_payment_method"
+                    android:id="@+id/ib_dialog_payment_method"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/selectableItemBackgroundBorderless"
