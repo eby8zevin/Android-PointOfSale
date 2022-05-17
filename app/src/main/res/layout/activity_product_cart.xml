@@ -9,6 +9,7 @@
     tools:context=".pos.ProductCartActivity">
 
     <LinearLayout
+        android:id="@+id/layoutTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -49,7 +50,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layoutTop"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
