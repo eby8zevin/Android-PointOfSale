@@ -19,6 +19,8 @@ import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.CartProductItemsBinding;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
@@ -99,7 +101,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         if (base64Image != null) {
             if (base64Image.isEmpty() || base64Image.length() < 6) {
-                holder.binding.ivCartProduct.setImageResource(R.drawable.image_placeholder);
+                Glide.with(holder.itemView.getContext())
+                        .load(base64Image)
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.image_placeholder))
+                        .into(holder.binding.ivCartProduct);
             } else {
                 byte[] bytes = Base64.decode(base64Image, Base64.DEFAULT);
                 holder.binding.ivCartProduct.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
