@@ -17,14 +17,20 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ProductCategoryItemBinding;
 import com.ahmadabuhasan.pointofsale.settings.categories.EditCategoryActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.HashMap;
 import java.util.List;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategoryAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> categoryData;
+    private final Context context;
+    private final List<HashMap<String, String>> categoryData;
     RecyclerView recyclerView;
     ImageView ivNoData;
     TextView tvNoData;
@@ -59,16 +65,19 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
         holder.binding.tvCategoryName.setText(category_name);
         holder.binding.cvCategory.setOnClickListener(view -> {
             ProductCategoryAdapter.this.sound.start();
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(ProductCategoryAdapter.this.context);
-            databaseAccess.open();
+            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
 
+            databaseAccess.open();
             List<HashMap<String, String>> fromCategoryList = databaseAccess.getTabProducts(category_id);
             if (fromCategoryList.size() <= 0) {
                 this.recyclerView.setVisibility(View.INVISIBLE);
                 this.recyclerView.setVisibility(View.GONE);
                 this.tvNoData.setVisibility(View.VISIBLE);
                 this.ivNoData.setVisibility(View.VISIBLE);
-                this.ivNoData.setImageResource(R.drawable.not_found);
+                Glide.with(holder.itemView.getContext())
+                        .load(R.drawable.not_found)
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.image_placeholder))
+                        .into(ivNoData);
                 return;
             }
             this.tvNoData.setVisibility(View.GONE);
@@ -87,7 +96,7 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ProductCategoryItemBinding binding;
+        private final ProductCategoryItemBinding binding;
 
         public MyViewHolder(@NonNull ProductCategoryItemBinding binding) {
             super(binding.getRoot());
