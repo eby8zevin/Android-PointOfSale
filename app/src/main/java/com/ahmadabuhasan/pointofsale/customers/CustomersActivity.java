@@ -40,7 +40,7 @@ public class CustomersActivity extends BaseActivity {
     private ActivityCustomersBinding binding;
 
     ProgressDialog loading;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class CustomersActivity extends BaseActivity {
         this.binding.customerRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.customerRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> customerData = databaseAccess.getCustomers();
         Log.d("data", "" + customerData.size());
