@@ -20,6 +20,8 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.PosProductItemBinding;
 import com.ahmadabuhasan.pointofsale.product.EditProductActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -82,8 +84,12 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         if (base64Image != null) {
             if (base64Image.length() < 6) {
                 Log.d("64base", base64Image);
-                holder.binding.ivProduct.setImageResource(R.drawable.image_placeholder);
-                holder.binding.ivProduct.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                //holder.binding.ivProduct.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                Glide.with(holder.itemView.getContext())
+                        .load(base64Image)
+                        .fitCenter()
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.image_placeholder))
+                        .into(holder.binding.ivProduct);
             } else {
                 byte[] bytes = Base64.decode(base64Image, Base64.DEFAULT);
                 holder.binding.ivProduct.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
