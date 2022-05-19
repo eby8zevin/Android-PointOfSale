@@ -73,6 +73,7 @@ public class ProductCartActivity extends BaseActivity {
 
         this.binding.cartRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.cartRecyclerview.setHasFixedSize(true);
+
         databaseAccess.open();
         List<HashMap<String, String>> cartProductList = databaseAccess.getCartProduct();
         if (cartProductList.isEmpty()) {
@@ -100,7 +101,7 @@ public class ProductCartActivity extends BaseActivity {
         List<HashMap<String, String>> shopData = databaseAccess1.getShopInformation();
         final String shop_currency = shopData.get(0).get(Constant.SHOP_CURRENCY);
         String tax = shopData.get(0).get(Constant.TAX);
-        double getTax = Double.parseDouble(tax);
+        double getTax = Double.parseDouble(Objects.requireNonNull(tax));
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_payment, null);
@@ -121,14 +122,15 @@ public class ProductCartActivity extends BaseActivity {
         final EditText etDialogDiscount = dialogView.findViewById(R.id.et_dialog_discount);
         final TextView tvDialogTotalCost = dialogView.findViewById(R.id.tv_dialog_total_cost);
 
-        final double total_cost = CartAdapter.total_price.doubleValue();
-        StringBuilder sb = new StringBuilder();
-        sb.append(shop_currency);
-        sb.append(this.decimalFormat.format(total_cost));
-        tvDialogTotal.setText(sb.toString());
+        final double total_cost = CartAdapter.total_price;
+        String sb = shop_currency +
+                this.decimalFormat.format(total_cost);
+        tvDialogTotal.setText(sb);
         tvDialogTax.setText(String.format("%s( %s%%) : ", getString(R.string.tax), tax));
+
         final double calculated_tax = (total_cost * getTax) / 100.d;
         tvTotalTax.setText(String.format("%s%s", shop_currency, this.decimalFormat.format(calculated_tax)));
+
         double calculated_totalCost = (total_cost + calculated_tax) - Utils.DOUBLE_EPSILON;
         tvDialogTotalCost.setText(String.format("%s%s", shop_currency, this.decimalFormat.format(calculated_totalCost)));
 
@@ -323,15 +325,15 @@ public class ProductCartActivity extends BaseActivity {
         btnSubmit.setOnClickListener(view -> {
             String discount;
             String customer_name = tvDialogCustomer.getText().toString().trim();
-            String order_type1 = tvDialogOrderType.getText().toString().trim();
-            String payment_method1 = tvDialogPaymentMethod.getText().toString().trim();
+            String submit_orderType = tvDialogOrderType.getText().toString().trim();
+            String submit_paymentMethod = tvDialogPaymentMethod.getText().toString().trim();
             String disc = etDialogDiscount.getText().toString().trim();
             if (disc.isEmpty()) {
                 discount = "0.00";
             } else {
                 discount = disc;
             }
-            proceedOrder(customer_name, order_type1, payment_method1, calculated_tax, discount);
+            proceedOrder(customer_name, submit_orderType, submit_paymentMethod, calculated_tax, discount);
             closeSubmit.dismiss();
         });
         closeSubmit.show();
@@ -363,6 +365,7 @@ public class ProductCartActivity extends BaseActivity {
                 jsonObject.put(Constant.TAX, tax);
                 jsonObject.put(Constant.DISCOUNT, discount);
 
+                JSONArray array = new JSONArray();
                 int i = 0;
                 while (i < lines.size()) {
                     databaseAccess2.open();
@@ -376,7 +379,6 @@ public class ProductCartActivity extends BaseActivity {
                     databaseAccess2.open();
                     String product_image = databaseAccess2.getProductImage(product_id);
 
-                    JSONArray array = new JSONArray();
                     JSONObject obj = new JSONObject();
                     try {
                         obj.put(productID, product_id);
@@ -392,11 +394,14 @@ public class ProductCartActivity extends BaseActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                         saveOrderInOfflineDb(jsonObject);
+                        return;
                     }
                 }
+                jsonObject.put("lines", array);
             } catch (JSONException e) {
                 e.printStackTrace();
                 saveOrderInOfflineDb(jsonObject);
+                return;
             }
             saveOrderInOfflineDb(jsonObject);
             return;
