@@ -22,10 +22,14 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> customerData;
+    private final Context context;
+    private final List<HashMap<String, String>> customerData;
 
     public CustomerAdapter(Context context1, List<HashMap<String, String>> customerData1) {
         this.context = context1;
@@ -54,23 +58,23 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             String phone = "tel:" + customer_cell;
             callIntent.setData(Uri.parse(phone));
-            CustomerAdapter.this.context.startActivity(callIntent);
+            this.context.startActivity(callIntent);
         });
 
         holder.binding.ivCustomerDelete.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(CustomerAdapter.this.context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
             builder.setMessage(R.string.want_to_delete_customer)
                     .setCancelable(false)
                     .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-                        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(CustomerAdapter.this.context);
+                        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
                         databaseAccess.open();
 
                         if (databaseAccess.deleteCustomer(customer_id)) {
-                            Toasty.error(CustomerAdapter.this.context, R.string.customer_deleted, Toasty.LENGTH_SHORT).show();
-                            CustomerAdapter.this.customerData.remove(holder.getAdapterPosition());
-                            CustomerAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                            Toasty.error(this.context, R.string.customer_deleted, Toasty.LENGTH_SHORT).show();
+                            this.customerData.remove(holder.getAdapterPosition());
+                            this.notifyItemRemoved(holder.getAdapterPosition());
                         } else {
-                            Toast.makeText(CustomerAdapter.this.context, R.string.failed, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this.context, R.string.failed, Toast.LENGTH_SHORT).show();
                         }
                         dialogInterface.cancel();
                     }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.cancel()).show();
@@ -79,12 +83,12 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return customerData.size();
+        return this.customerData.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private CustomerItemBinding binding;
+        private final CustomerItemBinding binding;
 
         public MyViewHolder(@NonNull CustomerItemBinding binding) {
             super(binding.getRoot());
@@ -100,7 +104,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
             i.putExtra(Constant.CUSTOMER_CELL, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(Constant.CUSTOMER_CELL));
             i.putExtra(Constant.CUSTOMER_EMAIL, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(Constant.CUSTOMER_EMAIL));
             i.putExtra(Constant.CUSTOMER_ADDRESS, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(Constant.CUSTOMER_ADDRESS));
-            CustomerAdapter.this.context.startActivity(i);
+            context.startActivity(i);
         }
     }
 }
