@@ -23,6 +23,10 @@ import java.util.Objects;
 import es.dmoral.toasty.Toasty;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ScannerActivity extends BaseActivity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView scannerView;
