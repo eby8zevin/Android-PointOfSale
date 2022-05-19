@@ -67,8 +67,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
                     .setCancelable(false)
                     .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
                         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
-                        databaseAccess.open();
 
+                        databaseAccess.open();
                         if (databaseAccess.deleteCustomer(customer_id)) {
                             Toasty.error(this.context, R.string.customer_deleted, Toasty.LENGTH_SHORT).show();
                             this.customerData.remove(holder.getAdapterPosition());
