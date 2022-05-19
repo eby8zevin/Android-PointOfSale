@@ -35,9 +35,6 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:icon"
         tools:targetApi="p">
-        <activity
-            android:name=".orders.OrdersActivity"
-            android:exported="false" />
         <activity android:name=".settings.backup.BackupActivity" />
         <activity android:name=".settings.payment_method.EditPaymentMethodActivity" />
         <activity android:name=".settings.payment_method.AddPaymentMethodActivity" />
@@ -55,6 +52,7 @@
         <activity android:name=".report.GraphReportActivity" />
         <activity android:name=".report.SalesReportActivity" />
         <activity android:name=".report.ReportActivity" />
+        <activity android:name=".orders.OrdersActivity" />
         <activity android:name=".expense.EditExpenseActivity" />
         <activity android:name=".expense.AddExpenseActivity" />
         <activity android:name=".expense.ExpenseActivity" />
