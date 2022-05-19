@@ -22,9 +22,14 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ExpenseActivity extends BaseActivity {
 
     private ActivityExpenseBinding binding;
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +44,8 @@ public class ExpenseActivity extends BaseActivity {
         this.binding.expenseRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.expenseRecyclerview.setHasFixedSize(true);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         List<HashMap<String, String>> expenseData = databaseAccess.getAllExpense();
         Log.d("data", "" + expenseData.size());
         if (expenseData.size() <= 0) {
@@ -62,21 +66,19 @@ public class ExpenseActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(ExpenseActivity.this);
-                databaseAccess1.open();
-
-                List<HashMap<String, String>> searchExpenseList = databaseAccess1.searchExpense(charSequence.toString());
+                databaseAccess.open();
+                List<HashMap<String, String>> searchExpenseList = databaseAccess.searchExpense(charSequence.toString());
                 if (searchExpenseList.size() <= 0) {
-                    ExpenseActivity.this.binding.expenseRecyclerview.setVisibility(View.GONE);
-                    ExpenseActivity.this.binding.ivNoExpense.setVisibility(View.VISIBLE);
-                    ExpenseActivity.this.binding.ivNoExpense.setImageResource(R.drawable.no_data);
+                    binding.expenseRecyclerview.setVisibility(View.GONE);
+                    binding.ivNoExpense.setVisibility(View.VISIBLE);
+                    binding.ivNoExpense.setImageResource(R.drawable.no_data);
                     return;
                 }
-                ExpenseActivity.this.binding.ivNoExpense.setVisibility(View.GONE);
-                ExpenseActivity.this.binding.expenseRecyclerview.setVisibility(View.VISIBLE);
+                binding.ivNoExpense.setVisibility(View.GONE);
+                binding.expenseRecyclerview.setVisibility(View.VISIBLE);
 
                 ExpenseAdapter adapter1 = new ExpenseAdapter(ExpenseActivity.this, searchExpenseList);
-                ExpenseActivity.this.binding.expenseRecyclerview.setAdapter(adapter1);
+                binding.expenseRecyclerview.setAdapter(adapter1);
             }
 
             @Override
@@ -85,7 +87,7 @@ public class ExpenseActivity extends BaseActivity {
             }
         });
 
-        this.binding.fabAdd.setOnClickListener(view -> ExpenseActivity.this.startActivity(new Intent(ExpenseActivity.this, AddExpenseActivity.class)));
+        this.binding.fabAdd.setOnClickListener(view -> this.startActivity(new Intent(ExpenseActivity.this, AddExpenseActivity.class)));
     }
 
     @Override
