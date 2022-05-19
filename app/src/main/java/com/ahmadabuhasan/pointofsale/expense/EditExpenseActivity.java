@@ -94,7 +94,7 @@ public class EditExpenseActivity extends BaseActivity {
 
                 databaseAccess.open();
                 if (databaseAccess.updateExpense(get_ExpenseID, expense_name, expense_amount, expense_note, expense_date, expense_time)) {
-                    Toasty.success(this, R.string.expense_successfully_added, Toasty.LENGTH_SHORT).show();
+                    Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(this, ExpenseActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
                     this.startActivity(i);
