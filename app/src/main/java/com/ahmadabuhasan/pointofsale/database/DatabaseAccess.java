@@ -585,13 +585,12 @@ public class DatabaseAccess {
         return total_cost;
     }
 
-    /*
-        public boolean deleteProductFromCart(String id) {
-            long check = (long) this.database.delete("product_cart", "cart_id=?", new String[]{id});
-            this.database.close();
-            return check == 1;
-        }
-*/
+    public boolean deleteProductFromCart(String id) {
+        long check = (long) this.database.delete("product_cart", "cart_id=?", new String[]{id});
+        this.database.close();
+        return check == 1;
+    }
+
     public ArrayList<HashMap<String, String>> getTabProducts(String category_id) {
         ArrayList<HashMap<String, String>> product = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM products WHERE product_category = '" + category_id + "' ORDER BY product_id DESC", null);
