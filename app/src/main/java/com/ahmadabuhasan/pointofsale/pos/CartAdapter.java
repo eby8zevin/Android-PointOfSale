@@ -119,14 +119,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.binding.ivDelete.setOnClickListener(view -> {
             databaseAccess.open();
             if (databaseAccess.deleteProductFromCart(cart_id)) {
-                Toasty.success(context, R.string.product_removed_from_cart, Toasty.LENGTH_SHORT).show();
+                Toasty.success(this.context, R.string.product_removed_from_cart, Toasty.LENGTH_SHORT).show();
                 sound.start();
                 cartProduct.remove(holder.getAdapterPosition());
                 notifyItemRemoved(holder.getAdapterPosition());
 
                 databaseAccess.open();
                 total_price = databaseAccess.getTotalPrice();
-                tvTotalPrice.setText(MessageFormat.format("{0}{1}{2}", R.string.total_price, currency, decimalFormat.format(total_price)));
+                tvTotalPrice.setText(String.format("%s%s%s", this.context.getString(R.string.total_price), currency, decimalFormat.format(total_price)));
             } else {
                 Toasty.error(context, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
