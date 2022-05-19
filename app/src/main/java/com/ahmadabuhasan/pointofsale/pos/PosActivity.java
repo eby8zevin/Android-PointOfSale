@@ -63,8 +63,6 @@ public class PosActivity extends BaseActivity {
         this.binding.ivNoProduct.setVisibility(View.GONE);
         this.binding.tvNoProduct.setVisibility(View.GONE);
 
-        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             this.spanCount = Configuration.SCREENLAYOUT_SIZE_XLARGE;
         } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
@@ -74,6 +72,8 @@ public class PosActivity extends BaseActivity {
         } else {
             this.spanCount = Configuration.SCREENLAYOUT_SIZE_XLARGE;
         }
+
+        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
         databaseAccess.open();
         int count = databaseAccess.getCartItemCount();
@@ -93,7 +93,6 @@ public class PosActivity extends BaseActivity {
 
         this.binding.tvReset.setOnClickListener(view -> {
             databaseAccess.open();
-
             List<HashMap<String, String>> productList = databaseAccess.getProducts();
             if (productList.isEmpty()) {
                 binding.posRecyclerview.setVisibility(View.GONE);
@@ -128,12 +127,12 @@ public class PosActivity extends BaseActivity {
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 databaseAccess.open();
                 List<HashMap<String, String>> searchProductList = databaseAccess.getSearchProducts(charSequence.toString());
                 if (searchProductList.size() <= 0) {
