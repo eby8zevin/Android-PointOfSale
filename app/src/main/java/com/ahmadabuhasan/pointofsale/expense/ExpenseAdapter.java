@@ -21,10 +21,14 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> expenseData;
+    private final Context context;
+    private final List<HashMap<String, String>> expenseData;
 
     public ExpenseAdapter(Context context1, List<HashMap<String, String>> expenseData1) {
         this.context = context1;
@@ -42,8 +46,8 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
     public void onBindViewHolder(@NonNull ExpenseAdapter.MyViewHolder holder, int position) {
 
         final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
-        databaseAccess.open();
 
+        databaseAccess.open();
         String currency = databaseAccess.getCurrency();
 
         final String expense_id = this.expenseData.get(position).get(Constant.EXPENSE_ID);
@@ -59,17 +63,17 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         holder.binding.tvExpenseNote.setText(String.format("%s%s", this.context.getString(R.string.note), expense_note));
 
         holder.binding.ivExpenseDelete.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(ExpenseAdapter.this.context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
             builder.setMessage(R.string.want_to_delete_expense)
                     .setCancelable(false)
                     .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
                         databaseAccess.open();
                         if (databaseAccess.deleteExpense(expense_id)) {
-                            Toasty.error(ExpenseAdapter.this.context, R.string.expense_deleted, Toasty.LENGTH_SHORT).show();
-                            ExpenseAdapter.this.expenseData.remove(holder.getAdapterPosition());
-                            ExpenseAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                            Toasty.error(this.context, R.string.expense_deleted, Toasty.LENGTH_SHORT).show();
+                            this.expenseData.remove(holder.getAdapterPosition());
+                            this.notifyItemRemoved(holder.getAdapterPosition());
                         } else {
-                            Toast.makeText(ExpenseAdapter.this.context, R.string.failed, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this.context, R.string.failed, Toast.LENGTH_SHORT).show();
                         }
                         dialogInterface.cancel();
                     }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.cancel()).show();
@@ -78,12 +82,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return expenseData.size();
+        return this.expenseData.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ExpenseItemBinding binding;
+        private final ExpenseItemBinding binding;
 
         public MyViewHolder(@NonNull ExpenseItemBinding binding) {
             super(binding.getRoot());
@@ -100,7 +104,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
             i.putExtra(Constant.EXPENSE_DATE, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_DATE));
             i.putExtra(Constant.EXPENSE_TIME, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_TIME));
             i.putExtra(Constant.EXPENSE_NOTE, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_NOTE));
-            ExpenseAdapter.this.context.startActivity(i);
+            context.startActivity(i);
         }
     }
 }
