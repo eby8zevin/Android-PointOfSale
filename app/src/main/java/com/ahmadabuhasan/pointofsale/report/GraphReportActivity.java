@@ -19,12 +19,15 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import java.text.DecimalFormat;
-import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
 
 public class GraphReportActivity extends BaseActivity {
 
@@ -55,7 +58,7 @@ public class GraphReportActivity extends BaseActivity {
         this.mYear = parseInt;
         getGraphData(parseInt);
 
-        this.binding.layoutYear.setOnClickListener(view -> GraphReportActivity.this.chooseYearOnly());
+        this.binding.layoutYear.setOnClickListener(view -> this.chooseYearOnly());
     }
 
     public void getGraphData(int mYear) {
@@ -108,16 +111,13 @@ public class GraphReportActivity extends BaseActivity {
 
     private void chooseYearOnly() {
         this.binding.tvSelectYear.setOnClickListener(view -> {
-            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(GraphReportActivity.this, new MonthPickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(int selectedMonth, int selectedYear) {
-                    GraphReportActivity.this.binding.tvSelectYear.setText(MessageFormat.format("{0} {1}", GraphReportActivity.this.getString(R.string.year), selectedYear));
-                    GraphReportActivity.this.mYear = selectedYear;
-                    GraphReportActivity.this.getGraphData(GraphReportActivity.this.mYear);
-                }
-            }, GraphReportActivity.this.mYear, 0);
+            MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(this, (selectedMonth, selectedYear) -> {
+                this.binding.tvSelectYear.setText(String.format("%s %s", getString(R.string.year), selectedYear));
+                this.mYear = selectedYear;
+                this.getGraphData(this.mYear);
+            }, this.mYear, 0);
             builder.showYearOnly()
-                    .setTitle(GraphReportActivity.this.getString(R.string.select_year))
+                    .setTitle(getString(R.string.select_year))
                     .build().show();
         });
     }
