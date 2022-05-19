@@ -56,6 +56,7 @@ public class ProductCartActivity extends BaseActivity {
     List<String> orderTypeNames;
     ArrayAdapter<String> paymentMethodAdapter;
     List<String> paymentMethodNames;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,6 @@ public class ProductCartActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.product_cart);
 
         this.binding.tvNoProduct.setVisibility(View.GONE);
-
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
         this.binding.cartRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.cartRecyclerview.setHasFixedSize(true);
@@ -95,10 +94,8 @@ public class ProductCartActivity extends BaseActivity {
     }
 
     public void dialog() {
-        DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(this);
-        databaseAccess1.open();
-
-        List<HashMap<String, String>> shopData = databaseAccess1.getShopInformation();
+        databaseAccess.open();
+        List<HashMap<String, String>> shopData = databaseAccess.getShopInformation();
         final String shop_currency = shopData.get(0).get(Constant.SHOP_CURRENCY);
         String tax = shopData.get(0).get(Constant.TAX);
         double getTax = Double.parseDouble(Objects.requireNonNull(tax));
@@ -171,22 +168,22 @@ public class ProductCartActivity extends BaseActivity {
         });
 
         this.customerNames = new ArrayList<>();
-        databaseAccess1.open();
-        List<HashMap<String, String>> customer = databaseAccess1.getCustomers();
+        databaseAccess.open();
+        List<HashMap<String, String>> customer = databaseAccess.getCustomers();
         for (int i = 0; i < customer.size(); i++) {
             this.customerNames.add(customer.get(i).get(Constant.CUSTOMER_NAME));
         }
 
         this.orderTypeNames = new ArrayList<>();
-        databaseAccess1.open();
-        List<HashMap<String, String>> order_type = databaseAccess1.getOrderType();
+        databaseAccess.open();
+        List<HashMap<String, String>> order_type = databaseAccess.getOrderType();
         for (int i1 = 0; i1 < order_type.size(); i1++) {
             this.orderTypeNames.add(order_type.get(i1).get(Constant.ORDER_TYPE_NAME));
         }
 
         this.paymentMethodNames = new ArrayList<>();
-        databaseAccess1.open();
-        List<HashMap<String, String>> payment_method = databaseAccess1.getPaymentMethod();
+        databaseAccess.open();
+        List<HashMap<String, String>> payment_method = databaseAccess.getPaymentMethod();
         for (int i2 = 0; i2 < payment_method.size(); i2++) {
             this.paymentMethodNames.add(payment_method.get(i2).get(Constant.PAYMENT_METHOD_NAME));
         }
@@ -340,13 +337,11 @@ public class ProductCartActivity extends BaseActivity {
     }
 
     public void proceedOrder(String customerName, String orderType, String paymentMethod, double tax, String discount) {
-        DatabaseAccess databaseAccess2 = DatabaseAccess.getInstance(this);
-
         String productID = Constant.PRODUCT_ID;
-        databaseAccess2.open();
-        if (databaseAccess2.getCartItemCount() > 0) {
-            databaseAccess2.open();
-            List<HashMap<String, String>> lines = databaseAccess2.getCartProduct();
+        databaseAccess.open();
+        if (databaseAccess.getCartItemCount() > 0) {
+            databaseAccess.open();
+            List<HashMap<String, String>> lines = databaseAccess.getCartProduct();
             if (lines.isEmpty()) {
                 Toasty.error(this, R.string.no_product_found, Toasty.LENGTH_SHORT).show();
                 return;
@@ -368,16 +363,16 @@ public class ProductCartActivity extends BaseActivity {
                 JSONArray array = new JSONArray();
                 int i = 0;
                 while (i < lines.size()) {
-                    databaseAccess2.open();
+                    databaseAccess.open();
                     String product_id = lines.get(i).get(productID);
-                    String product_name = databaseAccess2.getProductName(product_id);
+                    String product_name = databaseAccess.getProductName(product_id);
 
-                    databaseAccess2.open();
+                    databaseAccess.open();
                     String weight_unit_id = lines.get(i).get(Constant.PRODUCT_WEIGHT_UNIT);
-                    String weight_unit = databaseAccess2.getWeightUnitName(weight_unit_id);
+                    String weight_unit = databaseAccess.getWeightUnitName(weight_unit_id);
 
-                    databaseAccess2.open();
-                    String product_image = databaseAccess2.getProductImage(product_id);
+                    databaseAccess.open();
+                    String product_image = databaseAccess.getProductImage(product_id);
 
                     JSONObject obj = new JSONObject();
                     try {
