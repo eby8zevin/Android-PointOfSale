@@ -28,10 +28,16 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class AddCustomersActivity extends BaseActivity {
 
     private ActivityAddCustomersBinding binding;
+
     ProgressDialog loading;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,35 +50,33 @@ public class AddCustomersActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.add_customer);
 
         this.binding.tvAddCustomer.setOnClickListener(view -> {
-            String customer_name = AddCustomersActivity.this.binding.etCustomerName.getText().toString().trim();
-            String customer_cell = AddCustomersActivity.this.binding.etCustomerCell.getText().toString().trim();
-            String customer_email = AddCustomersActivity.this.binding.etCustomerEmail.getText().toString().trim();
-            String customer_address = AddCustomersActivity.this.binding.etCustomerAddress.getText().toString().trim();
+            String customer_name = this.binding.etCustomerName.getText().toString().trim();
+            String customer_cell = this.binding.etCustomerCell.getText().toString().trim();
+            String customer_email = this.binding.etCustomerEmail.getText().toString().trim();
+            String customer_address = this.binding.etCustomerAddress.getText().toString().trim();
 
             if (customer_name.isEmpty()) {
-                AddCustomersActivity.this.binding.etCustomerName.setError(AddCustomersActivity.this.getString(R.string.enter_customer_name));
-                AddCustomersActivity.this.binding.etCustomerName.requestFocus();
+                this.binding.etCustomerName.setError(getString(R.string.enter_customer_name));
+                this.binding.etCustomerName.requestFocus();
             } else if (customer_cell.isEmpty()) {
-                AddCustomersActivity.this.binding.etCustomerCell.setError(AddCustomersActivity.this.getString(R.string.enter_customer_cell));
-                AddCustomersActivity.this.binding.etCustomerCell.requestFocus();
+                this.binding.etCustomerCell.setError(getString(R.string.enter_customer_cell));
+                this.binding.etCustomerCell.requestFocus();
             } else if (customer_email.isEmpty() || !customer_email.contains("@") || !customer_email.contains(".")) {
-                AddCustomersActivity.this.binding.etCustomerEmail.setError(AddCustomersActivity.this.getString(R.string.enter_valid_email));
-                AddCustomersActivity.this.binding.etCustomerEmail.requestFocus();
+                this.binding.etCustomerEmail.setError(getString(R.string.enter_valid_email));
+                this.binding.etCustomerEmail.requestFocus();
             } else if (customer_address.isEmpty()) {
-                AddCustomersActivity.this.binding.etCustomerAddress.setError(AddCustomersActivity.this.getString(R.string.enter_customer_address));
-                AddCustomersActivity.this.binding.etCustomerAddress.requestFocus();
+                this.binding.etCustomerAddress.setError(getString(R.string.enter_customer_address));
+                this.binding.etCustomerAddress.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddCustomersActivity.this);
                 databaseAccess.open();
-
                 if (databaseAccess.addCustomer(customer_name, customer_cell, customer_email, customer_address)) {
-                    Toasty.success(AddCustomersActivity.this, R.string.customer_successfully_added, Toasty.LENGTH_SHORT).show();
+                    Toasty.success(this, R.string.customer_successfully_added, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(AddCustomersActivity.this, CustomersActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
                     AddCustomersActivity.this.startActivity(i);
                     return;
                 }
-                Toasty.error(AddCustomersActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
@@ -115,9 +119,7 @@ public class AddCustomersActivity extends BaseActivity {
     }
 
     public void onImport(String path) {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         File file = new File(path);
         if (!file.exists()) {
             Toast.makeText(this, R.string.no_file_found, Toast.LENGTH_SHORT).show();
