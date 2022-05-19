@@ -267,7 +267,9 @@ public class DatabaseAccess {
     }
 
     public int addToCart(String product_id, String weight, String weight_unit, String price, int qty, String stock) {
-        if (this.database.rawQuery("SELECT * FROM product_cart WHERE product_id='" + product_id + "'", null).getCount() >= 1) {
+        Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart WHERE product_id='" + product_id + "'", null);
+        int count = cursor.getCount();
+        if (count >= 1) {
             return 2;
         }
         ContentValues contentValues = new ContentValues();
@@ -275,9 +277,10 @@ public class DatabaseAccess {
         contentValues.put(Constant.PRODUCT_WEIGHT, weight);
         contentValues.put(Constant.PRODUCT_WEIGHT_UNIT, weight_unit);
         contentValues.put(Constant.PRODUCT_PRICE, price);
-        contentValues.put(Constant.PRODUCT_QTY, Integer.valueOf(qty));
+        contentValues.put(Constant.PRODUCT_QTY, qty);
         contentValues.put(Constant.STOCK, stock);
         long check = this.database.insert(Constant.productCart, null, contentValues);
+        cursor.close();
         close();
         if (check == -1) {
             return -1;
@@ -309,12 +312,12 @@ public class DatabaseAccess {
 
     public void insertOrder(String order_id, JSONObject jsonObject) {
 
-        String Pending = Constant.PENDING;
-        String order_status = Constant.ORDER_STATUS;
         ContentValues contentValues;
         JSONArray jsonArray;
         int i;
 
+        String Pending = Constant.PENDING;
+        String order_status = Constant.ORDER_STATUS;
         try {
             String order_date = jsonObject.getString(Constant.ORDER_DATE);
             String order_time = jsonObject.getString(Constant.ORDER_TIME);
@@ -337,7 +340,6 @@ public class DatabaseAccess {
 
             this.database.insert(Constant.orderList, null, contentValues);
             this.database.delete(Constant.productCart, null, null);
-
         } catch (JSONException e) {
             e.printStackTrace();
             jsonArray = new JSONArray();
@@ -364,7 +366,6 @@ public class DatabaseAccess {
                 String product_price = jo.getString(Constant.PRODUCT_PRICE);
                 String product_image = jo.getString(Constant.PRODUCT_IMAGE);
                 String product_orderDate = jo.getString(Constant.PRODUCT_ORDER_DATE);
-
                 try {
                     String product_id = jo.getString(Constant.PRODUCT_ID);
                     String stock = jo.getString(Constant.STOCK);
@@ -380,10 +381,11 @@ public class DatabaseAccess {
                     contentValues.put(Constant.PRODUCT_ORDER_DATE, product_orderDate);
                     contentValues.put(Constant.ORDER_STATUS, Pending);
 
-                    contentValues.put(Constant.PRODUCT_STOCK, updated_stock);
+                    ContentValues values = new ContentValues();
+                    values.put(Constant.PRODUCT_STOCK, updated_stock);
 
                     this.database.insert(Constant.orderDetails, null, contentValues);
-                    this.database.update(Constant.products, contentValues, "product_id=?", new String[]{product_id});
+                    this.database.update(Constant.products, values, "product_id=?", new String[]{product_id});
                     i++;
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -392,6 +394,7 @@ public class DatabaseAccess {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            close();
         }
         close();
     }
