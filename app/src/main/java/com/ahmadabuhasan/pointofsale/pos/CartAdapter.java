@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +21,23 @@ import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.CartProductItemsBinding;
 
 import java.text.DecimalFormat;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
+
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> cartProduct;
-    ImageView ivNoData;
-    TextView tvNoData;
+    private final Context context;
+    private final List<HashMap<String, String>> cartProduct;
+    ImageView ivNoCart;
+    TextView tvNoCart;
     TextView tvTotalPrice;
     Button btnSubmitOrder;
 
@@ -44,8 +53,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                        Button btnSubmitOrder1) {
         this.context = context1;
         this.cartProduct = cartProduct1;
-        this.ivNoData = ivNoData1;
-        this.tvNoData = tvNoData1;
+        this.ivNoCart = ivNoData1;
+        this.tvNoCart = tvNoData1;
         this.tvTotalPrice = tvTotalPrice1;
         this.btnSubmitOrder = btnSubmitOrder1;
         this.sound = MediaPlayer.create(context1, R.raw.delete_sound);
@@ -73,7 +82,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         String qty = this.cartProduct.get(position).get(Constant.PRODUCT_QTY);
         String stock = this.cartProduct.get(position).get(Constant.STOCK);
 
-        final int getStock = Integer.parseInt(stock);
+        final int getStock = Integer.parseInt(Objects.requireNonNull(stock));
 
         databaseAccess.open();
         String base64Image = databaseAccess.getProductImage(product_id);
@@ -85,7 +94,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         String currency = databaseAccess.getCurrency();
 
         databaseAccess.open();
-        total_price = Double.valueOf(databaseAccess.getTotalPrice());
+        total_price = databaseAccess.getTotalPrice();
 
         this.tvTotalPrice.setText(String.format("%s%s%s", this.context.getString(R.string.total_price), currency, this.decimalFormat.format(total_price)));
 
@@ -98,8 +107,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             }
         }
 
-        double dPrice = Double.parseDouble(price);
-        double dQty = Integer.parseInt(qty);
+        double dPrice = Double.parseDouble(Objects.requireNonNull(price));
+        double dQty = Integer.parseInt(Objects.requireNonNull(qty));
         Double.isNaN(dQty);
         double getPrice = dQty * dPrice;
 
@@ -108,25 +117,72 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.binding.tvQtyNumber.setText(qty);
         holder.binding.tvPrice.setText(String.format("%s%s", currency, this.decimalFormat.format(getPrice)));
 
-        holder.binding.ivDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.binding.ivDelete.setOnClickListener(view -> {
+            databaseAccess.open();
+            if (databaseAccess.deleteProductFromCart(cart_id)) {
+                Toasty.success(context, R.string.product_removed_from_cart, Toasty.LENGTH_SHORT).show();
+                sound.start();
+                cartProduct.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
 
+                databaseAccess.open();
+                total_price = databaseAccess.getTotalPrice();
+                tvTotalPrice.setText(MessageFormat.format("{0}{1}{2}", R.string.total_price, currency, decimalFormat.format(total_price)));
+            } else {
+                Toasty.error(context, R.string.failed, Toasty.LENGTH_SHORT).show();
+            }
+
+            databaseAccess.open();
+            int itemCount = databaseAccess.getCartItemCount();
+            Log.d("itemCount", "" + itemCount);
+            if (itemCount < 0) {
+                tvTotalPrice.setVisibility(View.GONE);
+                btnSubmitOrder.setVisibility(View.GONE);
+                ivNoCart.setVisibility(View.VISIBLE);
+                tvNoCart.setVisibility(View.VISIBLE);
             }
         });
 
-        holder.binding.tvMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.binding.tvMinus.setOnClickListener(view -> {
+            String qty1 = holder.binding.tvQtyNumber.getText().toString();
+            int get_qty = Integer.parseInt(qty1);
+            if (get_qty >= 2) {
+                int getQty = get_qty - 1;
+                double parsePrice = Double.parseDouble(price);
+                double d = getQty;
+                Double.isNaN(d);
+                double cost = parsePrice * d;
 
+                holder.binding.tvPrice.setText(String.format("%s%s", currency, decimalFormat.format(cost)));
+                holder.binding.tvQtyNumber.setText(MessageFormat.format("{0}", getQty));
+
+                databaseAccess.open();
+                databaseAccess.updateProductQty(cart_id, "" + getQty);
+                total_price = total_price - Double.parseDouble(price);
+                tvTotalPrice.setText(String.format("%s%s%s", this.context.getString(R.string.total_price), currency, decimalFormat.format(total_price)));
             }
         });
 
-        holder.binding.tvPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+        holder.binding.tvPlus.setOnClickListener(view -> {
+            String qty12 = holder.binding.tvQtyNumber.getText().toString();
+            int get_qty = Integer.parseInt(qty12);
+            if (get_qty >= getStock) {
+                Toasty.error(context, R.string.available_stock, Toasty.LENGTH_SHORT).show();
+                return;
             }
+            int getQty = get_qty + 1;
+            double parsePrice = Double.parseDouble(price);
+            double d = getQty;
+            Double.isNaN(d);
+            double cost = parsePrice * d;
+
+            holder.binding.tvPrice.setText(String.format("%s%s", currency, decimalFormat.format(cost)));
+            holder.binding.tvQtyNumber.setText(MessageFormat.format("{0}", getQty));
+
+            databaseAccess.open();
+            databaseAccess.updateProductQty(cart_id, "" + getQty);
+            total_price = total_price + Double.parseDouble(price);
+            tvTotalPrice.setText(String.format("%s%s%s", this.context.getString(R.string.total_price), currency, decimalFormat.format(total_price)));
         });
     }
 
@@ -137,7 +193,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private CartProductItemsBinding binding;
+        private final CartProductItemsBinding binding;
 
         public MyViewHolder(@NonNull CartProductItemsBinding binding) {
             super(binding.getRoot());
