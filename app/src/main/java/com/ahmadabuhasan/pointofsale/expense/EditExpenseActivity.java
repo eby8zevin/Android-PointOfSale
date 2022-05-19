@@ -78,10 +78,10 @@ public class EditExpenseActivity extends BaseActivity {
 
         this.binding.tvUpdateExpense.setOnClickListener(view -> {
             String expense_name = this.binding.etExpenseName.getText().toString();
-            String expense_note = this.binding.etExpenseName.getText().toString();
-            String expense_amount = this.binding.etExpenseName.getText().toString();
-            String expense_date = this.binding.etExpenseName.getText().toString();
-            String expense_time = this.binding.etExpenseName.getText().toString();
+            String expense_note = this.binding.etExpenseNote.getText().toString();
+            String expense_amount = this.binding.etExpenseAmount.getText().toString();
+            String expense_date = this.binding.etExpenseDate.getText().toString();
+            String expense_time = this.binding.etExpenseTime.getText().toString();
 
             if (expense_name.isEmpty()) {
                 this.binding.etExpenseName.setError(this.getString(R.string.expense_name_cannot_be_empty));
