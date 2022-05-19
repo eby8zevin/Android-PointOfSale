@@ -31,10 +31,16 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class CustomersActivity extends BaseActivity {
 
     private ActivityCustomersBinding binding;
+
     ProgressDialog loading;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +55,7 @@ public class CustomersActivity extends BaseActivity {
         this.binding.customerRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.customerRecyclerview.setHasFixedSize(true);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         List<HashMap<String, String>> customerData = databaseAccess.getCustomers();
         Log.d("data", "" + customerData.size());
         if (customerData.size() <= 0) {
@@ -59,33 +63,32 @@ public class CustomersActivity extends BaseActivity {
             this.binding.ivNoCustomer.setImageResource(R.drawable.no_data);
         } else {
             this.binding.ivNoCustomer.setVisibility(View.GONE);
+
             CustomerAdapter adapter = new CustomerAdapter(this, customerData);
             this.binding.customerRecyclerview.setAdapter(adapter);
         }
 
         this.binding.etCustomerSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(CustomersActivity.this);
-                databaseAccess1.open();
-
-                List<HashMap<String, String>> searchCustomerList = databaseAccess1.searchCustomers(charSequence.toString());
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                databaseAccess.open();
+                List<HashMap<String, String>> searchCustomerList = databaseAccess.searchCustomers(charSequence.toString());
                 if (searchCustomerList.size() <= 0) {
-                    CustomersActivity.this.binding.customerRecyclerview.setVisibility(View.GONE);
-                    CustomersActivity.this.binding.ivNoCustomer.setVisibility(View.VISIBLE);
-                    CustomersActivity.this.binding.ivNoCustomer.setImageResource(R.drawable.no_data);
+                    binding.customerRecyclerview.setVisibility(View.GONE);
+                    binding.ivNoCustomer.setVisibility(View.VISIBLE);
+                    binding.ivNoCustomer.setImageResource(R.drawable.no_data);
                     return;
                 }
-                CustomersActivity.this.binding.ivNoCustomer.setVisibility(View.GONE);
-                CustomersActivity.this.binding.customerRecyclerview.setVisibility(View.VISIBLE);
+                binding.ivNoCustomer.setVisibility(View.GONE);
+                binding.customerRecyclerview.setVisibility(View.VISIBLE);
 
                 CustomerAdapter adapter = new CustomerAdapter(CustomersActivity.this, searchCustomerList);
-                CustomersActivity.this.binding.customerRecyclerview.setAdapter(adapter);
+                binding.customerRecyclerview.setAdapter(adapter);
             }
 
             @Override
@@ -94,7 +97,7 @@ public class CustomersActivity extends BaseActivity {
             }
         });
 
-        this.binding.fabAdd.setOnClickListener(view -> CustomersActivity.this.startActivity(new Intent(CustomersActivity.this, AddCustomersActivity.class)));
+        this.binding.fabAdd.setOnClickListener(view -> startActivity(new Intent(CustomersActivity.this, AddCustomersActivity.class)));
     }
 
     @Override
