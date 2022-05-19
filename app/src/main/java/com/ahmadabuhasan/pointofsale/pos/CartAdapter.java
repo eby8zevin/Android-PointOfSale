@@ -95,7 +95,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         databaseAccess.open();
         total_price = databaseAccess.getTotalPrice();
-
         this.tvTotalPrice.setText(String.format("%s%s%s", this.context.getString(R.string.total_price), currency, this.decimalFormat.format(total_price)));
 
         if (base64Image != null) {
