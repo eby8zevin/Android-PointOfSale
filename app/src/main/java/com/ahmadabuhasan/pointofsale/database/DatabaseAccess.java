@@ -626,13 +626,12 @@ public class DatabaseAccess {
         return itemCount;
     }
 
-    /*
-                public void updateProductQty(String id, String qty) {
-                    ContentValues values = new ContentValues();
-                    values.put(Constant.PRODUCT_QTY, qty);
-                    long update = (long) this.database.update("product_cart", values, "cart_id=?", new String[]{id});
-                }
-*/
+    public void updateProductQty(String id, String qty) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.PRODUCT_QTY, qty);
+        long update = (long) this.database.update("product_cart", contentValues, "cart_id=?", new String[]{id});
+    }
+
     public String getProductName(String product_id) {
         String product_name = "N/A";
         Cursor cursor = this.database.rawQuery("SELECT * FROM products WHERE product_id='" + product_id + "'", null);
