@@ -22,10 +22,13 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class AddExpenseActivity extends BaseActivity {
 
     private ActivityAddExpenseBinding binding;
-
     int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
@@ -44,34 +47,34 @@ public class AddExpenseActivity extends BaseActivity {
         this.binding.etExpenseDate.setText(currentDate);
         this.binding.etExpenseTime.setText(currentTime);
 
-        this.binding.etExpenseDate.setOnClickListener(view -> AddExpenseActivity.this.datePicker());
-        this.binding.etExpenseTime.setOnClickListener(view -> AddExpenseActivity.this.timePicker());
+        this.binding.etExpenseDate.setOnClickListener(view -> this.datePicker());
+        this.binding.etExpenseTime.setOnClickListener(view -> this.timePicker());
 
         this.binding.tvAddExpense.setOnClickListener(view -> {
-            String expense_name = AddExpenseActivity.this.binding.etExpenseName.getText().toString();
-            String expense_note = AddExpenseActivity.this.binding.etExpenseName.getText().toString();
-            String expense_amount = AddExpenseActivity.this.binding.etExpenseName.getText().toString();
-            String expense_date = AddExpenseActivity.this.binding.etExpenseName.getText().toString();
-            String expense_time = AddExpenseActivity.this.binding.etExpenseName.getText().toString();
+            String expense_name = this.binding.etExpenseName.getText().toString();
+            String expense_note = this.binding.etExpenseNote.getText().toString();
+            String expense_amount = this.binding.etExpenseAmount.getText().toString();
+            String expense_date = this.binding.etExpenseDate.getText().toString();
+            String expense_time = this.binding.etExpenseTime.getText().toString();
 
             if (expense_name.isEmpty()) {
-                AddExpenseActivity.this.binding.etExpenseName.setError(AddExpenseActivity.this.getString(R.string.expense_name_cannot_be_empty));
-                AddExpenseActivity.this.binding.etExpenseName.requestFocus();
+                this.binding.etExpenseName.setError(this.getString(R.string.expense_name_cannot_be_empty));
+                this.binding.etExpenseName.requestFocus();
             } else if (expense_amount.isEmpty()) {
-                AddExpenseActivity.this.binding.etExpenseAmount.setError(AddExpenseActivity.this.getString(R.string.expense_amount_cannot_be_empty));
-                AddExpenseActivity.this.binding.etExpenseAmount.requestFocus();
+                this.binding.etExpenseAmount.setError(this.getString(R.string.expense_amount_cannot_be_empty));
+                this.binding.etExpenseAmount.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddExpenseActivity.this);
-                databaseAccess.open();
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
+                databaseAccess.open();
                 if (databaseAccess.addExpense(expense_name, expense_amount, expense_note, expense_date, expense_time)) {
-                    Toasty.success(AddExpenseActivity.this, R.string.expense_successfully_added, Toasty.LENGTH_SHORT).show();
+                    Toasty.success(this, R.string.expense_successfully_added, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(AddExpenseActivity.this, ExpenseActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                    AddExpenseActivity.this.startActivity(i);
+                    this.startActivity(i);
                     return;
                 }
-                Toasty.error(AddExpenseActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
