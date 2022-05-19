@@ -18,6 +18,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class EditCustomersActivity extends BaseActivity {
 
     private ActivityEditCustomersBinding binding;
@@ -46,50 +50,50 @@ public class EditCustomersActivity extends BaseActivity {
 
         this.binding.tvUpdateCustomer.setVisibility(View.GONE);
         this.binding.tvEditCustomer.setOnClickListener(view -> {
-            EditCustomersActivity.this.binding.etCustomerName.setEnabled(true);
-            EditCustomersActivity.this.binding.etCustomerCell.setEnabled(true);
-            EditCustomersActivity.this.binding.etCustomerEmail.setEnabled(true);
-            EditCustomersActivity.this.binding.etCustomerAddress.setEnabled(true);
+            this.binding.etCustomerName.setEnabled(true);
+            this.binding.etCustomerCell.setEnabled(true);
+            this.binding.etCustomerEmail.setEnabled(true);
+            this.binding.etCustomerAddress.setEnabled(true);
 
-            EditCustomersActivity.this.binding.etCustomerName.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditCustomersActivity.this.binding.etCustomerCell.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditCustomersActivity.this.binding.etCustomerEmail.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditCustomersActivity.this.binding.etCustomerAddress.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etCustomerName.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etCustomerCell.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etCustomerEmail.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etCustomerAddress.setTextColor(SupportMenu.CATEGORY_MASK);
 
-            EditCustomersActivity.this.binding.tvEditCustomer.setVisibility(View.GONE);
-            EditCustomersActivity.this.binding.tvUpdateCustomer.setVisibility(View.VISIBLE);
+            this.binding.tvEditCustomer.setVisibility(View.GONE);
+            this.binding.tvUpdateCustomer.setVisibility(View.VISIBLE);
         });
 
         this.binding.tvUpdateCustomer.setOnClickListener(view -> {
-            String customer_name = EditCustomersActivity.this.binding.etCustomerName.getText().toString().trim();
-            String customer_cell = EditCustomersActivity.this.binding.etCustomerCell.getText().toString().trim();
-            String customer_email = EditCustomersActivity.this.binding.etCustomerEmail.getText().toString().trim();
-            String customer_address = EditCustomersActivity.this.binding.etCustomerAddress.getText().toString().trim();
+            String customer_name = this.binding.etCustomerName.getText().toString().trim();
+            String customer_cell = this.binding.etCustomerCell.getText().toString().trim();
+            String customer_email = this.binding.etCustomerEmail.getText().toString().trim();
+            String customer_address = this.binding.etCustomerAddress.getText().toString().trim();
 
             if (customer_name.isEmpty()) {
-                EditCustomersActivity.this.binding.etCustomerName.setError(EditCustomersActivity.this.getString(R.string.enter_customer_name));
-                EditCustomersActivity.this.binding.etCustomerName.requestFocus();
+                this.binding.etCustomerName.setError(this.getString(R.string.enter_customer_name));
+                this.binding.etCustomerName.requestFocus();
             } else if (customer_cell.isEmpty()) {
-                EditCustomersActivity.this.binding.etCustomerCell.setError(EditCustomersActivity.this.getString(R.string.enter_customer_cell));
-                EditCustomersActivity.this.binding.etCustomerCell.requestFocus();
+                this.binding.etCustomerCell.setError(this.getString(R.string.enter_customer_cell));
+                this.binding.etCustomerCell.requestFocus();
             } else if (customer_email.isEmpty() || !customer_email.contains("@") || !customer_email.contains(".")) {
-                EditCustomersActivity.this.binding.etCustomerEmail.setError(EditCustomersActivity.this.getString(R.string.enter_valid_email));
-                EditCustomersActivity.this.binding.etCustomerEmail.requestFocus();
+                this.binding.etCustomerEmail.setError(this.getString(R.string.enter_valid_email));
+                this.binding.etCustomerEmail.requestFocus();
             } else if (customer_address.isEmpty()) {
-                EditCustomersActivity.this.binding.etCustomerAddress.setError(EditCustomersActivity.this.getString(R.string.enter_customer_address));
-                EditCustomersActivity.this.binding.etCustomerAddress.requestFocus();
+                this.binding.etCustomerAddress.setError(this.getString(R.string.enter_customer_address));
+                this.binding.etCustomerAddress.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(EditCustomersActivity.this);
-                databaseAccess.open();
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
+                databaseAccess.open();
                 if (databaseAccess.updateCustomer(getCustomer_id, customer_name, customer_cell, customer_email, customer_address)) {
-                    Toasty.success(EditCustomersActivity.this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
-                    Intent i = new Intent(EditCustomersActivity.this, CustomersActivity.class);
+                    Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(this, CustomersActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE;
-                    EditCustomersActivity.this.startActivity(i);
+                    this.startActivity(i);
                     return;
                 }
-                Toasty.error(EditCustomersActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
