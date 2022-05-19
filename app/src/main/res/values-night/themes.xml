@@ -15,7 +15,6 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
-        <item name="android:datePickerDialogTheme">@style/datePickerTheme</item>
         <item name="colorAccent">@color/deep_sky_blue</item>
     </style>
 </resources>
