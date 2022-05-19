@@ -66,10 +66,8 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         holder.binding.tvProductName.setText(product_name);
 
         int getStock = Integer.parseInt(Objects.requireNonNull(product_stock));
-        if (getStock > 5) {
-            holder.binding.tvStock.setText(String.format("%s : %s", this.context.getString(R.string.stock), product_stock));
-        } else {
-            holder.binding.tvStock.setText(String.format("%s : %s", this.context.getString(R.string.stock), product_stock));
+        holder.binding.tvStock.setText(String.format("%s : %s", this.context.getString(R.string.stock), product_stock));
+        if (getStock <= 5) {
             holder.binding.tvStock.setTextColor(SupportMenu.CATEGORY_MASK);
         }
 
