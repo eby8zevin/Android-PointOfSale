@@ -22,10 +22,13 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class EditExpenseActivity extends BaseActivity {
 
     private ActivityEditExpenseBinding binding;
-
     int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
@@ -54,50 +57,50 @@ public class EditExpenseActivity extends BaseActivity {
 
         this.binding.tvUpdateExpense.setVisibility(View.GONE);
         this.binding.tvEditExpense.setOnClickListener(view -> {
-            EditExpenseActivity.this.binding.etExpenseName.setEnabled(true);
-            EditExpenseActivity.this.binding.etExpenseNote.setEnabled(true);
-            EditExpenseActivity.this.binding.etExpenseAmount.setEnabled(true);
-            EditExpenseActivity.this.binding.etExpenseDate.setEnabled(true);
-            EditExpenseActivity.this.binding.etExpenseTime.setEnabled(true);
+            this.binding.etExpenseName.setEnabled(true);
+            this.binding.etExpenseNote.setEnabled(true);
+            this.binding.etExpenseAmount.setEnabled(true);
+            this.binding.etExpenseDate.setEnabled(true);
+            this.binding.etExpenseTime.setEnabled(true);
 
-            EditExpenseActivity.this.binding.etExpenseName.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditExpenseActivity.this.binding.etExpenseNote.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditExpenseActivity.this.binding.etExpenseAmount.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditExpenseActivity.this.binding.etExpenseDate.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditExpenseActivity.this.binding.etExpenseTime.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etExpenseName.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etExpenseNote.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etExpenseAmount.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etExpenseDate.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etExpenseTime.setTextColor(SupportMenu.CATEGORY_MASK);
 
-            EditExpenseActivity.this.binding.tvEditExpense.setVisibility(View.GONE);
-            EditExpenseActivity.this.binding.tvUpdateExpense.setVisibility(View.VISIBLE);
+            this.binding.tvEditExpense.setVisibility(View.GONE);
+            this.binding.tvUpdateExpense.setVisibility(View.VISIBLE);
         });
 
-        this.binding.etExpenseDate.setOnClickListener(view -> EditExpenseActivity.this.datePicker());
-        this.binding.etExpenseTime.setOnClickListener(view -> EditExpenseActivity.this.timePicker());
+        this.binding.etExpenseDate.setOnClickListener(view -> this.datePicker());
+        this.binding.etExpenseTime.setOnClickListener(view -> this.timePicker());
 
         this.binding.tvUpdateExpense.setOnClickListener(view -> {
-            String expense_name = EditExpenseActivity.this.binding.etExpenseName.getText().toString();
-            String expense_note = EditExpenseActivity.this.binding.etExpenseName.getText().toString();
-            String expense_amount = EditExpenseActivity.this.binding.etExpenseName.getText().toString();
-            String expense_date = EditExpenseActivity.this.binding.etExpenseName.getText().toString();
-            String expense_time = EditExpenseActivity.this.binding.etExpenseName.getText().toString();
+            String expense_name = this.binding.etExpenseName.getText().toString();
+            String expense_note = this.binding.etExpenseName.getText().toString();
+            String expense_amount = this.binding.etExpenseName.getText().toString();
+            String expense_date = this.binding.etExpenseName.getText().toString();
+            String expense_time = this.binding.etExpenseName.getText().toString();
 
             if (expense_name.isEmpty()) {
-                EditExpenseActivity.this.binding.etExpenseName.setError(EditExpenseActivity.this.getString(R.string.expense_name_cannot_be_empty));
-                EditExpenseActivity.this.binding.etExpenseName.requestFocus();
+                this.binding.etExpenseName.setError(this.getString(R.string.expense_name_cannot_be_empty));
+                this.binding.etExpenseName.requestFocus();
             } else if (expense_amount.isEmpty()) {
-                EditExpenseActivity.this.binding.etExpenseAmount.setError(EditExpenseActivity.this.getString(R.string.expense_amount_cannot_be_empty));
-                EditExpenseActivity.this.binding.etExpenseAmount.requestFocus();
+                this.binding.etExpenseAmount.setError(this.getString(R.string.expense_amount_cannot_be_empty));
+                this.binding.etExpenseAmount.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(EditExpenseActivity.this);
-                databaseAccess.open();
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
+                databaseAccess.open();
                 if (databaseAccess.updateExpense(get_ExpenseID, expense_name, expense_amount, expense_note, expense_date, expense_time)) {
-                    Toasty.success(EditExpenseActivity.this, R.string.expense_successfully_added, Toasty.LENGTH_SHORT).show();
-                    Intent i = new Intent(EditExpenseActivity.this, ExpenseActivity.class);
+                    Toasty.success(this, R.string.expense_successfully_added, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(this, ExpenseActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                    EditExpenseActivity.this.startActivity(i);
+                    this.startActivity(i);
                     return;
                 }
-                Toasty.error(EditExpenseActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
