@@ -1,5 +1,6 @@
 package com.ahmadabuhasan.pointofsale.product;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -39,25 +40,33 @@ import java.util.Objects;
 import es.dmoral.toasty.Toasty;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class EditProductActivity extends BaseActivity {
 
+    @SuppressLint("StaticFieldLeak")
     public static EditText etProductCode;
+
     private ActivityEditProductBinding binding;
 
     ArrayAdapter<String> categoryAdapter;
-    ArrayAdapter<String> weightUnitAdapter;
-    ArrayAdapter<String> supplierAdapter;
-
     List<String> categoryNames;
-    List<String> weightUnitNames;
-    List<String> supplierNames;
-
-    String encodedImage = "N/A";
-    String productID;
     String selectedCategoryID;
+
+    ArrayAdapter<String> weightUnitAdapter;
+    List<String> weightUnitNames;
     String selectedWeightUnitID;
+
+    ArrayAdapter<String> supplierAdapter;
+    List<String> supplierNames;
     String selectedSupplierID;
+
+    String productID;
     String mediaPath;
+    String encodedImage = "N/A";
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,43 +97,43 @@ public class EditProductActivity extends BaseActivity {
 
         this.binding.tvUpdateProduct.setVisibility(View.GONE);
         this.binding.tvEditProduct.setOnClickListener(view -> {
-            EditProductActivity.this.binding.etProductName.setEnabled(true);
-            EditProductActivity.etProductCode.setEnabled(true);
-            EditProductActivity.this.binding.ivScanCode.setEnabled(true);
-            EditProductActivity.this.binding.etProductCategory.setEnabled(true);
-            EditProductActivity.this.binding.etProductDescription.setEnabled(true);
-            EditProductActivity.this.binding.etProductBuyPrice.setEnabled(true);
-            EditProductActivity.this.binding.etProductSellPrice.setEnabled(true);
-            EditProductActivity.this.binding.etProductStock.setEnabled(true);
-            EditProductActivity.this.binding.etProductWeight.setEnabled(true);
-            EditProductActivity.this.binding.etProductWeightUnit.setEnabled(true);
-            EditProductActivity.this.binding.etSupplier.setEnabled(true);
-            EditProductActivity.this.binding.tvChooseImage.setEnabled(true);
-            EditProductActivity.this.binding.ivProduct.setEnabled(true);
+            this.binding.etProductName.setEnabled(true);
+            etProductCode.setEnabled(true);
+            this.binding.ivScanCode.setEnabled(true);
+            this.binding.etProductCategory.setEnabled(true);
+            this.binding.etProductDescription.setEnabled(true);
+            this.binding.etProductBuyPrice.setEnabled(true);
+            this.binding.etProductSellPrice.setEnabled(true);
+            this.binding.etProductStock.setEnabled(true);
+            this.binding.etProductWeight.setEnabled(true);
+            this.binding.etProductWeightUnit.setEnabled(true);
+            this.binding.etSupplier.setEnabled(true);
+            this.binding.tvChooseImage.setEnabled(true);
+            this.binding.ivProduct.setEnabled(true);
 
-            EditProductActivity.this.binding.etProductName.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.etProductCode.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductCategory.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductDescription.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductBuyPrice.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductSellPrice.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductStock.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductWeight.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etProductWeightUnit.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditProductActivity.this.binding.etSupplier.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etProductName.setTextColor(SupportMenu.CATEGORY_MASK);
+            etProductCode.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etProductCategory.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etProductDescription.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etProductBuyPrice.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etProductSellPrice.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etProductStock.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etProductWeight.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etProductWeightUnit.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etSupplier.setTextColor(SupportMenu.CATEGORY_MASK);
 
-            EditProductActivity.this.binding.tvEditProduct.setVisibility(View.GONE);
-            EditProductActivity.this.binding.tvUpdateProduct.setVisibility(View.VISIBLE);
+            this.binding.tvEditProduct.setVisibility(View.GONE);
+            this.binding.tvUpdateProduct.setVisibility(View.VISIBLE);
         });
 
-        this.binding.ivScanCode.setOnClickListener(view -> EditProductActivity.this.startActivity(new Intent(EditProductActivity.this, EditProductScannerViewActivity.class)));
+        this.binding.ivScanCode.setOnClickListener(view -> this.startActivity(new Intent(EditProductActivity.this, EditProductScannerViewActivity.class)));
 
         this.binding.tvChooseImage.setOnClickListener(view -> {
             Intent i = new Intent(EditProductActivity.this, ImageSelectActivity.class);
             i.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);
             i.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
             i.putExtra(ImageSelectActivity.FLAG_GALLERY, true);
-            EditProductActivity.this.startActivityForResult(i, 1213);
+            this.startActivityForResult(i, 1213);
         });
 
         this.binding.ivProduct.setOnClickListener(view -> {
@@ -139,9 +148,7 @@ public class EditProductActivity extends BaseActivity {
         this.weightUnitNames = new ArrayList<>();
         this.supplierNames = new ArrayList<>();
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         List<HashMap<String, String>> productData = databaseAccess.getProductsInfo(this.productID);
         String product_categoryID = productData.get(0).get(Constant.PRODUCT_CATEGORY);
         String product_weightUnitID = productData.get(0).get(Constant.PRODUCT_WEIGHT_UNIT_ID);
@@ -195,11 +202,11 @@ public class EditProductActivity extends BaseActivity {
         }
 
         this.binding.etProductCategory.setOnClickListener(view -> {
-            EditProductActivity.this.categoryAdapter = new ArrayAdapter<>(EditProductActivity.this, android.R.layout.simple_list_item_1);
-            EditProductActivity.this.categoryAdapter.addAll(EditProductActivity.this.categoryNames);
+            this.categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+            this.categoryAdapter.addAll(this.categoryNames);
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(EditProductActivity.this);
-            View dialogView = EditProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            View dialogView = this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog.setView(dialogView);
             dialog.setCancelable(false);
 
@@ -210,16 +217,16 @@ public class EditProductActivity extends BaseActivity {
 
             title.setText(R.string.product_category);
             dialogListView.setVerticalScrollBarEnabled(true);
-            dialogListView.setAdapter(EditProductActivity.this.categoryAdapter);
+            dialogListView.setAdapter(this.categoryAdapter);
             search.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
                 }
 
                 @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    EditProductActivity.this.categoryAdapter.getFilter().filter(charSequence);
+                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                    categoryAdapter.getFilter().filter(charSequence);
                 }
 
                 @Override
@@ -232,25 +239,25 @@ public class EditProductActivity extends BaseActivity {
             alertDialog.show();
             dialogListView.setOnItemClickListener((adapterView, view1, i, l) -> {
                 alertDialog.dismiss();
-                String selectedItem = EditProductActivity.this.categoryAdapter.getItem(i);
+                String selectedItem = this.categoryAdapter.getItem(i);
                 String category_id = "0";
-                EditProductActivity.this.binding.etProductCategory.setText(selectedItem);
-                for (int i3 = 0; i3 < EditProductActivity.this.categoryNames.size(); i3++) {
-                    if (EditProductActivity.this.categoryNames.get(i3).equalsIgnoreCase(selectedItem)) {
+                this.binding.etProductCategory.setText(selectedItem);
+                for (int i3 = 0; i3 < this.categoryNames.size(); i3++) {
+                    if (this.categoryNames.get(i3).equalsIgnoreCase(selectedItem)) {
                         category_id = (String) ((HashMap) productCategory.get(i3)).get(Constant.CATEGORY_ID);
                     }
                 }
-                EditProductActivity.this.selectedCategoryID = category_id;
+                this.selectedCategoryID = category_id;
                 Log.d(Constant.CATEGORY_ID, category_id);
             });
         });
 
         this.binding.etProductWeightUnit.setOnClickListener(view -> {
-            EditProductActivity.this.weightUnitAdapter = new ArrayAdapter<>(EditProductActivity.this, android.R.layout.simple_list_item_1);
-            EditProductActivity.this.weightUnitAdapter.addAll(EditProductActivity.this.weightUnitNames);
+            this.weightUnitAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+            this.weightUnitAdapter.addAll(this.weightUnitNames);
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(EditProductActivity.this);
-            View dialogView = EditProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            View dialogView = this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog.setView(dialogView);
             dialog.setCancelable(false);
 
@@ -261,16 +268,16 @@ public class EditProductActivity extends BaseActivity {
 
             title.setText(R.string.product_weight_unit);
             dialogListView.setVerticalScrollBarEnabled(true);
-            dialogListView.setAdapter(EditProductActivity.this.weightUnitAdapter);
+            dialogListView.setAdapter(this.weightUnitAdapter);
             search.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
                 }
 
                 @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    EditProductActivity.this.weightUnitAdapter.getFilter().filter(charSequence);
+                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                    weightUnitAdapter.getFilter().filter(charSequence);
                 }
 
                 @Override
@@ -283,25 +290,25 @@ public class EditProductActivity extends BaseActivity {
             alertDialog.show();
             dialogListView.setOnItemClickListener((adapterView, view11, i, l) -> {
                 alertDialog.dismiss();
-                String selectedItem = EditProductActivity.this.weightUnitAdapter.getItem(i);
+                String selectedItem = this.weightUnitAdapter.getItem(i);
                 String weight_unit_id = "0";
-                EditProductActivity.this.binding.etProductWeightUnit.setText(selectedItem);
-                for (int i4 = 0; i4 < EditProductActivity.this.weightUnitNames.size(); i4++) {
-                    if (EditProductActivity.this.weightUnitNames.get(i4).equalsIgnoreCase(selectedItem)) {
+                this.binding.etProductWeightUnit.setText(selectedItem);
+                for (int i4 = 0; i4 < this.weightUnitNames.size(); i4++) {
+                    if (this.weightUnitNames.get(i4).equalsIgnoreCase(selectedItem)) {
                         weight_unit_id = (String) ((HashMap) weightUnit.get(i4)).get(Constant.WEIGHT_ID);
                     }
                 }
-                EditProductActivity.this.selectedWeightUnitID = weight_unit_id;
-                Log.d(Constant.WEIGHT_UNIT, EditProductActivity.this.selectedWeightUnitID);
+                this.selectedWeightUnitID = weight_unit_id;
+                Log.d(Constant.WEIGHT_UNIT, this.selectedWeightUnitID);
             });
         });
 
         this.binding.etSupplier.setOnClickListener(view -> {
-            EditProductActivity.this.supplierAdapter = new ArrayAdapter<>(EditProductActivity.this, android.R.layout.simple_list_item_1);
-            EditProductActivity.this.supplierAdapter.addAll(EditProductActivity.this.supplierNames);
+            this.supplierAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+            this.supplierAdapter.addAll(this.supplierNames);
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(EditProductActivity.this);
-            View dialogView = EditProductActivity.this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            View dialogView = this.getLayoutInflater().inflate(R.layout.dialog_list_search, null);
             dialog.setView(dialogView);
             dialog.setCancelable(false);
 
@@ -312,16 +319,16 @@ public class EditProductActivity extends BaseActivity {
 
             title.setText(R.string.suppliers);
             dialogListView.setVerticalScrollBarEnabled(true);
-            dialogListView.setAdapter(EditProductActivity.this.supplierAdapter);
+            dialogListView.setAdapter(this.supplierAdapter);
             search.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
                 }
 
                 @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    EditProductActivity.this.supplierAdapter.getFilter().filter(charSequence);
+                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                    supplierAdapter.getFilter().filter(charSequence);
                 }
 
                 @Override
@@ -334,62 +341,60 @@ public class EditProductActivity extends BaseActivity {
             alertDialog.show();
             dialogListView.setOnItemClickListener((adapterView, view111, i, l) -> {
                 alertDialog.dismiss();
-                String selectedItem = EditProductActivity.this.supplierAdapter.getItem(i);
+                String selectedItem = this.supplierAdapter.getItem(i);
                 String supplier_id = "0";
-                EditProductActivity.this.binding.etSupplier.setText(selectedItem);
-                for (int i5 = 0; i5 < EditProductActivity.this.supplierNames.size(); i5++) {
-                    if (EditProductActivity.this.supplierNames.get(i5).equalsIgnoreCase(selectedItem)) {
+                this.binding.etSupplier.setText(selectedItem);
+                for (int i5 = 0; i5 < this.supplierNames.size(); i5++) {
+                    if (this.supplierNames.get(i5).equalsIgnoreCase(selectedItem)) {
                         supplier_id = (String) ((HashMap) productSupplier.get(i5)).get(Constant.SUPPLIERS_ID);
                     }
                 }
-                EditProductActivity.this.selectedSupplierID = supplier_id;
+                this.selectedSupplierID = supplier_id;
                 Log.d(Constant.SUPPLIERS_ID, selectedSupplierID);
             });
         });
 
         this.binding.tvUpdateProduct.setOnClickListener(view -> {
-            String product_name = EditProductActivity.this.binding.etProductName.getText().toString();
-            String product_code = EditProductActivity.this.binding.etProductCode.getText().toString();
-            String product_category = EditProductActivity.this.selectedCategoryID;
-            String product_description = EditProductActivity.this.binding.etProductDescription.getText().toString();
-            String product_buyPrice = EditProductActivity.this.binding.etProductBuyPrice.getText().toString();
-            String product_sellPrice = EditProductActivity.this.binding.etProductSellPrice.getText().toString();
-            String product_stock = EditProductActivity.this.binding.etProductStock.getText().toString();
-            String product_weight = EditProductActivity.this.binding.etProductWeight.getText().toString();
-            String product_weightUnit = EditProductActivity.this.selectedWeightUnitID;
-            String product_supplier = EditProductActivity.this.selectedSupplierID;
+            String product_name = this.binding.etProductName.getText().toString();
+            String product_code = this.binding.etProductCode.getText().toString();
+            String product_category = this.selectedCategoryID;
+            String product_description = this.binding.etProductDescription.getText().toString();
+            String product_buyPrice = this.binding.etProductBuyPrice.getText().toString();
+            String product_sellPrice = this.binding.etProductSellPrice.getText().toString();
+            String product_stock = this.binding.etProductStock.getText().toString();
+            String product_weight = this.binding.etProductWeight.getText().toString();
+            String product_weightUnit = this.selectedWeightUnitID;
+            String product_supplier = this.selectedSupplierID;
 
             if (product_name.isEmpty()) {
-                EditProductActivity.this.binding.etProductName.setError(EditProductActivity.this.getString(R.string.product_name_cannot_be_empty));
-                EditProductActivity.this.binding.etProductName.requestFocus();
+                this.binding.etProductName.setError(this.getString(R.string.product_name_cannot_be_empty));
+                this.binding.etProductName.requestFocus();
             } else if (product_category.isEmpty()) {
-                EditProductActivity.this.binding.etProductCategory.setError(EditProductActivity.this.getString(R.string.product_category_cannot_be_empty));
-                EditProductActivity.this.binding.etProductCategory.requestFocus();
+                this.binding.etProductCategory.setError(this.getString(R.string.product_category_cannot_be_empty));
+                this.binding.etProductCategory.requestFocus();
             } else if (product_sellPrice.isEmpty()) {
-                EditProductActivity.this.binding.etProductSellPrice.setError(EditProductActivity.this.getString(R.string.product_sell_price_cannot_be_empty));
-                EditProductActivity.this.binding.etProductSellPrice.requestFocus();
+                this.binding.etProductSellPrice.setError(this.getString(R.string.product_sell_price_cannot_be_empty));
+                this.binding.etProductSellPrice.requestFocus();
             } else if (product_stock.isEmpty()) {
-                EditProductActivity.this.binding.etProductStock.setError(EditProductActivity.this.getString(R.string.product_stock_cannot_be_empty));
-                EditProductActivity.this.binding.etProductStock.requestFocus();
+                this.binding.etProductStock.setError(this.getString(R.string.product_stock_cannot_be_empty));
+                this.binding.etProductStock.requestFocus();
             } else if (product_weight.isEmpty()) {
-                EditProductActivity.this.binding.etProductWeight.setError(EditProductActivity.this.getString(R.string.product_weight_cannot_be_empty));
-                EditProductActivity.this.binding.etProductWeight.requestFocus();
+                this.binding.etProductWeight.setError(this.getString(R.string.product_weight_cannot_be_empty));
+                this.binding.etProductWeight.requestFocus();
             } else if (product_supplier.isEmpty()) {
-                EditProductActivity.this.binding.etSupplier.setError(EditProductActivity.this.getString(R.string.product_supplier_cannot_be_empty));
-                EditProductActivity.this.binding.etSupplier.requestFocus();
+                this.binding.etSupplier.setError(this.getString(R.string.product_supplier_cannot_be_empty));
+                this.binding.etSupplier.requestFocus();
             } else {
-                DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(EditProductActivity.this);
-                databaseAccess1.open();
-
-                boolean check = databaseAccess1.updateProduct(product_name, product_code, product_category, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplier, EditProductActivity.this.encodedImage, product_weightUnit, product_weight, EditProductActivity.this.productID);
+                databaseAccess.open();
+                boolean check = databaseAccess.updateProduct(product_name, product_code, product_category, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplier, this.encodedImage, product_weightUnit, product_weight, this.productID);
                 if (check) {
-                    Toasty.success(EditProductActivity.this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
+                    Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(EditProductActivity.this, ProductActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                    EditProductActivity.this.startActivity(i);
+                    this.startActivity(i);
                     return;
                 }
-                Toasty.error(EditProductActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
