@@ -8,6 +8,10 @@ import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class Permissions {
 
     // Storage Permissions variables
