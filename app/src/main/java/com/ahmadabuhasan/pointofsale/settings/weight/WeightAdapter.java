@@ -20,10 +20,14 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> weightData;
+    private final Context context;
+    private final List<HashMap<String, String>> weightData;
 
     public WeightAdapter(Context context1, List<HashMap<String, String>> weightData1) {
         this.context = context1;
@@ -48,8 +52,8 @@ public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.MyViewHold
                 .setCancelable(false)
                 .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
                     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(WeightAdapter.this.context);
-                    databaseAccess.open();
 
+                    databaseAccess.open();
                     if (databaseAccess.deleteWeight(weight_id)) {
                         Toasty.success(WeightAdapter.this.context, R.string.weight_unit_deleted, Toasty.LENGTH_SHORT).show();
                         WeightAdapter.this.weightData.remove(holder.getAdapterPosition());
@@ -63,12 +67,12 @@ public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return weightData.size();
+        return this.weightData.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private WeightItemBinding binding;
+        private final WeightItemBinding binding;
 
         public MyViewHolder(@NonNull WeightItemBinding binding) {
             super(binding.getRoot());
