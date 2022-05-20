@@ -16,6 +16,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class AddCategoryActivity extends BaseActivity {
 
     private ActivityAddCategoryBinding binding;
@@ -31,24 +35,24 @@ public class AddCategoryActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.add_category);
 
         this.binding.tvAddCategory.setOnClickListener(view -> {
-            String category_name = AddCategoryActivity.this.binding.etCategoryName.getText().toString().trim();
+            String category_name = this.binding.etCategoryName.getText().toString().trim();
             if (category_name.isEmpty()) {
-                AddCategoryActivity.this.binding.etCategoryName.setError(AddCategoryActivity.this.getString(R.string.enter_category_name));
-                AddCategoryActivity.this.binding.etCategoryName.requestFocus();
+                this.binding.etCategoryName.setError(this.getString(R.string.enter_category_name));
+                this.binding.etCategoryName.requestFocus();
                 return;
             }
 
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddCategoryActivity.this);
-            databaseAccess.open();
+            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
+            databaseAccess.open();
             if (databaseAccess.addCategory(category_name)) {
-                Toasty.success(AddCategoryActivity.this, R.string.category_added_successfully, Toasty.LENGTH_SHORT).show();
+                Toasty.success(this, R.string.category_added_successfully, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(AddCategoryActivity.this, CategoriesActivity.class);
                 //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                AddCategoryActivity.this.startActivity(i);
+                this.startActivity(i);
                 return;
             }
-            Toasty.error(AddCategoryActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+            Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
