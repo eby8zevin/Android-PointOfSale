@@ -13,14 +13,21 @@ import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.SalesReportItemBinding;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
 
 public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> orderData;
+    private final Context context;
+    private final List<HashMap<String, String>> orderData;
 
     public SalesReportAdapter(Context context1, List<HashMap<String, String>> orderData1) {
         this.context = context1;
@@ -37,8 +44,8 @@ public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.
     @Override
     public void onBindViewHolder(@NonNull SalesReportAdapter.MyViewHolder holder, int position) {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
-        databaseAccess.open();
 
+        databaseAccess.open();
         String currency = databaseAccess.getCurrency();
         holder.binding.tvProductName.setText(this.orderData.get(position).get(Constant.PRODUCT_NAME));
         holder.binding.tvDate.setText(String.format("%s%s", this.context.getString(R.string.date), this.orderData.get(position).get(Constant.PRODUCT_ORDER_DATE)));
@@ -47,8 +54,8 @@ public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.
 
         String unit_price = this.orderData.get(position).get(Constant.PRODUCT_PRICE);
         String qty = this.orderData.get(position).get(Constant.PRODUCT_QTY);
-        double price = Double.parseDouble(unit_price);
-        int quantity = Integer.parseInt(qty);
+        double price = Double.parseDouble(Objects.requireNonNull(unit_price));
+        int quantity = Integer.parseInt(Objects.requireNonNull(qty));
         double d = quantity;
         Double.isNaN(d);
         double cost = d * price;
@@ -59,7 +66,10 @@ public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.
             return;
         }
         if (base64Image.isEmpty() || base64Image.length() < 6) {
-            holder.binding.ivSalesReport.setImageResource(R.drawable.expense);
+            Glide.with(holder.itemView.getContext())
+                    .load(base64Image)
+                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.expense))
+                    .into(holder.binding.ivSalesReport);
             return;
         }
         byte[] bytes = Base64.decode(base64Image, 0);
@@ -68,12 +78,12 @@ public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.
 
     @Override
     public int getItemCount() {
-        return orderData.size();
+        return this.orderData.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private SalesReportItemBinding binding;
+        private final SalesReportItemBinding binding;
 
         public MyViewHolder(@NonNull SalesReportItemBinding binding) {
             super(binding.getRoot());
