@@ -27,10 +27,14 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> productData;
+    private final Context context;
+    private final List<HashMap<String, String>> productData;
 
     public ProductAdapter(Context context1, List<HashMap<String, String>> productData1) {
         this.context = context1;
@@ -65,7 +69,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         if (base64Image != null) {
             if (base64Image.length() < 6) {
                 Log.d("64base", base64Image);
-                //holder.binding.ivProductImage.setImageResource(R.drawable.image_placeholder);
                 Glide.with(holder.itemView.getContext())
                         .load(base64Image)
                         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.image_placeholder))
@@ -76,15 +79,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             }
         }
 
-        holder.binding.ivDelete.setOnClickListener(view -> new AlertDialog.Builder(ProductAdapter.this.context)
+        holder.binding.ivDelete.setOnClickListener(view -> new AlertDialog.Builder(this.context)
                 .setMessage(R.string.want_to_delete_product)
                 .setCancelable(false)
                 .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
                     databaseAccess.open();
                     if (databaseAccess.deleteProduct(product_id)) {
                         Toasty.error(context, R.string.product_deleted, Toasty.LENGTH_SHORT).show();
-                        ProductAdapter.this.productData.remove(holder.getAdapterPosition());
-                        ProductAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                        this.productData.remove(holder.getAdapterPosition());
+                        this.notifyItemRemoved(holder.getAdapterPosition());
                     } else {
                         Toast.makeText(context, R.string.failed, Toast.LENGTH_SHORT).show();
                     }
@@ -94,7 +97,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return productData.size();
+        return this.productData.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -111,7 +114,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         public void onClick(View view) {
             Intent i = new Intent(ProductAdapter.this.context, EditProductActivity.class);
             i.putExtra(Constant.PRODUCT_ID, (String) ((HashMap) ProductAdapter.this.productData.get(getAdapterPosition())).get(Constant.PRODUCT_ID));
-            ProductAdapter.this.context.startActivity(i);
+            context.startActivity(i);
         }
     }
 }
