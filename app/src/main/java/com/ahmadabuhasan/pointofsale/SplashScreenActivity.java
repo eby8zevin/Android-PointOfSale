@@ -13,6 +13,10 @@ import com.google.android.gms.auth.api.credentials.CredentialsApi;
 
 import java.util.Objects;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -29,8 +33,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             Intent i = new Intent(SplashScreenActivity.this, DashboardActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            SplashScreenActivity.this.startActivity(i);
-            SplashScreenActivity.this.finish();
+            this.startActivity(i);
+            this.finish();
         }, splashTimeOut);
     }
 }
