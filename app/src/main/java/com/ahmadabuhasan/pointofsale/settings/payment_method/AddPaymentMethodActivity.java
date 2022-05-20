@@ -16,6 +16,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class AddPaymentMethodActivity extends BaseActivity {
 
     private ActivityAddPaymentMethodBinding binding;
@@ -31,24 +35,24 @@ public class AddPaymentMethodActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.add_payment_method);
 
         this.binding.tvAddPaymentMethod.setOnClickListener(view -> {
-            String payment_method_name = AddPaymentMethodActivity.this.binding.etPaymentMethodName.getText().toString().trim();
+            String payment_method_name = this.binding.etPaymentMethodName.getText().toString().trim();
             if (payment_method_name.isEmpty()) {
-                AddPaymentMethodActivity.this.binding.etPaymentMethodName.setError(AddPaymentMethodActivity.this.getString(R.string.enter_payment_method_name));
-                AddPaymentMethodActivity.this.binding.etPaymentMethodName.requestFocus();
+                this.binding.etPaymentMethodName.setError(this.getString(R.string.enter_payment_method_name));
+                this.binding.etPaymentMethodName.requestFocus();
                 return;
             }
 
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddPaymentMethodActivity.this);
-            databaseAccess.open();
+            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
+            databaseAccess.open();
             if (databaseAccess.addPaymentMethod(payment_method_name)) {
-                Toasty.success(AddPaymentMethodActivity.this, R.string.successfully_added, Toasty.LENGTH_SHORT).show();
+                Toasty.success(this, R.string.successfully_added, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(AddPaymentMethodActivity.this, PaymentMethodActivity.class);
                 //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                AddPaymentMethodActivity.this.startActivity(i);
+                this.startActivity(i);
                 return;
             }
-            Toasty.error(AddPaymentMethodActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+            Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
