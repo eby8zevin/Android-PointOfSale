@@ -23,9 +23,14 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ShopInformationActivity extends BaseActivity {
 
     private ActivityShopInformationBinding binding;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +42,7 @@ public class ShopInformationActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.shop_information);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         List<HashMap<String, String>> shopData = databaseAccess.getShopInformation();
 
         this.binding.etShopName.setText(shopData.get(0).get(Constant.SHOP_NAME));
@@ -58,65 +61,64 @@ public class ShopInformationActivity extends BaseActivity {
 
         this.binding.tvShopUpdate.setVisibility(View.GONE);
         this.binding.tvShopEdit.setOnClickListener(view -> {
-            ShopInformationActivity.this.binding.etShopName.setEnabled(true);
-            ShopInformationActivity.this.binding.etShopContact.setEnabled(true);
-            ShopInformationActivity.this.binding.etShopEmail.setEnabled(true);
-            ShopInformationActivity.this.binding.etShopAddress.setEnabled(true);
-            ShopInformationActivity.this.binding.etShopCurrency.setEnabled(true);
-            ShopInformationActivity.this.binding.etTax.setEnabled(true);
+            this.binding.etShopName.setEnabled(true);
+            this.binding.etShopContact.setEnabled(true);
+            this.binding.etShopEmail.setEnabled(true);
+            this.binding.etShopAddress.setEnabled(true);
+            this.binding.etShopCurrency.setEnabled(true);
+            this.binding.etTax.setEnabled(true);
 
-            ShopInformationActivity.this.binding.etShopName.setTextColor(SupportMenu.CATEGORY_MASK);
-            ShopInformationActivity.this.binding.etShopContact.setTextColor(SupportMenu.CATEGORY_MASK);
-            ShopInformationActivity.this.binding.etShopEmail.setTextColor(SupportMenu.CATEGORY_MASK);
-            ShopInformationActivity.this.binding.etShopAddress.setTextColor(SupportMenu.CATEGORY_MASK);
-            ShopInformationActivity.this.binding.etShopCurrency.setTextColor(SupportMenu.CATEGORY_MASK);
-            ShopInformationActivity.this.binding.etTax.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etShopName.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etShopContact.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etShopEmail.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etShopAddress.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etShopCurrency.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etTax.setTextColor(SupportMenu.CATEGORY_MASK);
 
-            ShopInformationActivity.this.binding.tvShopUpdate.setVisibility(View.VISIBLE);
-            ShopInformationActivity.this.binding.tvShopEdit.setVisibility(View.GONE);
+            this.binding.tvShopUpdate.setVisibility(View.VISIBLE);
+            this.binding.tvShopEdit.setVisibility(View.GONE);
         });
 
         this.binding.tvShopUpdate.setOnClickListener(view -> {
-            Toasty.warning(ShopInformationActivity.this, Html.fromHtml("<small>Please purchase for</small><br> <big><b>Point Of Sale PRO</b></big>.<br> Thank you"), Toasty.LENGTH_LONG).show();
+            Toasty.warning(this, Html.fromHtml("<small>Please purchase for</small><br> <big><b>Point Of Sale PRO</b></big>.<br> Thank you"), Toasty.LENGTH_LONG).show();
 
-            /*String shop_name = ShopInformationActivity.this.binding.etShopName.getText().toString().trim();
-            String shop_contact = ShopInformationActivity.this.binding.etShopContact.getText().toString().trim();
-            String shop_email = ShopInformationActivity.this.binding.etShopEmail.getText().toString().trim();
-            String shop_address = ShopInformationActivity.this.binding.etShopAddress.getText().toString().trim();
-            String shop_currency = ShopInformationActivity.this.binding.etShopCurrency.getText().toString().trim();
-            String tax = ShopInformationActivity.this.binding.etTax.getText().toString().trim();
+            String shop_name = this.binding.etShopName.getText().toString().trim();
+            String shop_contact = this.binding.etShopContact.getText().toString().trim();
+            String shop_email = this.binding.etShopEmail.getText().toString().trim();
+            String shop_address = this.binding.etShopAddress.getText().toString().trim();
+            String shop_currency = this.binding.etShopCurrency.getText().toString().trim();
+            String tax = this.binding.etTax.getText().toString().trim();
 
             if (shop_name.isEmpty()) {
-                ShopInformationActivity.this.binding.etShopName.setError(ShopInformationActivity.this.getString(R.string.shop_name_cannot_be_empty));
-                ShopInformationActivity.this.binding.etShopName.requestFocus();
+                this.binding.etShopName.setError(this.getString(R.string.shop_name_cannot_be_empty));
+                this.binding.etShopName.requestFocus();
             } else if (shop_contact.isEmpty()) {
-                ShopInformationActivity.this.binding.etShopContact.setError(ShopInformationActivity.this.getString(R.string.shop_contact_cannot_be_empty));
-                ShopInformationActivity.this.binding.etShopContact.requestFocus();
+                this.binding.etShopContact.setError(this.getString(R.string.shop_contact_cannot_be_empty));
+                this.binding.etShopContact.requestFocus();
             } else if (shop_email.isEmpty() || !shop_email.contains("@") || !shop_email.contains(".")) {
-                ShopInformationActivity.this.binding.etShopEmail.setError(ShopInformationActivity.this.getString(R.string.enter_valid_email));
-                ShopInformationActivity.this.binding.etShopEmail.requestFocus();
+                this.binding.etShopEmail.setError(this.getString(R.string.enter_valid_email));
+                this.binding.etShopEmail.requestFocus();
             } else if (shop_address.isEmpty()) {
-                ShopInformationActivity.this.binding.etShopAddress.setError(ShopInformationActivity.this.getString(R.string.shop_address_cannot_be_empty));
-                ShopInformationActivity.this.binding.etShopAddress.requestFocus();
+                this.binding.etShopAddress.setError(this.getString(R.string.shop_address_cannot_be_empty));
+                this.binding.etShopAddress.requestFocus();
             } else if (shop_currency.isEmpty()) {
-                ShopInformationActivity.this.binding.etShopCurrency.setError(ShopInformationActivity.this.getString(R.string.shop_currency_cannot_be_empty));
-                ShopInformationActivity.this.binding.etShopCurrency.requestFocus();
+                this.binding.etShopCurrency.setError(this.getString(R.string.shop_currency_cannot_be_empty));
+                this.binding.etShopCurrency.requestFocus();
             } else if (tax.isEmpty()) {
-                ShopInformationActivity.this.binding.etTax.setError(ShopInformationActivity.this.getString(R.string.tax_in_percentage));
-                ShopInformationActivity.this.binding.etTax.requestFocus();
+                this.binding.etTax.setError(this.getString(R.string.tax_in_percentage));
+                this.binding.etTax.requestFocus();
             } else {
-                DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(ShopInformationActivity.this);
-                databaseAccess1.open();
-
-                if (databaseAccess1.updateShopInformation(shop_name, shop_contact, shop_email, shop_address, shop_currency, tax)) {
-                    Toasty.success(ShopInformationActivity.this, R.string.shop_information_updated_successfully, Toasty.LENGTH_SHORT).show();
+                databaseAccess.open();
+                boolean check = databaseAccess.updateShopInformation(shop_name, shop_contact, shop_email, shop_address, shop_currency, tax);
+                if (check) {
+                    Toasty.success(this, R.string.shop_information_updated_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(ShopInformationActivity.this, SettingsActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                    ShopInformationActivity.this.startActivity(i);
+                    this.startActivity(i);
                     return;
                 }
-                Toasty.error(ShopInformationActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
-            }*/
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
+            }
         });
     }
 
