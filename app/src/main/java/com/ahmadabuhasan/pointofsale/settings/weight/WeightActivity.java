@@ -22,6 +22,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class WeightActivity extends BaseActivity {
 
     private ActivityWeightBinding binding;
@@ -41,7 +45,6 @@ public class WeightActivity extends BaseActivity {
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         List<HashMap<String, String>> weightData = databaseAccess.getProductWeight();
         Log.d("data", "" + weightData.size());
         if (weightData.size() <= 0) {
@@ -54,16 +57,14 @@ public class WeightActivity extends BaseActivity {
 
         this.binding.etWeUnNameSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(WeightActivity.this);
-                databaseAccess1.open();
-
-                List<HashMap<String, String>> searchWeightList = databaseAccess1.searchProductWeight(charSequence.toString());
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                databaseAccess.open();
+                List<HashMap<String, String>> searchWeightList = databaseAccess.searchProductWeight(charSequence.toString());
                 if (searchWeightList.size() <= 0) {
                     WeightActivity.this.binding.weightRecyclerview.setVisibility(View.GONE);
                     WeightActivity.this.binding.ivNoWeight.setVisibility(View.VISIBLE);
