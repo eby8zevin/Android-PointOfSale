@@ -7,6 +7,10 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class Utils {
 
     public void interstitialAdsShow(Context context) {
