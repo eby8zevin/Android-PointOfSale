@@ -19,6 +19,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class EditPaymentMethodActivity extends BaseActivity {
 
     private ActivityEditPaymentMethodBinding binding;
@@ -40,31 +44,31 @@ public class EditPaymentMethodActivity extends BaseActivity {
 
         this.binding.tvUpdatePaymentMethod.setVisibility(View.GONE);
         this.binding.tvEditPaymentMethod.setOnClickListener(view -> {
-            EditPaymentMethodActivity.this.binding.etPaymentMethodName.setEnabled(true);
-            EditPaymentMethodActivity.this.binding.etPaymentMethodName.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditPaymentMethodActivity.this.binding.tvEditPaymentMethod.setVisibility(View.GONE);
-            EditPaymentMethodActivity.this.binding.tvUpdatePaymentMethod.setVisibility(View.VISIBLE);
+            this.binding.etPaymentMethodName.setEnabled(true);
+            this.binding.etPaymentMethodName.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.tvEditPaymentMethod.setVisibility(View.GONE);
+            this.binding.tvUpdatePaymentMethod.setVisibility(View.VISIBLE);
         });
 
         this.binding.tvUpdatePaymentMethod.setOnClickListener(view -> {
-            String payment_method_name = EditPaymentMethodActivity.this.binding.etPaymentMethodName.getText().toString().trim();
+            String payment_method_name = this.binding.etPaymentMethodName.getText().toString().trim();
             if (payment_method_name.isEmpty()) {
-                EditPaymentMethodActivity.this.binding.etPaymentMethodName.setError(EditPaymentMethodActivity.this.getString(R.string.payment_method_name));
-                EditPaymentMethodActivity.this.binding.etPaymentMethodName.requestFocus();
+                this.binding.etPaymentMethodName.setError(this.getString(R.string.payment_method_name));
+                this.binding.etPaymentMethodName.requestFocus();
                 return;
             }
 
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(EditPaymentMethodActivity.this);
-            databaseAccess.open();
+            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
+            databaseAccess.open();
             if (databaseAccess.updatePaymentMethod(payment_method_id, payment_method_name)) {
-                Toasty.success(EditPaymentMethodActivity.this, R.string.successfully_added, Toasty.LENGTH_SHORT).show();
+                Toasty.success(this, R.string.successfully_added, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(EditPaymentMethodActivity.this, PaymentMethodActivity.class);
                 //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                EditPaymentMethodActivity.this.startActivity(i);
+                this.startActivity(i);
                 return;
             }
-            Toasty.error(EditPaymentMethodActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+            Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
