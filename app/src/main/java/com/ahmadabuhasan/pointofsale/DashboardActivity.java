@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ahmadabuhasan.pointofsale.customers.CustomersActivity;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityDashboardBinding;
 import com.ahmadabuhasan.pointofsale.expense.ExpenseActivity;
+import com.ahmadabuhasan.pointofsale.orders.OrdersActivity;
 import com.ahmadabuhasan.pointofsale.pos.PosActivity;
 import com.ahmadabuhasan.pointofsale.product.ProductActivity;
 import com.ahmadabuhasan.pointofsale.report.ReportActivity;
@@ -34,6 +35,10 @@ import java.util.List;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
+
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
 
 public class DashboardActivity extends BaseActivity {
 
@@ -65,9 +70,9 @@ public class DashboardActivity extends BaseActivity {
         this.binding.cardProducts.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, ProductActivity.class)));
         this.binding.cardPos.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, PosActivity.class)));
         this.binding.cardExpense.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, ExpenseActivity.class)));
+        this.binding.cardOrderList.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, OrdersActivity.class)));
         this.binding.cardReport.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, ReportActivity.class)));
         this.binding.cardSettings.setOnClickListener(view -> this.startActivity(new Intent(DashboardActivity.this, SettingsActivity.class)));
-
     }
 
     @Override
