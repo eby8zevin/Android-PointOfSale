@@ -28,10 +28,16 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class AddSuppliersActivity extends BaseActivity {
 
     private ActivityAddSuppliersBinding binding;
+
     ProgressDialog loading;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,39 +50,37 @@ public class AddSuppliersActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.add_supplier);
 
         this.binding.tvAddSupplier.setOnClickListener(view -> {
-            String supplier_name = AddSuppliersActivity.this.binding.etSupplierName.getText().toString().trim();
-            String supplier_contact_name = AddSuppliersActivity.this.binding.etSupplierContactName.getText().toString().trim();
-            String supplier_cell = AddSuppliersActivity.this.binding.etSupplierCell.getText().toString().trim();
-            String supplier_email = AddSuppliersActivity.this.binding.etSupplierEmail.getText().toString().trim();
-            String supplier_address = AddSuppliersActivity.this.binding.etSupplierAddress.getText().toString().trim();
+            String supplier_name = this.binding.etSupplierName.getText().toString().trim();
+            String supplier_contact_name = this.binding.etSupplierContactName.getText().toString().trim();
+            String supplier_cell = this.binding.etSupplierCell.getText().toString().trim();
+            String supplier_email = this.binding.etSupplierEmail.getText().toString().trim();
+            String supplier_address = this.binding.etSupplierAddress.getText().toString().trim();
 
             if (supplier_name.isEmpty()) {
-                AddSuppliersActivity.this.binding.etSupplierName.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_name));
-                AddSuppliersActivity.this.binding.etSupplierName.requestFocus();
+                this.binding.etSupplierName.setError(this.getString(R.string.enter_suppliers_name));
+                this.binding.etSupplierName.requestFocus();
             } else if (supplier_contact_name.isEmpty()) {
-                AddSuppliersActivity.this.binding.etSupplierContactName.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_contact_person_name));
-                AddSuppliersActivity.this.binding.etSupplierContactName.requestFocus();
+                this.binding.etSupplierContactName.setError(this.getString(R.string.enter_suppliers_contact_person_name));
+                this.binding.etSupplierContactName.requestFocus();
             } else if (supplier_cell.isEmpty()) {
-                AddSuppliersActivity.this.binding.etSupplierCell.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_cell));
-                AddSuppliersActivity.this.binding.etSupplierCell.requestFocus();
+                this.binding.etSupplierCell.setError(this.getString(R.string.enter_suppliers_cell));
+                this.binding.etSupplierCell.requestFocus();
             } else if (supplier_email.isEmpty() || !supplier_email.contains("@") || !supplier_email.contains(".")) {
-                AddSuppliersActivity.this.binding.etSupplierEmail.setError(AddSuppliersActivity.this.getString(R.string.enter_valid_email));
-                AddSuppliersActivity.this.binding.etSupplierEmail.requestFocus();
+                this.binding.etSupplierEmail.setError(this.getString(R.string.enter_valid_email));
+                this.binding.etSupplierEmail.requestFocus();
             } else if (supplier_address.isEmpty()) {
-                AddSuppliersActivity.this.binding.etSupplierAddress.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_address));
-                AddSuppliersActivity.this.binding.etSupplierAddress.requestFocus();
+                this.binding.etSupplierAddress.setError(this.getString(R.string.enter_suppliers_address));
+                this.binding.etSupplierAddress.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddSuppliersActivity.this);
                 databaseAccess.open();
-
                 if (databaseAccess.addSuppliers(supplier_name, supplier_contact_name, supplier_cell, supplier_email, supplier_address)) {
-                    Toasty.success(AddSuppliersActivity.this, R.string.suppliers_successfully_added, Toasty.LENGTH_SHORT).show();
+                    Toasty.success(this, R.string.suppliers_successfully_added, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(AddSuppliersActivity.this, SuppliersActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                    AddSuppliersActivity.this.startActivity(i);
+                    this.startActivity(i);
                     return;
                 }
-                Toasty.error(AddSuppliersActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
@@ -119,9 +123,7 @@ public class AddSuppliersActivity extends BaseActivity {
     }
 
     public void onImport(String path) {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         File file = new File(path);
         if (!file.exists()) {
             Toast.makeText(this, R.string.no_file_found, Toast.LENGTH_SHORT).show();
