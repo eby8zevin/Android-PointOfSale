@@ -19,6 +19,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class EditWeightActivity extends BaseActivity {
 
     private ActivityEditWeightBinding binding;
@@ -55,8 +59,8 @@ public class EditWeightActivity extends BaseActivity {
             }
 
             DatabaseAccess databaseAccess = DatabaseAccess.getInstance(EditWeightActivity.this);
-            databaseAccess.open();
 
+            databaseAccess.open();
             if (databaseAccess.updateWeight(weight_id, weight_name)) {
                 Toasty.success(EditWeightActivity.this, R.string.weight_updated, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(EditWeightActivity.this, WeightActivity.class);
