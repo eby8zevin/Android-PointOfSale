@@ -1,5 +1,9 @@
 package com.ahmadabuhasan.pointofsale;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class Constant {
 
     Constant() {
