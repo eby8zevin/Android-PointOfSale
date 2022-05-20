@@ -19,6 +19,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class EditSuppliersActivity extends BaseActivity {
 
     private ActivityEditSuppliersBinding binding;
@@ -49,56 +53,56 @@ public class EditSuppliersActivity extends BaseActivity {
 
         this.binding.tvUpdateSupplier.setVisibility(View.GONE);
         this.binding.tvEditSupplier.setOnClickListener(view -> {
-            EditSuppliersActivity.this.binding.etSupplierName.setEnabled(true);
-            EditSuppliersActivity.this.binding.etSupplierContactName.setEnabled(true);
-            EditSuppliersActivity.this.binding.etSupplierCell.setEnabled(true);
-            EditSuppliersActivity.this.binding.etSupplierEmail.setEnabled(true);
-            EditSuppliersActivity.this.binding.etSupplierAddress.setEnabled(true);
+            this.binding.etSupplierName.setEnabled(true);
+            this.binding.etSupplierContactName.setEnabled(true);
+            this.binding.etSupplierCell.setEnabled(true);
+            this.binding.etSupplierEmail.setEnabled(true);
+            this.binding.etSupplierAddress.setEnabled(true);
 
-            EditSuppliersActivity.this.binding.etSupplierName.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditSuppliersActivity.this.binding.etSupplierContactName.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditSuppliersActivity.this.binding.etSupplierCell.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditSuppliersActivity.this.binding.etSupplierEmail.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditSuppliersActivity.this.binding.etSupplierAddress.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etSupplierName.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etSupplierContactName.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etSupplierCell.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etSupplierEmail.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etSupplierAddress.setTextColor(SupportMenu.CATEGORY_MASK);
 
-            EditSuppliersActivity.this.binding.tvEditSupplier.setVisibility(View.GONE);
-            EditSuppliersActivity.this.binding.tvUpdateSupplier.setVisibility(View.VISIBLE);
+            this.binding.tvEditSupplier.setVisibility(View.GONE);
+            this.binding.tvUpdateSupplier.setVisibility(View.VISIBLE);
         });
 
         this.binding.tvUpdateSupplier.setOnClickListener(view -> {
-            String supplier_name = EditSuppliersActivity.this.binding.etSupplierName.getText().toString().trim();
-            String supplier_contact_name = EditSuppliersActivity.this.binding.etSupplierContactName.getText().toString().trim();
-            String supplier_cell = EditSuppliersActivity.this.binding.etSupplierCell.getText().toString().trim();
-            String supplier_email = EditSuppliersActivity.this.binding.etSupplierEmail.getText().toString().trim();
-            String supplier_address = EditSuppliersActivity.this.binding.etSupplierAddress.getText().toString().trim();
+            String supplier_name = this.binding.etSupplierName.getText().toString().trim();
+            String supplier_contact_name = this.binding.etSupplierContactName.getText().toString().trim();
+            String supplier_cell = this.binding.etSupplierCell.getText().toString().trim();
+            String supplier_email = this.binding.etSupplierEmail.getText().toString().trim();
+            String supplier_address = this.binding.etSupplierAddress.getText().toString().trim();
 
             if (supplier_name.isEmpty()) {
-                EditSuppliersActivity.this.binding.etSupplierName.setError(EditSuppliersActivity.this.getString(R.string.enter_suppliers_name));
-                EditSuppliersActivity.this.binding.etSupplierName.requestFocus();
+                this.binding.etSupplierName.setError(this.getString(R.string.enter_suppliers_name));
+                this.binding.etSupplierName.requestFocus();
             } else if (supplier_contact_name.isEmpty()) {
-                EditSuppliersActivity.this.binding.etSupplierContactName.setError(EditSuppliersActivity.this.getString(R.string.enter_suppliers_contact_person_name));
-                EditSuppliersActivity.this.binding.etSupplierContactName.requestFocus();
+                this.binding.etSupplierContactName.setError(this.getString(R.string.enter_suppliers_contact_person_name));
+                this.binding.etSupplierContactName.requestFocus();
             } else if (supplier_cell.isEmpty()) {
-                EditSuppliersActivity.this.binding.etSupplierCell.setError(EditSuppliersActivity.this.getString(R.string.enter_suppliers_cell));
-                EditSuppliersActivity.this.binding.etSupplierCell.requestFocus();
+                this.binding.etSupplierCell.setError(this.getString(R.string.enter_suppliers_cell));
+                this.binding.etSupplierCell.requestFocus();
             } else if (supplier_email.isEmpty() || !supplier_email.contains("@") || !supplier_email.contains(".")) {
-                EditSuppliersActivity.this.binding.etSupplierEmail.setError(EditSuppliersActivity.this.getString(R.string.enter_valid_email));
-                EditSuppliersActivity.this.binding.etSupplierEmail.requestFocus();
+                this.binding.etSupplierEmail.setError(this.getString(R.string.enter_valid_email));
+                this.binding.etSupplierEmail.requestFocus();
             } else if (supplier_address.isEmpty()) {
-                EditSuppliersActivity.this.binding.etSupplierAddress.setError(EditSuppliersActivity.this.getString(R.string.enter_suppliers_address));
-                EditSuppliersActivity.this.binding.etSupplierAddress.requestFocus();
+                this.binding.etSupplierAddress.setError(this.getString(R.string.enter_suppliers_address));
+                this.binding.etSupplierAddress.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(EditSuppliersActivity.this);
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
                 databaseAccess.open();
 
                 if (databaseAccess.updateSuppliers(getSupplier_id, supplier_name, supplier_contact_name, supplier_cell, supplier_email, supplier_address)) {
-                    Toasty.success(EditSuppliersActivity.this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
+                    Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(EditSuppliersActivity.this, SuppliersActivity.class);
                     //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                    EditSuppliersActivity.this.startActivity(i);
+                    this.startActivity(i);
                     return;
                 }
-                Toasty.error(EditSuppliersActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
