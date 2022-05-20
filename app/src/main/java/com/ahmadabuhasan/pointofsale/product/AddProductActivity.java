@@ -314,10 +314,8 @@ public class AddProductActivity extends BaseActivity {
                         return;
                     }
                     if (!product_supplierName.isEmpty() && !product_supplierID.isEmpty()) {
-                        DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(this);
-                        databaseAccess1.open();
-
-                        boolean check = databaseAccess1.addProduct(product_name, product_code, product_categoryID, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplierID, this.encodedImage, product_weightUnitID, product_weight);
+                        databaseAccess.open();
+                        boolean check = databaseAccess.addProduct(product_name, product_code, product_categoryID, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplierID, this.encodedImage, product_weightUnitID, product_weight);
                         if (check) {
                             Toasty.success(this, R.string.product_successfully_added, Toasty.LENGTH_SHORT).show();
                             Intent i = new Intent(AddProductActivity.this, ProductActivity.class);
@@ -402,9 +400,7 @@ public class AddProductActivity extends BaseActivity {
     }
 
     public void onImport(String path) {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         File file = new File(path);
         if (!file.exists()) {
             Toast.makeText(this, R.string.no_file_found, Toast.LENGTH_SHORT).show();
