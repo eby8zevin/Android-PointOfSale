@@ -31,10 +31,16 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ProductActivity extends BaseActivity {
 
     private ActivityProductBinding binding;
+
     ProgressDialog dialog;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +55,6 @@ public class ProductActivity extends BaseActivity {
         this.binding.productRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.productRecyclerview.setHasFixedSize(true);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> productData = databaseAccess.getProducts();
         Log.d("data", "" + productData.size());
@@ -64,25 +69,25 @@ public class ProductActivity extends BaseActivity {
 
         this.binding.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 databaseAccess.open();
                 List<HashMap<String, String>> searchProductList = databaseAccess.getSearchProducts(charSequence.toString());
                 if (searchProductList.size() <= 0) {
-                    ProductActivity.this.binding.productRecyclerview.setVisibility(View.GONE);
-                    ProductActivity.this.binding.ivNoProduct.setVisibility(View.VISIBLE);
-                    ProductActivity.this.binding.ivNoProduct.setImageResource(R.drawable.no_data);
+                    binding.productRecyclerview.setVisibility(View.GONE);
+                    binding.ivNoProduct.setVisibility(View.VISIBLE);
+                    binding.ivNoProduct.setImageResource(R.drawable.no_data);
                     return;
                 }
-                ProductActivity.this.binding.ivNoProduct.setVisibility(View.GONE);
-                ProductActivity.this.binding.productRecyclerview.setVisibility(View.VISIBLE);
+                binding.ivNoProduct.setVisibility(View.GONE);
+                binding.productRecyclerview.setVisibility(View.VISIBLE);
 
                 ProductAdapter adapter1 = new ProductAdapter(ProductActivity.this, searchProductList);
-                ProductActivity.this.binding.productRecyclerview.setAdapter(adapter1);
+                binding.productRecyclerview.setAdapter(adapter1);
             }
 
             @Override
@@ -91,7 +96,7 @@ public class ProductActivity extends BaseActivity {
             }
         });
 
-        this.binding.fabAdd.setOnClickListener(view -> ProductActivity.this.startActivity(new Intent(ProductActivity.this, AddProductActivity.class)));
+        this.binding.fabAdd.setOnClickListener(view -> this.startActivity(new Intent(ProductActivity.this, AddProductActivity.class)));
     }
 
     @Override
