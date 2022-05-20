@@ -35,6 +35,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class BackupActivity extends BaseActivity {
 
     private static final String TAG = "Google Drive Activity";
