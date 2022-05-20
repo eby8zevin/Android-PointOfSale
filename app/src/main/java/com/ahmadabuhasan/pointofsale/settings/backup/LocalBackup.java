@@ -13,6 +13,10 @@ import com.ahmadabuhasan.pointofsale.database.DatabaseOpenHelper;
 
 import java.io.File;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class LocalBackup {
 
     private BackupActivity activity;
