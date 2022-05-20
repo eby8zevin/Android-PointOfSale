@@ -22,9 +22,14 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class PaymentMethodActivity extends BaseActivity {
 
     private ActivityPaymentMethodBinding binding;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +44,7 @@ public class PaymentMethodActivity extends BaseActivity {
         this.binding.paymentMethodRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.paymentMethodRecyclerview.setHasFixedSize(true);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         List<HashMap<String, String>> paymentMethodData = databaseAccess.getPaymentMethod();
         Log.d("data", "" + paymentMethodData.size());
         if (paymentMethodData.size() <= 0) {
@@ -55,26 +58,24 @@ public class PaymentMethodActivity extends BaseActivity {
 
         this.binding.etPaymentMethodSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(PaymentMethodActivity.this);
-                databaseAccess1.open();
-
-                List<HashMap<String, String>> searchPaymentMethodList = databaseAccess1.searchPaymentMethod(charSequence.toString());
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                databaseAccess.open();
+                List<HashMap<String, String>> searchPaymentMethodList = databaseAccess.searchPaymentMethod(charSequence.toString());
                 if (searchPaymentMethodList.size() <= 0) {
-                    PaymentMethodActivity.this.binding.paymentMethodRecyclerview.setVisibility(View.GONE);
-                    PaymentMethodActivity.this.binding.ivNoPaymentMethod.setVisibility(View.VISIBLE);
-                    PaymentMethodActivity.this.binding.ivNoPaymentMethod.setImageResource(R.drawable.no_data);
+                    binding.paymentMethodRecyclerview.setVisibility(View.GONE);
+                    binding.ivNoPaymentMethod.setVisibility(View.VISIBLE);
+                    binding.ivNoPaymentMethod.setImageResource(R.drawable.no_data);
                     return;
                 }
-                PaymentMethodActivity.this.binding.paymentMethodRecyclerview.setVisibility(View.VISIBLE);
-                PaymentMethodActivity.this.binding.ivNoPaymentMethod.setVisibility(View.GONE);
+                binding.paymentMethodRecyclerview.setVisibility(View.VISIBLE);
+                binding.ivNoPaymentMethod.setVisibility(View.GONE);
                 PaymentMethodAdapter adapter = new PaymentMethodAdapter(PaymentMethodActivity.this, searchPaymentMethodList);
-                PaymentMethodActivity.this.binding.paymentMethodRecyclerview.setAdapter(adapter);
+                binding.paymentMethodRecyclerview.setAdapter(adapter);
             }
 
             @Override
@@ -83,7 +84,7 @@ public class PaymentMethodActivity extends BaseActivity {
             }
         });
 
-        this.binding.fabAdd.setOnClickListener(view -> PaymentMethodActivity.this.startActivity(new Intent(PaymentMethodActivity.this, AddPaymentMethodActivity.class)));
+        this.binding.fabAdd.setOnClickListener(view -> this.startActivity(new Intent(PaymentMethodActivity.this, AddPaymentMethodActivity.class)));
     }
 
     @Override
