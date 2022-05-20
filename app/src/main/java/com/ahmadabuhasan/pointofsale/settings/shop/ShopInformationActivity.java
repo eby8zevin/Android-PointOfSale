@@ -80,8 +80,6 @@ public class ShopInformationActivity extends BaseActivity {
         });
 
         this.binding.tvShopUpdate.setOnClickListener(view -> {
-            Toasty.warning(this, Html.fromHtml("<small>Please purchase for</small><br> <big><b>Point Of Sale PRO</b></big>.<br> Thank you"), Toasty.LENGTH_LONG).show();
-
             String shop_name = this.binding.etShopName.getText().toString().trim();
             String shop_contact = this.binding.etShopContact.getText().toString().trim();
             String shop_email = this.binding.etShopEmail.getText().toString().trim();
@@ -108,7 +106,9 @@ public class ShopInformationActivity extends BaseActivity {
                 this.binding.etTax.setError(this.getString(R.string.tax_in_percentage));
                 this.binding.etTax.requestFocus();
             } else {
-                databaseAccess.open();
+                Toasty.warning(this, Html.fromHtml("<small>Please purchase for</small><br> <big><b>Point Of Sale PRO</b></big>.<br> Thank you"), Toasty.LENGTH_LONG).show();
+
+                /*databaseAccess.open();
                 boolean check = databaseAccess.updateShopInformation(shop_name, shop_contact, shop_email, shop_address, shop_currency, tax);
                 if (check) {
                     Toasty.success(this, R.string.shop_information_updated_successfully, Toasty.LENGTH_SHORT).show();
@@ -117,7 +117,7 @@ public class ShopInformationActivity extends BaseActivity {
                     this.startActivity(i);
                     return;
                 }
-                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();*/
             }
         });
     }
