@@ -31,12 +31,17 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ExpenseReportActivity extends BaseActivity {
 
     private ActivityExpenseReportBinding binding;
 
-    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     ProgressDialog loading;
+    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +59,7 @@ public class ExpenseReportActivity extends BaseActivity {
         this.binding.expenseReportRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.expenseReportRecyclerview.setHasFixedSize(true);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         ArrayList<HashMap<String, String>> allExpense = databaseAccess.getAllExpense();
         if (allExpense.size() <= 0) {
             Toasty.info(this, R.string.no_data_found, Toasty.LENGTH_SHORT).show();
@@ -112,10 +115,8 @@ public class ExpenseReportActivity extends BaseActivity {
     }
 
     public void getReport(String type) {
-        DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(this);
-        databaseAccess1.open();
-
-        ArrayList<HashMap<String, String>> expenseReport = databaseAccess1.getExpenseReport(type);
+        databaseAccess.open();
+        ArrayList<HashMap<String, String>> expenseReport = databaseAccess.getExpenseReport(type);
         if (expenseReport.size() <= 0) {
             Toasty.info(this, R.string.no_data_found, Toasty.LENGTH_SHORT).show();
             this.binding.expenseReportRecyclerview.setVisibility(View.GONE);
@@ -133,11 +134,11 @@ public class ExpenseReportActivity extends BaseActivity {
             this.binding.expenseReportRecyclerview.setAdapter(adapter1);
         }
 
-        databaseAccess1.open();
-        String currency = databaseAccess1.getCurrency();
+        databaseAccess.open();
+        String currency = databaseAccess.getCurrency();
 
-        databaseAccess1.open();
-        double total_price = databaseAccess1.getTotalExpense(type);
+        databaseAccess.open();
+        double total_price = databaseAccess.getTotalExpense(type);
         this.binding.tvTotalPrice.setText(String.format("%s%s%s", getString(R.string.total_expense), currency, this.decimalFormat.format(total_price)));
     }
 
