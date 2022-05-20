@@ -22,9 +22,14 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class CategoriesActivity extends BaseActivity {
 
     private ActivityCategoriesBinding binding;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +44,7 @@ public class CategoriesActivity extends BaseActivity {
         this.binding.categoryRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.categoryRecyclerview.setHasFixedSize(true);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         List<HashMap<String, String>> categoryData = databaseAccess.getProductCategory();
         Log.d("data", "" + categoryData.size());
         if (categoryData.size() <= 0) {
@@ -54,25 +57,23 @@ public class CategoriesActivity extends BaseActivity {
 
         this.binding.etCategorySearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(CategoriesActivity.this);
-                databaseAccess1.open();
-
-                List<HashMap<String, String>> searchCategoryList = databaseAccess1.searchProductCategory(charSequence.toString());
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                databaseAccess.open();
+                List<HashMap<String, String>> searchCategoryList = databaseAccess.searchProductCategory(charSequence.toString());
                 if (searchCategoryList.size() <= 0) {
-                    CategoriesActivity.this.binding.categoryRecyclerview.setVisibility(View.GONE);
-                    CategoriesActivity.this.binding.ivNoCategory.setVisibility(View.VISIBLE);
-                    CategoriesActivity.this.binding.ivNoCategory.setImageResource(R.drawable.no_data);
+                    binding.categoryRecyclerview.setVisibility(View.GONE);
+                    binding.ivNoCategory.setVisibility(View.VISIBLE);
+                    binding.ivNoCategory.setImageResource(R.drawable.no_data);
                     return;
                 }
-                CategoriesActivity.this.binding.ivNoCategory.setVisibility(View.GONE);
-                CategoriesActivity.this.binding.categoryRecyclerview.setVisibility(View.VISIBLE);
-                CategoriesActivity.this.binding.categoryRecyclerview.setAdapter(new CategoryAdapter(CategoriesActivity.this, searchCategoryList));
+                binding.ivNoCategory.setVisibility(View.GONE);
+                binding.categoryRecyclerview.setVisibility(View.VISIBLE);
+                binding.categoryRecyclerview.setAdapter(new CategoryAdapter(CategoriesActivity.this, searchCategoryList));
             }
 
             @Override
@@ -81,7 +82,7 @@ public class CategoriesActivity extends BaseActivity {
             }
         });
 
-        this.binding.fabAdd.setOnClickListener(view -> CategoriesActivity.this.startActivity(new Intent(CategoriesActivity.this, AddCategoryActivity.class)));
+        this.binding.fabAdd.setOnClickListener(view -> this.startActivity(new Intent(CategoriesActivity.this, AddCategoryActivity.class)));
     }
 
     @Override
