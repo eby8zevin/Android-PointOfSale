@@ -12,6 +12,10 @@ import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 
 import java.util.Objects;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class ReportActivity extends BaseActivity {
 
     private ActivityReportBinding binding;
@@ -26,10 +30,10 @@ public class ReportActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.report);
 
-        this.binding.cvSalesReport.setOnClickListener(view -> ReportActivity.this.startActivity(new Intent(ReportActivity.this, SalesReportActivity.class)));
-        this.binding.cvGraphReport.setOnClickListener(view -> ReportActivity.this.startActivity(new Intent(ReportActivity.this, GraphReportActivity.class)));
-        this.binding.cvExpenseReport.setOnClickListener(view -> ReportActivity.this.startActivity(new Intent(ReportActivity.this, ExpenseReportActivity.class)));
-        this.binding.cvGraphExpense.setOnClickListener(view -> ReportActivity.this.startActivity(new Intent(ReportActivity.this, ExpenseGraphActivity.class)));
+        this.binding.cvSalesReport.setOnClickListener(view -> this.startActivity(new Intent(ReportActivity.this, SalesReportActivity.class)));
+        this.binding.cvGraphReport.setOnClickListener(view -> this.startActivity(new Intent(ReportActivity.this, GraphReportActivity.class)));
+        this.binding.cvExpenseReport.setOnClickListener(view -> this.startActivity(new Intent(ReportActivity.this, ExpenseReportActivity.class)));
+        this.binding.cvGraphExpense.setOnClickListener(view -> this.startActivity(new Intent(ReportActivity.this, ExpenseGraphActivity.class)));
     }
 
     @Override
