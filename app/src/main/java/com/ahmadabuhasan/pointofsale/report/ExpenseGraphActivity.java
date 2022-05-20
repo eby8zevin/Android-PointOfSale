@@ -33,8 +33,9 @@ public class ExpenseGraphActivity extends BaseActivity {
 
     private ActivityExpenseGraphBinding binding;
 
-    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     int mYear;
+    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ public class ExpenseGraphActivity extends BaseActivity {
     }
 
     public void getGraphData(int mYear) {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         String[] monthList = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         String[] monthNumber = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
 
