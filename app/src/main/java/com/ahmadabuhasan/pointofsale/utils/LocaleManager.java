@@ -13,6 +13,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class LocaleManager {
 
     @Retention(RetentionPolicy.SOURCE)
