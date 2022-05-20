@@ -19,6 +19,10 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class EditCategoryActivity extends BaseActivity {
 
     private ActivityEditCategoryBinding binding;
@@ -40,31 +44,31 @@ public class EditCategoryActivity extends BaseActivity {
 
         this.binding.tvUpdateCategory.setVisibility(View.GONE);
         this.binding.tvEditCategory.setOnClickListener(view -> {
-            EditCategoryActivity.this.binding.etCategoryName.setEnabled(true);
-            EditCategoryActivity.this.binding.etCategoryName.setTextColor(SupportMenu.CATEGORY_MASK);
-            EditCategoryActivity.this.binding.tvEditCategory.setVisibility(View.GONE);
-            EditCategoryActivity.this.binding.tvUpdateCategory.setVisibility(View.VISIBLE);
+            this.binding.etCategoryName.setEnabled(true);
+            this.binding.etCategoryName.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.tvEditCategory.setVisibility(View.GONE);
+            this.binding.tvUpdateCategory.setVisibility(View.VISIBLE);
         });
 
         this.binding.tvUpdateCategory.setOnClickListener(view -> {
-            String category_name = EditCategoryActivity.this.binding.etCategoryName.getText().toString().trim();
+            String category_name = this.binding.etCategoryName.getText().toString().trim();
             if (category_name.isEmpty()) {
-                EditCategoryActivity.this.binding.etCategoryName.setError(EditCategoryActivity.this.getString(R.string.enter_category_name));
-                EditCategoryActivity.this.binding.etCategoryName.requestFocus();
+                this.binding.etCategoryName.setError(this.getString(R.string.enter_category_name));
+                this.binding.etCategoryName.requestFocus();
                 return;
             }
 
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(EditCategoryActivity.this);
-            databaseAccess.open();
+            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
+            databaseAccess.open();
             if (databaseAccess.updateCategory(category_id, category_name)) {
-                Toasty.success(EditCategoryActivity.this, R.string.category_updated, Toasty.LENGTH_SHORT).show();
+                Toasty.success(this, R.string.category_updated, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(EditCategoryActivity.this, CategoriesActivity.class);
                 //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                EditCategoryActivity.this.startActivity(i);
+                this.startActivity(i);
                 return;
             }
-            Toasty.error(EditCategoryActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+            Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
