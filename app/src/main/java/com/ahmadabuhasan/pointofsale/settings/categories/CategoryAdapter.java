@@ -20,10 +20,14 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> categoryData;
+    private final Context context;
+    private final List<HashMap<String, String>> categoryData;
 
     public CategoryAdapter(Context context1, List<HashMap<String, String>> categoryData1) {
         this.context = context1;
@@ -43,19 +47,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         final String category_id = this.categoryData.get(position).get(Constant.CATEGORY_ID);
 
         holder.binding.tvCategoryName.setText(this.categoryData.get(position).get(Constant.CATEGORY_NAME));
-        holder.binding.ivDelete.setOnClickListener(view -> new AlertDialog.Builder(CategoryAdapter.this.context)
+        holder.binding.ivDelete.setOnClickListener(view -> new AlertDialog.Builder(this.context)
                 .setMessage(R.string.want_to_delete_category)
                 .setCancelable(false)
                 .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-                    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(CategoryAdapter.this.context);
-                    databaseAccess.open();
+                    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
 
+                    databaseAccess.open();
                     if (databaseAccess.deleteCategory(category_id)) {
                         Toasty.success(CategoryAdapter.this.context, R.string.category_deleted, Toasty.LENGTH_SHORT).show();
-                        CategoryAdapter.this.categoryData.remove(holder.getAdapterPosition());
-                        CategoryAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                        this.categoryData.remove(holder.getAdapterPosition());
+                        this.notifyItemRemoved(holder.getAdapterPosition());
                     } else {
-                        Toasty.error(CategoryAdapter.this.context, R.string.failed, Toasty.LENGTH_SHORT).show();
+                        Toasty.error(this.context, R.string.failed, Toasty.LENGTH_SHORT).show();
                     }
                     dialogInterface.cancel();
                 }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.cancel()).show());
@@ -63,12 +67,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return categoryData.size();
+        return this.categoryData.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private CategoryItemBinding binding;
+        private final CategoryItemBinding binding;
 
         public MyViewHolder(@NonNull CategoryItemBinding binding) {
             super(binding.getRoot());
@@ -81,7 +85,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             Intent i = new Intent(CategoryAdapter.this.context, EditCategoryActivity.class);
             i.putExtra(Constant.CATEGORY_ID, (String) ((HashMap) CategoryAdapter.this.categoryData.get(getAdapterPosition())).get(Constant.CATEGORY_ID));
             i.putExtra(Constant.CATEGORY_NAME, (String) ((HashMap) CategoryAdapter.this.categoryData.get(getAdapterPosition())).get(Constant.CATEGORY_NAME));
-            CategoryAdapter.this.context.startActivity(i);
+            context.startActivity(i);
         }
     }
 }
