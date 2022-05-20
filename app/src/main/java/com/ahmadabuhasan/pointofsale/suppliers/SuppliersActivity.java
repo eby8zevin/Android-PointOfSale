@@ -31,10 +31,16 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class SuppliersActivity extends BaseActivity {
 
     private ActivitySuppliersBinding binding;
+
     ProgressDialog loading;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +55,7 @@ public class SuppliersActivity extends BaseActivity {
         this.binding.supplierRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.supplierRecyclerview.setHasFixedSize(true);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
         List<HashMap<String, String>> supplierData = databaseAccess.getSuppliers();
         Log.d("data", "" + supplierData.size());
         if (supplierData.size() <= 0) {
@@ -65,27 +69,25 @@ public class SuppliersActivity extends BaseActivity {
 
         this.binding.etSupplierSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(SuppliersActivity.this);
-                databaseAccess1.open();
-
-                List<HashMap<String, String>> searchSupplier = databaseAccess1.searchSuppliers(charSequence.toString());
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                databaseAccess.open();
+                List<HashMap<String, String>> searchSupplier = databaseAccess.searchSuppliers(charSequence.toString());
                 if (searchSupplier.size() <= 0) {
-                    SuppliersActivity.this.binding.supplierRecyclerview.setVisibility(View.GONE);
-                    SuppliersActivity.this.binding.ivNoSupplier.setVisibility(View.VISIBLE);
-                    SuppliersActivity.this.binding.ivNoSupplier.setImageResource(R.drawable.no_data);
+                    binding.supplierRecyclerview.setVisibility(View.GONE);
+                    binding.ivNoSupplier.setVisibility(View.VISIBLE);
+                    binding.ivNoSupplier.setImageResource(R.drawable.no_data);
                     return;
                 }
-                SuppliersActivity.this.binding.ivNoSupplier.setVisibility(View.GONE);
-                SuppliersActivity.this.binding.supplierRecyclerview.setVisibility(View.VISIBLE);
+                binding.ivNoSupplier.setVisibility(View.GONE);
+                binding.supplierRecyclerview.setVisibility(View.VISIBLE);
 
                 SupplierAdapter adapter1 = new SupplierAdapter(SuppliersActivity.this, searchSupplier);
-                SuppliersActivity.this.binding.supplierRecyclerview.setAdapter(adapter1);
+                binding.supplierRecyclerview.setAdapter(adapter1);
             }
 
             @Override
@@ -94,7 +96,7 @@ public class SuppliersActivity extends BaseActivity {
             }
         });
 
-        this.binding.fabAdd.setOnClickListener(view -> SuppliersActivity.this.startActivity(new Intent(SuppliersActivity.this, AddSuppliersActivity.class)));
+        this.binding.fabAdd.setOnClickListener(view -> this.startActivity(new Intent(SuppliersActivity.this, AddSuppliersActivity.class)));
     }
 
     @Override
