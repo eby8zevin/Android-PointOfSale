@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Locale;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
