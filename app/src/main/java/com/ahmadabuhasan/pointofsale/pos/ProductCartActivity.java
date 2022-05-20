@@ -49,13 +49,14 @@ public class ProductCartActivity extends BaseActivity {
 
     private ActivityProductCartBinding binding;
 
-    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     ArrayAdapter<String> customerAdapter;
     List<String> customerNames;
     ArrayAdapter<String> orderTypeAdapter;
     List<String> orderTypeNames;
     ArrayAdapter<String> paymentMethodAdapter;
     List<String> paymentMethodNames;
+
+    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
