@@ -22,10 +22,14 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Created by Ahmad Abu Hasan (C) 2022
+ */
+
 public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<HashMap<String, String>> supplierData;
+    private final Context context;
+    private final List<HashMap<String, String>> supplierData;
 
     public SupplierAdapter(Context context1, List<HashMap<String, String>> supplierData1) {
         this.context = context1;
@@ -55,23 +59,23 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.MyView
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             String phone = "tel:" + supplier_cell;
             callIntent.setData(Uri.parse(phone));
-            SupplierAdapter.this.context.startActivity(callIntent);
+            this.context.startActivity(callIntent);
         });
 
         holder.binding.ivSupplierDelete.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(SupplierAdapter.this.context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
             builder.setMessage(R.string.want_to_delete_supplier)
                     .setCancelable(false)
                     .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-                        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(SupplierAdapter.this.context);
-                        databaseAccess.open();
+                        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
 
+                        databaseAccess.open();
                         if (databaseAccess.deleteSupplier(supplier_id)) {
-                            Toasty.success(SupplierAdapter.this.context, R.string.supplier_deleted, Toasty.LENGTH_SHORT).show();
-                            SupplierAdapter.this.supplierData.remove(holder.getAdapterPosition());
-                            SupplierAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                            Toasty.success(this.context, R.string.supplier_deleted, Toasty.LENGTH_SHORT).show();
+                            this.supplierData.remove(holder.getAdapterPosition());
+                            this.notifyItemRemoved(holder.getAdapterPosition());
                         } else {
-                            Toast.makeText(SupplierAdapter.this.context, R.string.failed, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this.context, R.string.failed, Toast.LENGTH_SHORT).show();
                         }
                         dialogInterface.cancel();
                     }).setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.cancel()).show();
@@ -80,12 +84,12 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return supplierData.size();
+        return this.supplierData.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private SupplierItemBinding binding;
+        private final SupplierItemBinding binding;
 
         public MyViewHolder(@NonNull SupplierItemBinding binding) {
             super(binding.getRoot());
@@ -102,7 +106,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.MyView
             i.putExtra(Constant.SUPPLIERS_CELL, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_CELL));
             i.putExtra(Constant.SUPPLIERS_EMAIL, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_EMAIL));
             i.putExtra(Constant.SUPPLIERS_ADDRESS, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(Constant.SUPPLIERS_ADDRESS));
-            SupplierAdapter.this.context.startActivity(i);
+            context.startActivity(i);
         }
     }
 }
