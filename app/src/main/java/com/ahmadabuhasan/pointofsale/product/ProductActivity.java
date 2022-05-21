@@ -40,7 +40,7 @@ public class ProductActivity extends BaseActivity {
     private ActivityProductBinding binding;
 
     ProgressDialog dialog;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class ProductActivity extends BaseActivity {
         this.binding.productRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.productRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> productData = databaseAccess.getProducts();
         Log.d("data", "" + productData.size());
@@ -135,32 +136,32 @@ public class ProductActivity extends BaseActivity {
         if (!file.exists()) {
             file.mkdirs();
         }
-        new SQLiteToExcel(getApplicationContext(), DatabaseOpenHelper.DATABASE_NAME, path)
-                .exportSingleTable(Constant.products, "products.xls", new SQLiteToExcel.ExportListener() {
-                    @Override
-                    public void onStart() {
-                        ProductActivity.this.dialog = new ProgressDialog(ProductActivity.this);
-                        ProductActivity.this.dialog.setMessage(ProductActivity.this.getString(R.string.data_exporting_please_wait));
-                        ProductActivity.this.dialog.setCancelable(false);
-                        ProductActivity.this.dialog.show();
-                    }
+        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(), DatabaseOpenHelper.DATABASE_NAME, path);
+        sqLiteToExcel.exportSingleTable(Constant.products, "products.xls", new SQLiteToExcel.ExportListener() {
+            @Override
+            public void onStart() {
+                ProductActivity.this.dialog = new ProgressDialog(ProductActivity.this);
+                ProductActivity.this.dialog.setMessage(ProductActivity.this.getString(R.string.data_exporting_please_wait));
+                ProductActivity.this.dialog.setCancelable(false);
+                ProductActivity.this.dialog.show();
+            }
 
+            @Override
+            public void onCompleted(String filePath) {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onCompleted(String filePath) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                ProductActivity.this.dialog.dismiss();
-                                Toasty.success(ProductActivity.this, R.string.data_successfully_exported, Toasty.LENGTH_SHORT).show();
-                            }
-                        }, 5000);
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
+                    public void run() {
                         ProductActivity.this.dialog.dismiss();
-                        Toasty.error(ProductActivity.this, R.string.data_export_fail, Toasty.LENGTH_SHORT).show();
+                        Toasty.success(ProductActivity.this, R.string.data_successfully_exported, Toasty.LENGTH_SHORT).show();
                     }
-                });
+                }, 5000);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                ProductActivity.this.dialog.dismiss();
+                Toasty.error(ProductActivity.this, R.string.data_export_fail, Toasty.LENGTH_SHORT).show();
+            }
+        });
     }
 }
