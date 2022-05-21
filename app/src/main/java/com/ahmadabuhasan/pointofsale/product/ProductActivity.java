@@ -120,7 +120,8 @@ public class ProductActivity extends BaseActivity {
     }
 
     public void folderChooser() {
-        new ChooserDialog((Activity) this).displayPath(true)
+        new ChooserDialog((Activity) this)
+                .displayPath(true)
                 .withFilter(true, false, new String[0])
                 .withChosenListener(new ChooserDialog.Result() {
                     @Override
@@ -148,13 +149,14 @@ public class ProductActivity extends BaseActivity {
 
             @Override
             public void onCompleted(String filePath) {
-                new Handler().postDelayed(new Runnable() {
+                Handler mHand = new Handler();
+                mHand.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         ProductActivity.this.dialog.dismiss();
                         Toasty.success(ProductActivity.this, R.string.data_successfully_exported, Toasty.LENGTH_SHORT).show();
                     }
-                }, 5000);
+                }, 5000L);
             }
 
             @Override
