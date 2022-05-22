@@ -447,27 +447,26 @@ public class DatabaseAccess {
         return orderList;
     }
 
-    /*
-                public ArrayList<HashMap<String, String>> getOrderDetailsList(String order_id) {
-                    ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
-                    SQLiteDatabase sQLiteDatabase = this.database;
-                    Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_details WHERE invoice_id='" + order_id + "' ORDER BY order_details_id DESC", null);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            HashMap<String, String> map = new HashMap<>();
-                            map.put(Constant.PRODUCT_NAME, cursor.getString(2));
-                            map.put(Constant.PRODUCT_WEIGHT, cursor.getString(3));
-                            map.put(Constant.PRODUCT_QTY, cursor.getString(4));
-                            map.put(Constant.PRODUCT_PRICE, cursor.getString(5));
-                            map.put(Constant.PRODUCT_IMAGE, cursor.getString(6));
-                            orderDetailsList.add(map);
-                        } while (cursor.moveToNext());
-                    }
-                    cursor.close();
-                    this.database.close();
-                    return orderDetailsList;
-                }
-            */
+    public ArrayList<HashMap<String, String>> getOrderDetailsList(String order_id) {
+        ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM order_details WHERE invoice_id='" + order_id + "' ORDER BY order_details_id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Constant.PRODUCT_NAME, cursor.getString(2));
+                map.put(Constant.PRODUCT_WEIGHT, cursor.getString(3));
+                map.put(Constant.PRODUCT_QTY, cursor.getString(4));
+                map.put(Constant.PRODUCT_PRICE, cursor.getString(5));
+                map.put(Constant.PRODUCT_IMAGE, cursor.getString(6));
+
+                orderDetailsList.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return orderDetailsList;
+    }
+
     public ArrayList<HashMap<String, String>> getAllSalesItems() {
         ArrayList<HashMap<String, String>> orderDetailsList = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM order_details  WHERE order_status='Completed' ORDER BY order_details_id DESC", null);
