@@ -1346,25 +1346,23 @@ public class DatabaseAccess {
         return check == 1;
     }
 
-    /*
-            public boolean updateOrder(String invoiceId, String orderStatus) {
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Constant.ORDER_STATUS, orderStatus);
-                SQLiteDatabase sQLiteDatabase = this.database;
-                String str = Constant.orderList;
-                String[] strArr = {invoiceId};
-                this.database.update(Constant.orderDetails, contentValues, "invoice_id=?", new String[]{invoiceId});
-                this.database.close();
-                return ((long) sQLiteDatabase.update(str, contentValues, "invoice_id=?", strArr)) == 1;
-            }
+    public boolean updateOrder(String invoiceId, String orderStatus) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.ORDER_STATUS, orderStatus);
+        this.database.update(Constant.orderDetails, contentValues, "invoice_id=?", new String[]{invoiceId});
+        long l = (long) this.database.update(Constant.orderList, contentValues, "invoice_id=?", new String[]{invoiceId});
+        close();
+        return (l == 1L);
+    }
 
-            public boolean deleteOrder(String invoice_id) {
-                long check = (long) this.database.delete("order_list", "invoice_id=?", new String[]{invoice_id});
-                long delete = (long) this.database.delete("order_details", "invoice_id=?", new String[]{invoice_id});
-                this.database.close();
-                return check == 1;
-            }
-        */
+    /*
+                public boolean deleteOrder(String invoice_id) {
+                    long check = (long) this.database.delete("order_list", "invoice_id=?", new String[]{invoice_id});
+                    long delete = (long) this.database.delete("order_details", "invoice_id=?", new String[]{invoice_id});
+                    this.database.close();
+                    return check == 1;
+                }
+            */
     public Boolean deleteProduct(String product_id) {
         long check = this.database.delete("products", "product_id=?", new String[]{product_id});
         long delete = this.database.delete("product_cart", "product_id=?", new String[]{product_id});
