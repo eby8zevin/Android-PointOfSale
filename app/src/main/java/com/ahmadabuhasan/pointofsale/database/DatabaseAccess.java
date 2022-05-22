@@ -844,26 +844,24 @@ public class DatabaseAccess {
         return total_price;
     }
 
-    /*
-            public double totalOrderPrice(String invoice_id) {
-                double total_price = Utils.DOUBLE_EPSILON;
-                SQLiteDatabase sQLiteDatabase = this.database;
-                Cursor cursor = sQLiteDatabase.rawQuery("SELECT * FROM order_details WHERE invoice_id='" + invoice_id + "'", null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        double price = Double.parseDouble(cursor.getString(5));
-                        double parseInt = (double) Integer.parseInt(cursor.getString(4));
-                        Double.isNaN(parseInt);
-                        total_price += parseInt * price;
-                    } while (cursor.moveToNext());
-                } else {
-                    total_price = Utils.DOUBLE_EPSILON;
-                }
-                cursor.close();
-                this.database.close();
-                return total_price;
-            }
-    */
+    public double totalOrderPrice(String invoice_id) {
+        double total_price = Utils.DOUBLE_EPSILON;
+        Cursor cursor = this.database.rawQuery("SELECT * FROM order_details WHERE invoice_id='" + invoice_id + "'", null);
+        if (cursor.moveToFirst()) {
+            do {
+                double qty = (double) Integer.parseInt(cursor.getString(4));
+                double price = Double.parseDouble(cursor.getString(5));
+                Double.isNaN(qty);
+                total_price += qty * price;
+            } while (cursor.moveToNext());
+        } else {
+            total_price = Utils.DOUBLE_EPSILON;
+        }
+        cursor.close();
+        close();
+        return total_price;
+    }
+
     public double getTotalExpense(String type) {
         Cursor cursor;
         double total_cost = Utils.DOUBLE_EPSILON;
