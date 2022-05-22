@@ -52,6 +52,9 @@
         <activity android:name=".report.GraphReportActivity" />
         <activity android:name=".report.SalesReportActivity" />
         <activity android:name=".report.ReportActivity" />
+        <activity android:name=".pdf_report.ViewPDFActivity" />
+        <activity android:name=".orders.DeviceListActivity" />
+        <activity android:name=".orders.OrderDetailsActivity" />
         <activity android:name=".orders.OrdersActivity" />
         <activity android:name=".expense.EditExpenseActivity" />
         <activity android:name=".expense.AddExpenseActivity" />
