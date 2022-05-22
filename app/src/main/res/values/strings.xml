@@ -300,6 +300,7 @@
     <string name="print">Print</string>
     <string name="print_error">Error in printing</string>
     <string name="print_succ">Print done successfully</string>
+    <string name="print_receipt_via_thermal_printer">Print Receipt Via Thermal Printer</string>
     <string name="product_added_to_cart">Product added to cart</string>
     <string name="product_added_to_cart_failed_try_again">Product added to cart failed! Try again</string>
     <string name="product_already_added_to_cart">Product Already Added to Cart</string>
