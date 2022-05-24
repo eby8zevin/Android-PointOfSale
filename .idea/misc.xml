@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/actionbar_gradient.xml" value="0.165234375" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/back.xml" value="0.10694444444444444" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/circle.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/gradiant.xml" value="0.165234375" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/drawable/header_background.xml" value="0.165234375" />
@@ -74,6 +75,7 @@
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/cart_product_items.xml" value="0.10894808743169399" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/category_item.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/customer_item.xml" value="0.2" />
+        <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/device_name.xml" value="0.1" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/dialog_list_search.xml" value="0.153125" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/dialog_payment.xml" value="0.10894808743169399" />
         <entry key="..\:/Android Studio/PointOfSale/app/src/main/res/layout/expense_item.xml" value="0.22" />
