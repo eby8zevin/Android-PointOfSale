@@ -1,12 +1,15 @@
 package com.ahmadabuhasan.pointofsale.orders;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +20,11 @@ import com.ahmadabuhasan.pointofsale.databinding.ActivityOrderDetailsBinding;
 import com.ahmadabuhasan.pointofsale.pdf_report.BarCodeEncoder;
 import com.ahmadabuhasan.pointofsale.pdf_report.TemplatePDF;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
+import com.ahmadabuhasan.pointofsale.utils.IPrintToPrinter;
+import com.ahmadabuhasan.pointofsale.utils.PrefMng;
+import com.ahmadabuhasan.pointofsale.utils.Tools;
+import com.ahmadabuhasan.pointofsale.utils.WoosimPrnMng;
+import com.ahmadabuhasan.pointofsale.utils.printerFactory;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 
@@ -43,6 +51,7 @@ public class OrderDetailsActivity extends BaseActivity {
     String receiptCustomerName, receiptThanks;
     double getTax, getDiscount, total_price, calculated_TotalPrice;
 
+    private WoosimPrnMng mPrnMng = null;
     Bitmap bm = null;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
@@ -121,21 +130,19 @@ public class OrderDetailsActivity extends BaseActivity {
         }
 
         String[] header = {"Description", "Price"};
-        this.binding.btnPdfReceipt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                templatePDF.createTable(header, getOrdersData());
-                templatePDF.addRightParagraph(receiptThanks);
-                templatePDF.addImage(bm);
-                templatePDF.closeDocument();
-                templatePDF.viewPDF();
-            }
+        this.binding.btnPdfReceipt.setOnClickListener(view -> {
+            templatePDF.createTable(header, getOrdersData());
+            templatePDF.addRightParagraph(receiptThanks);
+            templatePDF.addImage(bm);
+            templatePDF.closeDocument();
+            templatePDF.viewPDF();
         });
 
-        this.binding.btnThermalPrinter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+        this.binding.btnThermalPrinter.setOnClickListener(view -> {
+            if (Tools.isBlueToothOn(this)) {
+                PrefMng.saveActivePrinter(this, PrefMng.PRN_WOOSIM_SELECTED);
+                Intent i = new Intent(OrderDetailsActivity.this, DeviceListActivity.class);
+                startActivityForResult(i, REQUEST_CONNECT);
             }
         });
     }
@@ -179,5 +186,31 @@ public class OrderDetailsActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == REQUEST_CONNECT && resultCode == RESULT_OK) {
+            try {
+                //Get device address to print to.
+                String blutoothAddr = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+                //The interface to print text to thermal printers.
+                IPrintToPrinter testPrinter = new TestPrinter(this, shop_name, shop_address, shop_email, shop_contact,
+                        order_id, order_date, order_time, receiptCustomerName, receiptThanks,
+                        total_price, calculated_TotalPrice, tax, discount, shop_currency);
+                //Connect to the printer and after successful connection issue the print command.
+                mPrnMng = printerFactory.createPrnMng(this, blutoothAddr, testPrinter);
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mPrnMng != null) mPrnMng.releaseAllocatoins();
+        super.onDestroy();
     }
 }
