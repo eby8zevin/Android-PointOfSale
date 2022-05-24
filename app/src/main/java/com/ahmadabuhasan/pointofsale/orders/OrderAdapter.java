@@ -128,7 +128,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         @Override
         public void onClick(View view) {
             Intent i = new Intent(OrderAdapter.this.context, OrderDetailsActivity.class);
-            i.putExtra(Constant.ORDER_ID, (String) ((HashMap) OrderAdapter.this.orderData.get(getAdapterPosition())).get(Constant.ORDER_ID));
+            i.putExtra(Constant.ORDER_ID, (String) ((HashMap) OrderAdapter.this.orderData.get(getAdapterPosition())).get(Constant.INVOICE_ID));
             i.putExtra(Constant.CUSTOMER_NAME, (String) ((HashMap) OrderAdapter.this.orderData.get(getAdapterPosition())).get(Constant.CUSTOMER_NAME));
             i.putExtra(Constant.ORDER_DATE, (String) ((HashMap) OrderAdapter.this.orderData.get(getAdapterPosition())).get(Constant.ORDER_DATE));
             i.putExtra(Constant.ORDER_TIME, (String) ((HashMap) OrderAdapter.this.orderData.get(getAdapterPosition())).get(Constant.ORDER_TIME));
