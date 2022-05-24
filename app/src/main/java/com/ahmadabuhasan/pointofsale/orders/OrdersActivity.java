@@ -30,7 +30,7 @@ import es.dmoral.toasty.Toasty;
 public class OrdersActivity extends BaseActivity {
 
     private ActivityOrdersBinding binding;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class OrdersActivity extends BaseActivity {
         this.binding.ordersRecyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         this.binding.ordersRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> orderList = databaseAccess.getOrderList();
         if (orderList.size() <= 0) {
