@@ -15,7 +15,8 @@
         android:text="@string/title_paired_devices"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
     <ListView
         android:id="@+id/paired_devices"
@@ -35,7 +36,8 @@
         android:text="@string/title_other_devices"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
     <ListView
         android:id="@+id/new_devices"
@@ -54,7 +56,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:drawableRight="@drawable/printer"
+        android:drawableEnd="@drawable/printer"
         android:fontFamily="@font/sailec_regular"
         android:text="@string/button_scan"
         android:textColor="@color/white"
