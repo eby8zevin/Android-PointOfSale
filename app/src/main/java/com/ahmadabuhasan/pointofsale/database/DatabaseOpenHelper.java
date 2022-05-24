@@ -19,7 +19,7 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
 
     public static final String DATABASE_NAME = "POS.db";
     private static final int DATABASE_VERSION = 1;
-    private Context context;
+    private final Context context;
 
     public DatabaseOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
