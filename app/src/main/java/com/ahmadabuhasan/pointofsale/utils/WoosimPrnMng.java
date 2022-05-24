@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ahmadabuhasan.pointofsale.R;
@@ -218,5 +219,28 @@ public class WoosimPrnMng {
         sendData(WoosimCmd.setPageMode());
         sendData(data);
         sendData(WoosimCmd.PM_setStdMode());
+    }
+
+    public void printPhoto(Bitmap img) {
+        try {
+            if (img != null) {
+                byte[] command = Utils.decodeBitmap(img);
+                mPrintService.write(command);
+            } else {
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+
+    public void leftRightAlign(String str1, String str2) {
+        String ans = str1 + str2;
+        if (ans.length() < 32) {
+            int n = (32 - str1.length()) + str2.length();
+            ans = str1 + new String(new char[n]).replace("\u0000", " ") + str2;
+        }
+        printStr(ans, 1, WoosimCmd.ALIGN_RIGHT);
     }
 }
