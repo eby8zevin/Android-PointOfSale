@@ -414,7 +414,7 @@
     <string name="want_to_delete_product">Want to Delete Product ?</string>
     <string name="want_to_delete_supplier">Want to Delete Supplier ?</string>
     <string name="walk_in_customer">Walk In Customer</string>
-    <string name="weight">Weight</string>
+    <string name="weight">Weight:</string>
     <string name="weight_added_successfully">Weight Unit Added Successfully</string>
     <string name="weight_name">Weight Name</string>
     <string name="weight_unit_deleted">Weight Unit Deleted</string>
