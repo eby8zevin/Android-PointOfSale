@@ -85,7 +85,7 @@ public class DatabaseAccess {
     public boolean updateCategory(String category_id, String category_name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.CATEGORY_NAME, category_name);
-        long check = (long) this.database.update(Constant.PRODUCT_CATEGORY, contentValues, "category_id=? ", new String[]{category_id});
+        long check = this.database.update(Constant.PRODUCT_CATEGORY, contentValues, "category_id=? ", new String[]{category_id});
         close();
         return check != -1;
     }
@@ -93,7 +93,7 @@ public class DatabaseAccess {
     public boolean updatePaymentMethod(String payment_method_id, String payment_method_name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
-        long check = (long) this.database.update(Constant.paymentMethod, contentValues, "payment_method_id=? ", new String[]{payment_method_id});
+        long check = this.database.update(Constant.paymentMethod, contentValues, "payment_method_id=? ", new String[]{payment_method_id});
         close();
         return check != -1;
     }
@@ -101,7 +101,7 @@ public class DatabaseAccess {
     public boolean updateWeight(String weight_id, String weight_name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.WEIGHT_UNIT, weight_name);
-        long check = (long) this.database.update(Constant.PRODUCT_WEIGHT, contentValues, "weight_id=? ", new String[]{weight_id});
+        long check = this.database.update(Constant.PRODUCT_WEIGHT, contentValues, "weight_id=? ", new String[]{weight_id});
         close();
         return check != -1;
     }
@@ -112,7 +112,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.CUSTOMER_CELL, customer_cell);
         contentValues.put(Constant.CUSTOMER_EMAIL, customer_email);
         contentValues.put(Constant.CUSTOMER_ADDRESS, customer_address);
-        long check = (long) this.database.update(Constant.customers, contentValues, " customer_id=? ", new String[]{customer_id});
+        long check = this.database.update(Constant.customers, contentValues, " customer_id=? ", new String[]{customer_id});
         close();
         return check != -1;
     }
@@ -125,7 +125,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.SHOP_ADDRESS, shop_address);
         contentValues.put(Constant.SHOP_CURRENCY, shop_currency);
         contentValues.put(Constant.TAX, tax);
-        long check = (long) this.database.update(Constant.SHOP, contentValues, "shop_id=? ", new String[]{"1"});
+        long check = this.database.update(Constant.SHOP, contentValues, "shop_id=? ", new String[]{"1"});
         close();
         return check != -1;
     }
@@ -185,8 +185,8 @@ public class DatabaseAccess {
         contentValues.put(Constant.EXPENSE_NOTE, expense_note);
         contentValues.put(Constant.EXPENSE_DATE, date);
         contentValues.put(Constant.EXPENSE_TIME, time);
-        long check = (long) this.database.update(Constant.expense, contentValues, "expense_id=?", new String[]{expense_id});
-        this.database.close();
+        long check = this.database.update(Constant.expense, contentValues, "expense_id=?", new String[]{expense_id});
+        close();
         return check != -1;
     }
 
@@ -209,7 +209,7 @@ public class DatabaseAccess {
         contentValues.put(Constant.SUPPLIERS_CELL, suppliers_cell);
         contentValues.put(Constant.SUPPLIERS_EMAIL, suppliers_email);
         contentValues.put(Constant.SUPPLIERS_ADDRESS, suppliers_address);
-        long check = (long) this.database.update(Constant.suppliers, contentValues, "suppliers_id=?", new String[]{suppliers_id});
+        long check = this.database.update(Constant.suppliers, contentValues, "suppliers_id=?", new String[]{suppliers_id});
         close();
         return check != -1;
     }
