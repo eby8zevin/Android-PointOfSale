@@ -24,7 +24,7 @@ public class DatabaseAccess {
 
     private static DatabaseAccess INSTANCE;
     private SQLiteDatabase database;
-    private SQLiteOpenHelper openHelper;
+    private final SQLiteOpenHelper openHelper;
 
     private DatabaseAccess(Context context) {
         this.openHelper = new DatabaseOpenHelper(context);
@@ -1275,29 +1275,28 @@ public class DatabaseAccess {
         return product;
     }
 
-    /*
-        public int addToCart(String product_name, String price, String weight, int qty, String base64Image, String ref, String tva_tx, String product_id) {
-            SQLiteDatabase sQLiteDatabase = this.database;
-            if (sQLiteDatabase.rawQuery("SELECT * FROM cart WHERE product_name='" + product_name + "' AND price='" + price + "' AND weight='" + weight + "'", null).getCount() >= 1) {
-                return 2;
-            }
-            ContentValues values = new ContentValues();
-            values.put(Constant.PRODUCT_NAME, product_name);
-            values.put(Constant.PRICE, price);
-            values.put("weight", weight);
-            values.put("qty", Integer.valueOf(qty));
-            values.put("image", base64Image);
-            values.put("ref", ref);
-            values.put("tva_tx", tva_tx);
-            values.put("fk_product", product_id);
-            long check = this.database.insert("cart", null, values);
-            this.database.close();
-            if (check == -1) {
-                return -1;
-            }
-            return 1;
+    /*public int addToCart(String product_name, String price, String weight, int qty, String base64Image, String ref, String tva_tx, String product_id) {
+        SQLiteDatabase sQLiteDatabase = this.database;
+        if (sQLiteDatabase.rawQuery("SELECT * FROM cart WHERE product_name='" + product_name + "' AND price='" + price + "' AND weight='" + weight + "'", null).getCount() >= 1) {
+            return 2;
         }
-*/
+        ContentValues values = new ContentValues();
+        values.put(Constant.PRODUCT_NAME, product_name);
+        values.put(Constant.PRICE, price);
+        values.put("weight", weight);
+        values.put("qty", Integer.valueOf(qty));
+        values.put("image", base64Image);
+        values.put("ref", ref);
+        values.put("tva_tx", tva_tx);
+        values.put("fk_product", product_id);
+        long check = this.database.insert("cart", null, values);
+        this.database.close();
+        if (check == -1) {
+            return -1;
+        }
+        return 1;
+    }*/
+
     public ArrayList<HashMap<String, String>> getSuppliers() {
         ArrayList<HashMap<String, String>> supplier = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers ORDER BY suppliers_id DESC", null);
@@ -1352,14 +1351,13 @@ public class DatabaseAccess {
         return (l == 1L);
     }
 
-    /*
-                public boolean deleteOrder(String invoice_id) {
-                    long check = (long) this.database.delete("order_list", "invoice_id=?", new String[]{invoice_id});
-                    long delete = (long) this.database.delete("order_details", "invoice_id=?", new String[]{invoice_id});
-                    this.database.close();
-                    return check == 1;
-                }
-            */
+    /*public boolean deleteOrder(String invoice_id) {
+        long check = (long) this.database.delete("order_list", "invoice_id=?", new String[]{invoice_id});
+        long delete = (long) this.database.delete("order_details", "invoice_id=?", new String[]{invoice_id});
+        this.database.close();
+        return check == 1;
+    }*/
+
     public Boolean deleteProduct(String product_id) {
         long check = this.database.delete("products", "product_id=?", new String[]{product_id});
         long delete = this.database.delete("product_cart", "product_id=?", new String[]{product_id});
@@ -1378,5 +1376,4 @@ public class DatabaseAccess {
         close();
         return check == 1;
     }
-
 }
