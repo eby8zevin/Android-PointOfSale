@@ -111,10 +111,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             }
         }
 
-        double dPrice = Double.parseDouble(Objects.requireNonNull(price));
-        double dQty = Integer.parseInt(Objects.requireNonNull(qty));
-        Double.isNaN(dQty);
-        double getPrice = dQty * dPrice;
+        final double getPrice = Double.parseDouble(Objects.requireNonNull(price)) * Integer.parseInt(Objects.requireNonNull(qty));
 
         holder.binding.tvItemName.setText(product_name);
         holder.binding.tvWeight.setText(String.format("%s %s", weight, weight_UnitName));
@@ -148,14 +145,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         });
 
         holder.binding.tvMinus.setOnClickListener(view -> {
-            String qty1 = holder.binding.tvQtyNumber.getText().toString();
-            int get_qty = Integer.parseInt(qty1);
-            if (get_qty >= 2) {
-                int getQty = get_qty - 1;
-                double parsePrice = Double.parseDouble(price);
-                double d = getQty;
-                Double.isNaN(d);
-                double cost = parsePrice * d;
+            String qtyMinus = holder.binding.tvQtyNumber.getText().toString();
+            int getQty = Integer.parseInt(qtyMinus);
+            if (getQty >= 2) {
+                getQty--;
+                double cost = Double.parseDouble(price) * getQty;
 
                 holder.binding.tvPrice.setText(String.format("%s%s", currency, decimalFormat.format(cost)));
                 holder.binding.tvQtyNumber.setText(MessageFormat.format("{0}", getQty));
@@ -168,25 +162,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         });
 
         holder.binding.tvPlus.setOnClickListener(view -> {
-            String qty12 = holder.binding.tvQtyNumber.getText().toString();
-            int get_qty = Integer.parseInt(qty12);
-            if (get_qty >= getStock) {
+            String qtyPlus = holder.binding.tvQtyNumber.getText().toString();
+            int getQty = Integer.parseInt(qtyPlus);
+            if (getQty >= getStock) {
                 Toasty.error(context, R.string.available_stock, Toasty.LENGTH_SHORT).show();
-                return;
+            } else {
+                getQty++;
+                double cost = Double.parseDouble(price) * getQty;
+
+                holder.binding.tvPrice.setText(String.format("%s%s", currency, decimalFormat.format(cost)));
+                holder.binding.tvQtyNumber.setText(MessageFormat.format("{0}", getQty));
+
+                databaseAccess.open();
+                databaseAccess.updateProductQty(cart_id, "" + getQty);
+                total_price = total_price + Double.parseDouble(price);
+                tvTotalPrice.setText(String.format("%s%s%s", this.context.getString(R.string.total_price), currency, decimalFormat.format(total_price)));
             }
-            int getQty = get_qty + 1;
-            double parsePrice = Double.parseDouble(price);
-            double d = getQty;
-            Double.isNaN(d);
-            double cost = parsePrice * d;
-
-            holder.binding.tvPrice.setText(String.format("%s%s", currency, decimalFormat.format(cost)));
-            holder.binding.tvQtyNumber.setText(MessageFormat.format("{0}", getQty));
-
-            databaseAccess.open();
-            databaseAccess.updateProductQty(cart_id, "" + getQty);
-            total_price = total_price + Double.parseDouble(price);
-            tvTotalPrice.setText(String.format("%s%s%s", this.context.getString(R.string.total_price), currency, decimalFormat.format(total_price)));
         });
     }
 
