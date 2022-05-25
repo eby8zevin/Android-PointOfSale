@@ -21,7 +21,6 @@ import com.ahmadabuhasan.pointofsale.databinding.ActivityAddCustomersBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ajts.androidmads.library.ExcelToSQLite;
 import com.obsez.android.lib.filechooser.ChooserDialog;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.io.File;
 import java.util.Objects;
@@ -72,7 +71,7 @@ public class AddCustomersActivity extends BaseActivity {
                 if (databaseAccess.addCustomer(customer_name, customer_cell, customer_email, customer_address)) {
                     Toasty.success(this, R.string.customer_successfully_added, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(AddCustomersActivity.this, CustomersActivity.class);
-                    //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     AddCustomersActivity.this.startActivity(i);
                     return;
                 }
