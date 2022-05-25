@@ -10,7 +10,6 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityAddWeightBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.Objects;
 
@@ -39,20 +38,19 @@ public class AddWeightActivity extends BaseActivity {
             if (weight_name.isEmpty()) {
                 AddWeightActivity.this.binding.etWeUnNameName.setError(AddWeightActivity.this.getString(R.string.enter_weight_name));
                 AddWeightActivity.this.binding.etWeUnNameName.requestFocus();
-                return;
-            }
+            } else {
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddWeightActivity.this);
 
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddWeightActivity.this);
-
-            databaseAccess.open();
-            if (databaseAccess.addWeight(weight_name)) {
-                Toasty.success(AddWeightActivity.this, R.string.weight_added_successfully, Toasty.LENGTH_SHORT).show();
-                Intent i = new Intent(AddWeightActivity.this, WeightActivity.class);
-                //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                AddWeightActivity.this.startActivity(i);
-                return;
+                databaseAccess.open();
+                if (databaseAccess.addWeight(weight_name)) {
+                    Toasty.success(AddWeightActivity.this, R.string.weight_added_successfully, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(AddWeightActivity.this, WeightActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    AddWeightActivity.this.startActivity(i);
+                } else {
+                    Toasty.error(AddWeightActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                }
             }
-            Toasty.error(AddWeightActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
