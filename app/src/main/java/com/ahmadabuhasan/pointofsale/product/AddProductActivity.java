@@ -36,7 +36,6 @@ import com.ahmadabuhasan.pointofsale.databinding.ActivityAddProductBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ajts.androidmads.library.ExcelToSQLite;
 import com.obsez.android.lib.filechooser.ChooserDialog;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -71,9 +70,8 @@ public class AddProductActivity extends BaseActivity {
     List<String> supplierNames;
     String selectedSupplierID;
 
-    String mediaPath;
     ProgressDialog loading;
-    String encodedImage = "N/A";
+    String mediaPath, encodedImage = "N/A";
     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
@@ -171,7 +169,7 @@ public class AddProductActivity extends BaseActivity {
                 this.binding.etProductCategory.setText(selectedItem);
                 for (int i3 = 0; i3 < this.categoryNames.size(); i3++) {
                     if (this.categoryNames.get(i3).equalsIgnoreCase(selectedItem)) {
-                        category_id = (String) ((HashMap) productCategory.get(i3)).get(Constant.CATEGORY_ID);
+                        category_id = productCategory.get(i3).get(Constant.CATEGORY_ID);
                     }
                 }
                 this.selectedCategoryID = category_id;
@@ -222,7 +220,7 @@ public class AddProductActivity extends BaseActivity {
                 this.binding.etProductWeightUnit.setText(selectedItem);
                 for (int i4 = 0; i4 < this.weightUnitNames.size(); i4++) {
                     if (this.weightUnitNames.get(i4).equalsIgnoreCase(selectedItem)) {
-                        weight_unit_id = (String) ((HashMap) weightUnit.get(i4)).get(Constant.WEIGHT_ID);
+                        weight_unit_id = weightUnit.get(i4).get(Constant.WEIGHT_ID);
                     }
                 }
                 this.selectedWeightUnitID = weight_unit_id;
@@ -273,7 +271,7 @@ public class AddProductActivity extends BaseActivity {
                 this.binding.etSupplier.setText(selectedItem);
                 for (int i5 = 0; i5 < this.supplierNames.size(); i5++) {
                     if (this.supplierNames.get(i5).equalsIgnoreCase(selectedItem)) {
-                        supplier_id = (String) ((HashMap) productSupplier.get(i5)).get(Constant.SUPPLIERS_ID);
+                        supplier_id = productSupplier.get(i5).get(Constant.SUPPLIERS_ID);
                     }
                 }
                 this.selectedSupplierID = supplier_id;
@@ -299,43 +297,32 @@ public class AddProductActivity extends BaseActivity {
             if (product_name.isEmpty()) {
                 this.binding.etProductName.setError(this.getString(R.string.product_name_cannot_be_empty));
                 this.binding.etProductName.requestFocus();
-                return;
-            }
-            if (!product_categoryName.isEmpty() && !product_categoryID.isEmpty()) {
-                if (product_sellPrice.isEmpty()) {
-                    this.binding.etProductSellPrice.setError(this.getString(R.string.product_sell_price_cannot_be_empty));
-                    this.binding.etProductSellPrice.requestFocus();
-                    return;
-                }
-                if (!product_weightUnitName.isEmpty() && !product_weight.isEmpty()) {
-                    if (product_stock.isEmpty()) {
-                        this.binding.etProductStock.setError(this.getString(R.string.product_stock_cannot_be_empty));
-                        this.binding.etProductStock.requestFocus();
-                        return;
-                    }
-                    if (!product_supplierName.isEmpty() && !product_supplierID.isEmpty()) {
-                        databaseAccess.open();
-                        boolean check = databaseAccess.addProduct(product_name, product_code, product_categoryID, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplierID, this.encodedImage, product_weightUnitID, product_weight);
-                        if (check) {
-                            Toasty.success(this, R.string.product_successfully_added, Toasty.LENGTH_SHORT).show();
-                            Intent i = new Intent(AddProductActivity.this, ProductActivity.class);
-                            //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                            this.startActivity(i);
-                            return;
-                        }
-                        Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
-                        return;
-                    }
-                    this.binding.etSupplier.setError(this.getString(R.string.product_supplier_cannot_be_empty));
-                    this.binding.etSupplier.requestFocus();
-                    return;
-                }
+            } else if (!product_categoryName.isEmpty() && !product_categoryID.isEmpty()) {
+                this.binding.etProductCategory.setError(this.getString(R.string.product_category_cannot_be_empty));
+                this.binding.etProductCategory.requestFocus();
+            } else if (product_sellPrice.isEmpty()) {
+                this.binding.etProductSellPrice.setError(this.getString(R.string.product_sell_price_cannot_be_empty));
+                this.binding.etProductSellPrice.requestFocus();
+            } else if (product_weightUnitName.isEmpty() && product_weight.isEmpty()) {
                 this.binding.etProductWeight.setError(this.getString(R.string.product_weight_cannot_be_empty));
                 this.binding.etProductWeight.requestFocus();
-                return;
+            } else if (product_stock.isEmpty()) {
+                this.binding.etProductStock.setError(this.getString(R.string.product_stock_cannot_be_empty));
+                this.binding.etProductStock.requestFocus();
+            } else if (product_supplierName.isEmpty() && product_supplierID.isEmpty()) {
+                this.binding.etSupplier.setError(this.getString(R.string.product_supplier_cannot_be_empty));
+                this.binding.etSupplier.requestFocus();
+            } else {
+                databaseAccess.open();
+                boolean check = databaseAccess.addProduct(product_name, product_code, product_categoryID, product_description, product_buyPrice, product_sellPrice, product_stock, product_supplierID, this.encodedImage, product_weightUnitID, product_weight);
+                if (check) {
+                    Toasty.success(this, R.string.product_successfully_added, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(AddProductActivity.this, ProductActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    this.startActivity(i);
+                }
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
-            this.binding.etProductCategory.setError(this.getString(R.string.product_category_cannot_be_empty));
-            this.binding.etProductCategory.requestFocus();
         });
     }
 
@@ -344,9 +331,8 @@ public class AddProductActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1213 && resultCode == Activity.RESULT_OK && data != null) {
             try {
-                String filePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
-                this.mediaPath = filePath;
-                Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
+                this.mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
+                Bitmap selectedImage = BitmapFactory.decodeFile(this.mediaPath);
                 this.binding.ivProduct.setImageBitmap(selectedImage);
                 this.encodedImage = encodeImage(selectedImage);
             } catch (Exception e) {
