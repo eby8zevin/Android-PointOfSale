@@ -13,7 +13,6 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityEditWeightBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.Objects;
 
@@ -55,20 +54,19 @@ public class EditWeightActivity extends BaseActivity {
             if (weight_name.isEmpty()) {
                 EditWeightActivity.this.binding.etWeUnNameName.setError(EditWeightActivity.this.getString(R.string.enter_weight_name));
                 EditWeightActivity.this.binding.etWeUnNameName.requestFocus();
-                return;
-            }
+            } else {
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(EditWeightActivity.this);
 
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(EditWeightActivity.this);
-
-            databaseAccess.open();
-            if (databaseAccess.updateWeight(weight_id, weight_name)) {
-                Toasty.success(EditWeightActivity.this, R.string.weight_updated, Toasty.LENGTH_SHORT).show();
-                Intent i = new Intent(EditWeightActivity.this, WeightActivity.class);
-                //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                EditWeightActivity.this.startActivity(i);
-                return;
+                databaseAccess.open();
+                if (databaseAccess.updateWeight(weight_id, weight_name)) {
+                    Toasty.success(EditWeightActivity.this, R.string.weight_updated, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(EditWeightActivity.this, WeightActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    EditWeightActivity.this.startActivity(i);
+                } else {
+                    Toasty.error(EditWeightActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                }
             }
-            Toasty.error(EditWeightActivity.this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
