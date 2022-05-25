@@ -69,11 +69,11 @@ public class CategoriesActivity extends BaseActivity {
                     binding.categoryRecyclerview.setVisibility(View.GONE);
                     binding.ivNoCategory.setVisibility(View.VISIBLE);
                     binding.ivNoCategory.setImageResource(R.drawable.no_data);
-                    return;
+                } else {
+                    binding.ivNoCategory.setVisibility(View.GONE);
+                    binding.categoryRecyclerview.setVisibility(View.VISIBLE);
+                    binding.categoryRecyclerview.setAdapter(new CategoryAdapter(CategoriesActivity.this, searchCategoryList));
                 }
-                binding.ivNoCategory.setVisibility(View.GONE);
-                binding.categoryRecyclerview.setVisibility(View.VISIBLE);
-                binding.categoryRecyclerview.setAdapter(new CategoryAdapter(CategoriesActivity.this, searchCategoryList));
             }
 
             @Override
