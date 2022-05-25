@@ -77,9 +77,9 @@ public class AddSuppliersActivity extends BaseActivity {
                     Intent i = new Intent(AddSuppliersActivity.this, SuppliersActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
-                    return;
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
                 }
-                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
@@ -92,11 +92,11 @@ public class AddSuppliersActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_import_supplier) {
-            fileChooser();
-            return true;
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
+            return true;
+        } else if (item.getItemId() == R.id.menu_import_supplier) {
+            fileChooser();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
