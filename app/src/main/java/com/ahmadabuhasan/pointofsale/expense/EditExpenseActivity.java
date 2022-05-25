@@ -97,9 +97,9 @@ public class EditExpenseActivity extends BaseActivity {
                     Intent i = new Intent(this, ExpenseActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
-                    return;
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
                 }
-                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
