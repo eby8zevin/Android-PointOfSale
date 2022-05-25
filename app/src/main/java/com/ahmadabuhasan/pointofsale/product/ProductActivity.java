@@ -82,13 +82,13 @@ public class ProductActivity extends BaseActivity {
                     binding.productRecyclerview.setVisibility(View.GONE);
                     binding.ivNoProduct.setVisibility(View.VISIBLE);
                     binding.ivNoProduct.setImageResource(R.drawable.no_data);
-                    return;
-                }
-                binding.ivNoProduct.setVisibility(View.GONE);
-                binding.productRecyclerview.setVisibility(View.VISIBLE);
+                } else {
+                    binding.ivNoProduct.setVisibility(View.GONE);
+                    binding.productRecyclerview.setVisibility(View.VISIBLE);
 
-                ProductAdapter adapter1 = new ProductAdapter(ProductActivity.this, searchProductList);
-                binding.productRecyclerview.setAdapter(adapter1);
+                    ProductAdapter adapter1 = new ProductAdapter(ProductActivity.this, searchProductList);
+                    binding.productRecyclerview.setAdapter(adapter1);
+                }
             }
 
             @Override
@@ -108,11 +108,11 @@ public class ProductActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_export) {
-            folderChooser();
-            return true;
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
+            return true;
+        } else if (item.getItemId() == R.id.menu_export) {
+            folderChooser();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
