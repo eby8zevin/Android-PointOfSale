@@ -10,7 +10,6 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityAddPaymentMethodBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.Objects;
 
@@ -39,20 +38,19 @@ public class AddPaymentMethodActivity extends BaseActivity {
             if (payment_method_name.isEmpty()) {
                 this.binding.etPaymentMethodName.setError(this.getString(R.string.enter_payment_method_name));
                 this.binding.etPaymentMethodName.requestFocus();
-                return;
-            }
+            } else {
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
-            databaseAccess.open();
-            if (databaseAccess.addPaymentMethod(payment_method_name)) {
-                Toasty.success(this, R.string.successfully_added, Toasty.LENGTH_SHORT).show();
-                Intent i = new Intent(AddPaymentMethodActivity.this, PaymentMethodActivity.class);
-                //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                this.startActivity(i);
-                return;
+                databaseAccess.open();
+                if (databaseAccess.addPaymentMethod(payment_method_name)) {
+                    Toasty.success(this, R.string.successfully_added, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(AddPaymentMethodActivity.this, PaymentMethodActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    this.startActivity(i);
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                }
             }
-            Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
