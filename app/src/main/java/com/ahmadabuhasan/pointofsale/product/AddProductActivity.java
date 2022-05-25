@@ -356,11 +356,11 @@ public class AddProductActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_import) {
-            fileChooser();
-            return true;
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
+            return true;
+        } else if (item.getItemId() == R.id.menu_import) {
+            fileChooser();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
