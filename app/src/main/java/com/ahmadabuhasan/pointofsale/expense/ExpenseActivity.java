@@ -72,13 +72,13 @@ public class ExpenseActivity extends BaseActivity {
                     binding.expenseRecyclerview.setVisibility(View.GONE);
                     binding.ivNoExpense.setVisibility(View.VISIBLE);
                     binding.ivNoExpense.setImageResource(R.drawable.no_data);
-                    return;
-                }
-                binding.ivNoExpense.setVisibility(View.GONE);
-                binding.expenseRecyclerview.setVisibility(View.VISIBLE);
+                } else {
+                    binding.ivNoExpense.setVisibility(View.GONE);
+                    binding.expenseRecyclerview.setVisibility(View.VISIBLE);
 
-                ExpenseAdapter adapter1 = new ExpenseAdapter(ExpenseActivity.this, searchExpenseList);
-                binding.expenseRecyclerview.setAdapter(adapter1);
+                    ExpenseAdapter adapter1 = new ExpenseAdapter(ExpenseActivity.this, searchExpenseList);
+                    binding.expenseRecyclerview.setAdapter(adapter1);
+                }
             }
 
             @Override
