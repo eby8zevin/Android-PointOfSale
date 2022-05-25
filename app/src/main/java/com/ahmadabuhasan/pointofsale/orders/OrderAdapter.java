@@ -1,5 +1,6 @@
 package com.ahmadabuhasan.pointofsale.orders;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -48,6 +49,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.MyViewHolder holder, int position) {
 
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+
         String customer_name = this.orderData.get(position).get(Constant.CUSTOMER_NAME);
         final String invoice_id = this.orderData.get(position).get(Constant.INVOICE_ID);
         String payment_method = this.orderData.get(position).get(Constant.ORDER_PAYMENT_METHOD);
@@ -74,7 +77,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         }
 
         holder.binding.ivEditStatus.setOnClickListener(view -> {
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
             final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(context);
             dialogBuilder.withTitle(context.getString(R.string.change_order_status))
                     .withMessage(context.getString(R.string.please_change_order_status_to_complete_or_cancel))
@@ -107,6 +109,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 }
                 dialogBuilder.dismiss();
             }).show();
+        });
+
+        holder.itemView.setOnLongClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("want to Delete Order ?")
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        databaseAccess.open();
+                        if (databaseAccess.deleteOrder(invoice_id)) {
+                            Toasty.error(context, "Order Deleted", Toast.LENGTH_SHORT).show();
+                            orderData.remove(holder.getAdapterPosition());
+                            notifyItemRemoved(holder.getAdapterPosition());
+                        } else {
+                            Toast.makeText(context, R.string.failed, Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.cancel();
+                    })
+                    .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+            return false;
         });
     }
 
