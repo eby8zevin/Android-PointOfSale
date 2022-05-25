@@ -10,7 +10,6 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityAddCategoryBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.Objects;
 
@@ -48,11 +47,11 @@ public class AddCategoryActivity extends BaseActivity {
             if (databaseAccess.addCategory(category_name)) {
                 Toasty.success(this, R.string.category_added_successfully, Toasty.LENGTH_SHORT).show();
                 Intent i = new Intent(AddCategoryActivity.this, CategoriesActivity.class);
-                //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 this.startActivity(i);
-                return;
+            } else {
+                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
-            Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
