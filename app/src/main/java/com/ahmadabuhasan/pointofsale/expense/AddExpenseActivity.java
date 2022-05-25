@@ -12,7 +12,6 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityAddExpenseBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -70,7 +69,7 @@ public class AddExpenseActivity extends BaseActivity {
                 if (databaseAccess.addExpense(expense_name, expense_amount, expense_note, expense_date, expense_time)) {
                     Toasty.success(this, R.string.expense_successfully_added, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(AddExpenseActivity.this, ExpenseActivity.class);
-                    //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
                     return;
                 }
