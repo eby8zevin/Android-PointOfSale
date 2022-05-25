@@ -113,7 +113,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
         holder.itemView.setOnLongClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("want to Delete Order ?")
+            builder.setMessage("Want to Delete Order ?")
                     .setCancelable(false)
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
                         databaseAccess.open();
