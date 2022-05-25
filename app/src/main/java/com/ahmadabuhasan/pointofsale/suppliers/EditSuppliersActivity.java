@@ -13,7 +13,6 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityEditSuppliersBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.Objects;
 
@@ -93,12 +92,12 @@ public class EditSuppliersActivity extends BaseActivity {
                 this.binding.etSupplierAddress.requestFocus();
             } else {
                 DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-                databaseAccess.open();
 
+                databaseAccess.open();
                 if (databaseAccess.updateSuppliers(getSupplier_id, supplier_name, supplier_contact_name, supplier_cell, supplier_email, supplier_address)) {
                     Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(EditSuppliersActivity.this, SuppliersActivity.class);
-                    //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
                     return;
                 }
