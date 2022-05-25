@@ -314,12 +314,8 @@ public class DatabaseAccess {
 
     public void insertOrder(String order_id, JSONObject jsonObject) {
 
-        ContentValues contentValues;
-        JSONArray jsonArray;
-        int i;
-
-        String Pending = Constant.PENDING;
         String order_status = Constant.ORDER_STATUS;
+        String Pending = Constant.PENDING;
         try {
             String order_date = jsonObject.getString(Constant.ORDER_DATE);
             String order_time = jsonObject.getString(Constant.ORDER_TIME);
@@ -329,7 +325,7 @@ public class DatabaseAccess {
             String tax = jsonObject.getString(Constant.TAX);
             String discount = jsonObject.getString(Constant.DISCOUNT);
 
-            contentValues = new ContentValues();
+            ContentValues contentValues = new ContentValues();
             contentValues.put(Constant.INVOICE_ID, order_id);
             contentValues.put(Constant.ORDER_DATE, order_date);
             contentValues.put(Constant.ORDER_TIME, order_time);
@@ -344,59 +340,42 @@ public class DatabaseAccess {
             this.database.delete(Constant.productCart, null, null);
         } catch (JSONException e) {
             e.printStackTrace();
-            jsonArray = new JSONArray();
-            try {
-                jsonArray = jsonObject.getJSONArray("lines");
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
-            i = 0;
-            while (i < jsonArray.length()) {
-                Log.d("insertOrder", order_id);
-            }
-            close();
         }
 
         try {
-            jsonArray = jsonObject.getJSONArray("lines");
-            i = 0;
-            while (i < jsonArray.length()) {
+            JSONArray jsonArray = jsonObject.getJSONArray("lines");
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jo = jsonArray.getJSONObject(i);
+
                 String product_name = jo.getString(Constant.PRODUCT_NAME);
                 String product_weight = jo.getString(Constant.PRODUCT_WEIGHT);
                 String product_qty = jo.getString(Constant.PRODUCT_QTY);
                 String product_price = jo.getString(Constant.PRODUCT_PRICE);
                 String product_image = jo.getString(Constant.PRODUCT_IMAGE);
                 String product_orderDate = jo.getString(Constant.PRODUCT_ORDER_DATE);
-                try {
-                    String product_id = jo.getString(Constant.PRODUCT_ID);
-                    String stock = jo.getString(Constant.STOCK);
-                    int updated_stock = Integer.parseInt(stock) - Integer.parseInt(product_qty);
 
-                    contentValues = new ContentValues();
-                    contentValues.put(Constant.INVOICE_ID, order_id);
-                    contentValues.put(Constant.PRODUCT_NAME, product_name);
-                    contentValues.put(Constant.PRODUCT_WEIGHT, product_weight);
-                    contentValues.put(Constant.PRODUCT_QTY, product_qty);
-                    contentValues.put(Constant.PRODUCT_PRICE, product_price);
-                    contentValues.put(Constant.PRODUCT_IMAGE, product_image);
-                    contentValues.put(Constant.PRODUCT_ORDER_DATE, product_orderDate);
-                    contentValues.put(Constant.ORDER_STATUS, Pending);
+                String product_id = jo.getString(Constant.PRODUCT_ID);
+                String stock = jo.getString(Constant.STOCK);
+                int updated_stock = Integer.parseInt(stock) - Integer.parseInt(product_qty);
 
-                    ContentValues values = new ContentValues();
-                    values.put(Constant.PRODUCT_STOCK, updated_stock);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(Constant.INVOICE_ID, order_id);
+                contentValues.put(Constant.PRODUCT_NAME, product_name);
+                contentValues.put(Constant.PRODUCT_WEIGHT, product_weight);
+                contentValues.put(Constant.PRODUCT_QTY, product_qty);
+                contentValues.put(Constant.PRODUCT_PRICE, product_price);
+                contentValues.put(Constant.PRODUCT_IMAGE, product_image);
+                contentValues.put(Constant.PRODUCT_ORDER_DATE, product_orderDate);
+                contentValues.put(Constant.ORDER_STATUS, Pending);
 
-                    this.database.insert(Constant.orderDetails, null, contentValues);
-                    this.database.update(Constant.products, values, "product_id=?", new String[]{product_id});
-                    i++;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    close();
-                }
+                ContentValues values = new ContentValues();
+                values.put(Constant.PRODUCT_STOCK, updated_stock);
+
+                this.database.insert(Constant.orderDetails, null, contentValues);
+                this.database.update(Constant.products, values, "product_id=?", new String[]{product_id});
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            close();
         }
         close();
     }
