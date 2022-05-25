@@ -83,13 +83,13 @@ public class CustomersActivity extends BaseActivity {
                     binding.customerRecyclerview.setVisibility(View.GONE);
                     binding.ivNoCustomer.setVisibility(View.VISIBLE);
                     binding.ivNoCustomer.setImageResource(R.drawable.no_data);
-                    return;
-                }
-                binding.ivNoCustomer.setVisibility(View.GONE);
-                binding.customerRecyclerview.setVisibility(View.VISIBLE);
+                } else {
+                    binding.ivNoCustomer.setVisibility(View.GONE);
+                    binding.customerRecyclerview.setVisibility(View.VISIBLE);
 
-                CustomerAdapter adapter = new CustomerAdapter(CustomersActivity.this, searchCustomerList);
-                binding.customerRecyclerview.setAdapter(adapter);
+                    CustomerAdapter adapter = new CustomerAdapter(CustomersActivity.this, searchCustomerList);
+                    binding.customerRecyclerview.setAdapter(adapter);
+                }
             }
 
             @Override
@@ -109,11 +109,11 @@ public class CustomersActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_export_customer) {
-            folderChooser();
-            return true;
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
+            return true;
+        } else if (item.getItemId() == R.id.menu_export_customer) {
+            folderChooser();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
