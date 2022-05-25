@@ -297,7 +297,7 @@ public class AddProductActivity extends BaseActivity {
             if (product_name.isEmpty()) {
                 this.binding.etProductName.setError(this.getString(R.string.product_name_cannot_be_empty));
                 this.binding.etProductName.requestFocus();
-            } else if (!product_categoryName.isEmpty() && !product_categoryID.isEmpty()) {
+            } else if (product_categoryName.isEmpty() && product_categoryID.isEmpty()) {
                 this.binding.etProductCategory.setError(this.getString(R.string.product_category_cannot_be_empty));
                 this.binding.etProductCategory.requestFocus();
             } else if (product_sellPrice.isEmpty()) {
