@@ -89,11 +89,11 @@ public class EditCustomersActivity extends BaseActivity {
                 if (databaseAccess.updateCustomer(getCustomer_id, customer_name, customer_cell, customer_email, customer_address)) {
                     Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(this, CustomersActivity.class);
-                    //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE;
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
-                    return;
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
                 }
-                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
