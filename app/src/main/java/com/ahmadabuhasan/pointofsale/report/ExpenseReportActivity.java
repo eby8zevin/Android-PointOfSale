@@ -41,7 +41,7 @@ public class ExpenseReportActivity extends BaseActivity {
 
     ProgressDialog loading;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class ExpenseReportActivity extends BaseActivity {
         this.binding.expenseReportRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.expenseReportRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         ArrayList<HashMap<String, String>> allExpense = databaseAccess.getAllExpense();
         if (allExpense.size() <= 0) {
