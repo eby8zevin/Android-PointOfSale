@@ -63,6 +63,7 @@ public class SuppliersActivity extends BaseActivity {
             this.binding.ivNoSupplier.setImageResource(R.drawable.no_data);
         } else {
             this.binding.ivNoSupplier.setVisibility(View.GONE);
+
             SupplierAdapter adapter = new SupplierAdapter(this, supplierData);
             this.binding.supplierRecyclerview.setAdapter(adapter);
         }
@@ -81,13 +82,13 @@ public class SuppliersActivity extends BaseActivity {
                     binding.supplierRecyclerview.setVisibility(View.GONE);
                     binding.ivNoSupplier.setVisibility(View.VISIBLE);
                     binding.ivNoSupplier.setImageResource(R.drawable.no_data);
-                    return;
-                }
-                binding.ivNoSupplier.setVisibility(View.GONE);
-                binding.supplierRecyclerview.setVisibility(View.VISIBLE);
+                } else {
+                    binding.ivNoSupplier.setVisibility(View.GONE);
+                    binding.supplierRecyclerview.setVisibility(View.VISIBLE);
 
-                SupplierAdapter adapter1 = new SupplierAdapter(SuppliersActivity.this, searchSupplier);
-                binding.supplierRecyclerview.setAdapter(adapter1);
+                    SupplierAdapter adapter1 = new SupplierAdapter(SuppliersActivity.this, searchSupplier);
+                    binding.supplierRecyclerview.setAdapter(adapter1);
+                }
             }
 
             @Override
@@ -107,11 +108,11 @@ public class SuppliersActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_export_supplier) {
-            folderChooser();
-            return true;
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
+            return true;
+        } else if (item.getItemId() == R.id.menu_export_supplier) {
+            folderChooser();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
