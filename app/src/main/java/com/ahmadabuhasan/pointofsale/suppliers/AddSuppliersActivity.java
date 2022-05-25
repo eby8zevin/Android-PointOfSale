@@ -21,7 +21,6 @@ import com.ahmadabuhasan.pointofsale.databinding.ActivityAddSuppliersBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ajts.androidmads.library.ExcelToSQLite;
 import com.obsez.android.lib.filechooser.ChooserDialog;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.io.File;
 import java.util.Objects;
@@ -76,7 +75,7 @@ public class AddSuppliersActivity extends BaseActivity {
                 if (databaseAccess.addSuppliers(supplier_name, supplier_contact_name, supplier_cell, supplier_email, supplier_address)) {
                     Toasty.success(this, R.string.suppliers_successfully_added, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(AddSuppliersActivity.this, SuppliersActivity.class);
-                    //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
                     return;
                 }
