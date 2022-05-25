@@ -70,12 +70,12 @@ public class PaymentMethodActivity extends BaseActivity {
                     binding.paymentMethodRecyclerview.setVisibility(View.GONE);
                     binding.ivNoPaymentMethod.setVisibility(View.VISIBLE);
                     binding.ivNoPaymentMethod.setImageResource(R.drawable.no_data);
-                    return;
+                } else {
+                    binding.paymentMethodRecyclerview.setVisibility(View.VISIBLE);
+                    binding.ivNoPaymentMethod.setVisibility(View.GONE);
+                    PaymentMethodAdapter adapter = new PaymentMethodAdapter(PaymentMethodActivity.this, searchPaymentMethodList);
+                    binding.paymentMethodRecyclerview.setAdapter(adapter);
                 }
-                binding.paymentMethodRecyclerview.setVisibility(View.VISIBLE);
-                binding.ivNoPaymentMethod.setVisibility(View.GONE);
-                PaymentMethodAdapter adapter = new PaymentMethodAdapter(PaymentMethodActivity.this, searchPaymentMethodList);
-                binding.paymentMethodRecyclerview.setAdapter(adapter);
             }
 
             @Override
