@@ -132,26 +132,31 @@ public class ViewPDFActivity extends BaseActivity {
                             folder.mkdir();
                         }
 
-                        File file1 = new File(folder, "order_receipt");
+                        File file1 = new File(folder, "order_receipt.pdf");
                         input = new FileInputStream(file1);
                         output = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
                         byte[] buf = new byte[1024];
-                        int bytesRead;
 
+                        int bytesRead;
                         while ((bytesRead = input.read(buf)) > 0) {
                             output.write(buf, 0, bytesRead);
                         }
+
+                        writeResultCallback.onWriteFinished(new PageRange[]{PageRange.ALL_PAGES});
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
                         try {
-                            Objects.requireNonNull(input).close();
-                            Objects.requireNonNull(output).close();
+                            if (input != null) {
+                                input.close();
+                            }
+                            if (output != null) {
+                                output.close();
+                            }
                         } catch (IOException ioe) {
                             ioe.printStackTrace();
                         }
                     }
-                    writeResultCallback.onWriteFinished(new PageRange[]{PageRange.ALL_PAGES});
                 }
             };
             if (printManager != null) {
