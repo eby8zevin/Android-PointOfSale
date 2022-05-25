@@ -15,7 +15,6 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityEditExpenseBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -96,7 +95,7 @@ public class EditExpenseActivity extends BaseActivity {
                 if (databaseAccess.updateExpense(get_ExpenseID, expense_name, expense_amount, expense_note, expense_date, expense_time)) {
                     Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(this, ExpenseActivity.class);
-                    //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
                     return;
                 }
