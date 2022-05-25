@@ -69,11 +69,11 @@ public class WeightActivity extends BaseActivity {
                     WeightActivity.this.binding.weightRecyclerview.setVisibility(View.GONE);
                     WeightActivity.this.binding.ivNoWeight.setVisibility(View.VISIBLE);
                     WeightActivity.this.binding.ivNoWeight.setImageResource(R.drawable.no_data);
-                    return;
+                } else {
+                    WeightActivity.this.binding.ivNoWeight.setVisibility(View.GONE);
+                    WeightActivity.this.binding.weightRecyclerview.setVisibility(View.VISIBLE);
+                    WeightActivity.this.binding.weightRecyclerview.setAdapter(new WeightAdapter(WeightActivity.this, searchWeightList));
                 }
-                WeightActivity.this.binding.ivNoWeight.setVisibility(View.GONE);
-                WeightActivity.this.binding.weightRecyclerview.setVisibility(View.VISIBLE);
-                WeightActivity.this.binding.weightRecyclerview.setAdapter(new WeightAdapter(WeightActivity.this, searchWeightList));
             }
 
             @Override
