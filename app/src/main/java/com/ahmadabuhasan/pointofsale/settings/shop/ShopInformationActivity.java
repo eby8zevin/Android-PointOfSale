@@ -15,7 +15,6 @@ import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityShopInformationBinding;
 import com.ahmadabuhasan.pointofsale.settings.SettingsActivity;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.HashMap;
 import java.util.List;
@@ -108,16 +107,16 @@ public class ShopInformationActivity extends BaseActivity {
             } else {
                 Toasty.warning(this, Html.fromHtml("<small>Please purchase for</small><br> <big><b>Point Of Sale PRO</b></big>.<br> Thank you"), Toasty.LENGTH_LONG).show();
 
-                /*databaseAccess.open();
+                databaseAccess.open();
                 boolean check = databaseAccess.updateShopInformation(shop_name, shop_contact, shop_email, shop_address, shop_currency, tax);
                 if (check) {
                     Toasty.success(this, R.string.shop_information_updated_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(ShopInformationActivity.this, SettingsActivity.class);
-                    //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
-                    return;
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
                 }
-                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();*/
             }
         });
     }
