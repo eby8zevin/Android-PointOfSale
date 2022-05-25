@@ -40,7 +40,7 @@ public class SalesReportActivity extends BaseActivity {
 
     ProgressDialog loading;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class SalesReportActivity extends BaseActivity {
         this.binding.salesReportRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.salesReportRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         ArrayList<HashMap<String, String>> allSalesItems = databaseAccess.getAllSalesItems();
         if (allSalesItems.size() <= 0) {
