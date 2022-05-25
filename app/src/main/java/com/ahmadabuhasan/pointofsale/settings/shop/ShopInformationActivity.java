@@ -107,7 +107,7 @@ public class ShopInformationActivity extends BaseActivity {
             } else {
                 Toasty.warning(this, Html.fromHtml("<small>Please purchase for</small><br> <big><b>Point Of Sale PRO</b></big>.<br> Thank you"), Toasty.LENGTH_LONG).show();
 
-                databaseAccess.open();
+                /*databaseAccess.open();
                 boolean check = databaseAccess.updateShopInformation(shop_name, shop_contact, shop_email, shop_address, shop_currency, tax);
                 if (check) {
                     Toasty.success(this, R.string.shop_information_updated_successfully, Toasty.LENGTH_SHORT).show();
@@ -116,7 +116,7 @@ public class ShopInformationActivity extends BaseActivity {
                     this.startActivity(i);
                 } else {
                     Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
     }
