@@ -64,8 +64,7 @@ public class EditProductActivity extends BaseActivity {
     String selectedSupplierID;
 
     String productID;
-    String mediaPath;
-    String encodedImage = "N/A";
+    String mediaPath, encodedImage = "N/A";
     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
@@ -390,7 +389,7 @@ public class EditProductActivity extends BaseActivity {
                 if (check) {
                     Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(EditProductActivity.this, ProductActivity.class);
-                    //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
                     return;
                 }
@@ -404,9 +403,8 @@ public class EditProductActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1213 && resultCode == Activity.RESULT_OK && data != null) {
             try {
-                String filePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
-                this.mediaPath = filePath;
-                Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
+                this.mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
+                Bitmap selectedImage = BitmapFactory.decodeFile(this.mediaPath);
                 this.binding.ivProduct.setImageBitmap(selectedImage);
                 this.encodedImage = encodeImage(selectedImage);
             } catch (Exception e) {
