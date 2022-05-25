@@ -13,7 +13,6 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityEditPaymentMethodBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
-//import com.itextpdf.text.io.PagedChannelRandomAccessSource;
 
 import java.util.Objects;
 
@@ -55,20 +54,19 @@ public class EditPaymentMethodActivity extends BaseActivity {
             if (payment_method_name.isEmpty()) {
                 this.binding.etPaymentMethodName.setError(this.getString(R.string.payment_method_name));
                 this.binding.etPaymentMethodName.requestFocus();
-                return;
-            }
+            } else {
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
-            databaseAccess.open();
-            if (databaseAccess.updatePaymentMethod(payment_method_id, payment_method_name)) {
-                Toasty.success(this, R.string.successfully_added, Toasty.LENGTH_SHORT).show();
-                Intent i = new Intent(EditPaymentMethodActivity.this, PaymentMethodActivity.class);
-                //i.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
-                this.startActivity(i);
-                return;
+                databaseAccess.open();
+                if (databaseAccess.updatePaymentMethod(payment_method_id, payment_method_name)) {
+                    Toasty.success(this, R.string.successfully_added, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(EditPaymentMethodActivity.this, PaymentMethodActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    this.startActivity(i);
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                }
             }
-            Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
         });
     }
 
