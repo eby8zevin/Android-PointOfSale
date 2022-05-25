@@ -72,10 +72,10 @@ public class AddCustomersActivity extends BaseActivity {
                     Toasty.success(this, R.string.customer_successfully_added, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(AddCustomersActivity.this, CustomersActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    AddCustomersActivity.this.startActivity(i);
-                    return;
+                    this.startActivity(i);
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
                 }
-                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
@@ -88,11 +88,11 @@ public class AddCustomersActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_import) {
-            fileChooser();
-            return true;
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
+            return true;
+        } else if (item.getItemId() == R.id.menu_import) {
+            fileChooser();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
