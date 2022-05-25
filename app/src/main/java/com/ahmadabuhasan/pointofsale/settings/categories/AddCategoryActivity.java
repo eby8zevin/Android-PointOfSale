@@ -38,19 +38,18 @@ public class AddCategoryActivity extends BaseActivity {
             if (category_name.isEmpty()) {
                 this.binding.etCategoryName.setError(this.getString(R.string.enter_category_name));
                 this.binding.etCategoryName.requestFocus();
-                return;
-            }
-
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
-            databaseAccess.open();
-            if (databaseAccess.addCategory(category_name)) {
-                Toasty.success(this, R.string.category_added_successfully, Toasty.LENGTH_SHORT).show();
-                Intent i = new Intent(AddCategoryActivity.this, CategoriesActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                this.startActivity(i);
             } else {
-                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+
+                databaseAccess.open();
+                if (databaseAccess.addCategory(category_name)) {
+                    Toasty.success(this, R.string.category_added_successfully, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(AddCategoryActivity.this, CategoriesActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    this.startActivity(i);
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
+                }
             }
         });
     }
