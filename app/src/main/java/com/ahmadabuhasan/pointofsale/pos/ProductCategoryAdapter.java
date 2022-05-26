@@ -78,14 +78,14 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
                         .load(R.drawable.not_found)
                         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.image_placeholder))
                         .into(ivNoData);
-                return;
-            }
-            this.tvNoData.setVisibility(View.GONE);
-            this.ivNoData.setVisibility(View.GONE);
-            this.recyclerView.setVisibility(View.VISIBLE);
+            } else {
+                this.tvNoData.setVisibility(View.GONE);
+                this.ivNoData.setVisibility(View.GONE);
+                this.recyclerView.setVisibility(View.VISIBLE);
 
-            PosProductAdapter adapter = new PosProductAdapter(ProductCategoryAdapter.this.context, fromCategoryList);
-            this.recyclerView.setAdapter(adapter);
+                PosProductAdapter adapter = new PosProductAdapter(ProductCategoryAdapter.this.context, fromCategoryList);
+                this.recyclerView.setAdapter(adapter);
+            }
         });
     }
 
