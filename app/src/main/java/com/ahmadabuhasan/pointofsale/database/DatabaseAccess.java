@@ -99,6 +99,14 @@ public class DatabaseAccess {
         return check != -1;
     }
 
+    public boolean updateOrderType(String delivery_id, String delivery_name) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.ORDER_TYPE_NAME, delivery_name);
+        long check = this.database.update(Constant.ORDER_TYPE, contentValues, "category_id=? ", new String[]{delivery_id});
+        close();
+        return check != -1;
+    }
+
     public boolean updatePaymentMethod(String payment_method_id, String payment_method_name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
