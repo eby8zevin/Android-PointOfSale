@@ -40,7 +40,7 @@ public class SuppliersActivity extends BaseActivity {
     private ActivitySuppliersBinding binding;
 
     ProgressDialog loading;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class SuppliersActivity extends BaseActivity {
         this.binding.supplierRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.supplierRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> supplierData = databaseAccess.getSuppliers();
         Log.d("data", "" + supplierData.size());
