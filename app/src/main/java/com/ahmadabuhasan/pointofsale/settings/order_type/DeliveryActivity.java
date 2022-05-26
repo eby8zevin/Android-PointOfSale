@@ -29,7 +29,7 @@ import es.dmoral.toasty.Toasty;
 public class DeliveryActivity extends BaseActivity {
 
     private ActivityDeliveryBinding binding;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class DeliveryActivity extends BaseActivity {
         this.binding.deliveryRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.deliveryRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> deliveryData = databaseAccess.getOrderType();
         Log.d("data", "" + deliveryData.size());
