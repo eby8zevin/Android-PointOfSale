@@ -29,7 +29,7 @@ import es.dmoral.toasty.Toasty;
 public class PaymentMethodActivity extends BaseActivity {
 
     private ActivityPaymentMethodBinding binding;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class PaymentMethodActivity extends BaseActivity {
         this.binding.paymentMethodRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.paymentMethodRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> paymentMethodData = databaseAccess.getPaymentMethod();
         Log.d("data", "" + paymentMethodData.size());
