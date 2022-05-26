@@ -29,7 +29,7 @@ import es.dmoral.toasty.Toasty;
 public class ShopInformationActivity extends BaseActivity {
 
     private ActivityShopInformationBinding binding;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class ShopInformationActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.shop_information);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> shopData = databaseAccess.getShopInformation();
 
