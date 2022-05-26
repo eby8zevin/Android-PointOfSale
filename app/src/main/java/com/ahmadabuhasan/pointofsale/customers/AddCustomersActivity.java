@@ -36,7 +36,7 @@ public class AddCustomersActivity extends BaseActivity {
     private ActivityAddCustomersBinding binding;
 
     ProgressDialog loading;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,8 @@ public class AddCustomersActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.add_customer);
+
+        databaseAccess = DatabaseAccess.getInstance(this);
 
         this.binding.tvAddCustomer.setOnClickListener(view -> {
             String customer_name = this.binding.etCustomerName.getText().toString().trim();
