@@ -54,7 +54,7 @@ public class OrderDetailsActivity extends BaseActivity {
     private WoosimPrnMng mPrnMng = null;
     Bitmap bm = null;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,7 @@ public class OrderDetailsActivity extends BaseActivity {
         this.binding.orderDetailsRecyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         this.binding.orderDetailsRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> orderDetailsList = databaseAccess.getOrderDetailsList(this.order_id);
         if (orderDetailsList.isEmpty()) {
@@ -157,10 +158,7 @@ public class OrderDetailsActivity extends BaseActivity {
             String price = orderDetailsList.get(i).get(Constant.PRODUCT_PRICE);
             String qty = orderDetailsList.get(i).get(Constant.PRODUCT_QTY);
 
-            double getQty = Integer.parseInt(qty);
-            double getPrice = Double.parseDouble(price);
-            Double.isNaN(getQty);
-            double cost_total = getQty * getPrice;
+            double cost_total = Double.parseDouble(price) * Integer.parseInt(qty);
 
             rows.add(new String[]{
                     name + "\n" +
