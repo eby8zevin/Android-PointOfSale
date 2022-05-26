@@ -67,6 +67,14 @@ public class DatabaseAccess {
         return check != -1;
     }
 
+    public boolean addOrderType(String delivery_name) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.ORDER_TYPE_NAME, delivery_name);
+        long check = this.database.insert(Constant.ORDER_TYPE, null, contentValues);
+        close();
+        return check != -1;
+    }
+
     public boolean addPaymentMethod(String payment_method_name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.PAYMENT_METHOD_NAME, payment_method_name);
