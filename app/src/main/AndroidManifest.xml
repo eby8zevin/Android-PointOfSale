@@ -26,7 +26,6 @@
         android:name=".utils.MultiLanguageApp"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-        android:debuggable="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_pos"
         android:label="@string/app_name"
@@ -36,13 +35,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PointOfSale"
         android:usesCleartextTraffic="true"
-        tools:ignore="HardcodedDebugMode"
         tools:replace="android:icon"
         tools:targetApi="p">
         <activity android:name=".settings.backup.BackupActivity" />
         <activity android:name=".settings.payment_method.EditPaymentMethodActivity" />
         <activity android:name=".settings.payment_method.AddPaymentMethodActivity" />
         <activity android:name=".settings.payment_method.PaymentMethodActivity" />
+        <activity android:name=".settings.order_type.EditDeliveryActivity" />
+        <activity android:name=".settings.order_type.AddDeliveryActivity" />
+        <activity android:name=".settings.order_type.DeliveryActivity" />
         <activity android:name=".settings.weight.EditWeightActivity" />
         <activity android:name=".settings.weight.AddWeightActivity" />
         <activity android:name=".settings.weight.WeightActivity" />
