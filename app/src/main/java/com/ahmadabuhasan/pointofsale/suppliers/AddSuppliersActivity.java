@@ -36,7 +36,7 @@ public class AddSuppliersActivity extends BaseActivity {
     private ActivityAddSuppliersBinding binding;
 
     ProgressDialog loading;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,8 @@ public class AddSuppliersActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.add_supplier);
+
+        databaseAccess = DatabaseAccess.getInstance(this);
 
         this.binding.tvAddSupplier.setOnClickListener(view -> {
             String supplier_name = this.binding.etSupplierName.getText().toString().trim();
