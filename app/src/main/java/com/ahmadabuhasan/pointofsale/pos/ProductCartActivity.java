@@ -57,7 +57,7 @@ public class ProductCartActivity extends BaseActivity {
     List<String> paymentMethodNames;
 
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,7 @@ public class ProductCartActivity extends BaseActivity {
         this.binding.cartRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.cartRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> cartProductList = databaseAccess.getCartProduct();
         if (cartProductList.isEmpty()) {
@@ -345,38 +346,36 @@ public class ProductCartActivity extends BaseActivity {
             List<HashMap<String, String>> lines = databaseAccess.getCartProduct();
             if (lines.isEmpty()) {
                 Toasty.error(this, R.string.no_product_found, Toasty.LENGTH_SHORT).show();
-                return;
-            }
-            String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
-            String currentTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date());
-            String timeStamp = Long.valueOf(System.currentTimeMillis() / 1000).toString();
-            Log.d("Time", timeStamp);
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put(Constant.ORDER_DATE, currentDate);
-                jsonObject.put(Constant.ORDER_TIME, currentTime);
-                jsonObject.put(Constant.ORDER_TYPE, orderType);
-                jsonObject.put(Constant.ORDER_PAYMENT_METHOD, paymentMethod);
-                jsonObject.put(Constant.CUSTOMER_NAME, customerName);
-                jsonObject.put(Constant.TAX, tax);
-                jsonObject.put(Constant.DISCOUNT, discount);
+            } else {
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
+                String currentTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date());
+                String timeStamp = Long.valueOf(System.currentTimeMillis() / 1000).toString();
+                Log.d("Time", timeStamp);
 
-                JSONArray array = new JSONArray();
-                int i = 0;
-                while (i < lines.size()) {
-                    databaseAccess.open();
-                    String product_id = lines.get(i).get(productID);
-                    String product_name = databaseAccess.getProductName(product_id);
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put(Constant.ORDER_DATE, currentDate);
+                    jsonObject.put(Constant.ORDER_TIME, currentTime);
+                    jsonObject.put(Constant.ORDER_TYPE, orderType);
+                    jsonObject.put(Constant.ORDER_PAYMENT_METHOD, paymentMethod);
+                    jsonObject.put(Constant.CUSTOMER_NAME, customerName);
+                    jsonObject.put(Constant.TAX, tax);
+                    jsonObject.put(Constant.DISCOUNT, discount);
 
-                    databaseAccess.open();
-                    String weight_unit_id = lines.get(i).get(Constant.PRODUCT_WEIGHT_UNIT);
-                    String weight_unit = databaseAccess.getWeightUnitName(weight_unit_id);
+                    JSONArray array = new JSONArray();
+                    for (int i = 0; i < lines.size(); i++) {
+                        databaseAccess.open();
+                        String product_id = lines.get(i).get(productID);
+                        String product_name = databaseAccess.getProductName(product_id);
 
-                    databaseAccess.open();
-                    String product_image = databaseAccess.getProductImage(product_id);
+                        databaseAccess.open();
+                        String weight_unit_id = lines.get(i).get(Constant.PRODUCT_WEIGHT_UNIT);
+                        String weight_unit = databaseAccess.getWeightUnitName(weight_unit_id);
 
-                    JSONObject obj = new JSONObject();
-                    try {
+                        databaseAccess.open();
+                        String product_image = databaseAccess.getProductImage(product_id);
+
+                        JSONObject obj = new JSONObject();
                         obj.put(productID, product_id);
                         obj.put(Constant.PRODUCT_NAME, product_name);
                         obj.put(Constant.PRODUCT_WEIGHT, lines.get(i).get(Constant.PRODUCT_WEIGHT) + " " + weight_unit);
@@ -386,30 +385,22 @@ public class ProductCartActivity extends BaseActivity {
                         obj.put(Constant.PRODUCT_IMAGE, product_image);
                         obj.put(Constant.PRODUCT_ORDER_DATE, currentDate);
                         array.put(obj);
-                        i++;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        saveOrderInOfflineDb(jsonObject);
-                        return;
                     }
+                    jsonObject.put("lines", array);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                jsonObject.put("lines", array);
-            } catch (JSONException e) {
-                e.printStackTrace();
                 saveOrderInOfflineDb(jsonObject);
-                return;
             }
-            saveOrderInOfflineDb(jsonObject);
-            return;
+        } else {
+            Toasty.error(this, R.string.no_product_in_cart, Toasty.LENGTH_SHORT).show();
         }
-        Toasty.error(this, R.string.no_product_in_cart, Toasty.LENGTH_SHORT).show();
     }
 
     private void saveOrderInOfflineDb(JSONObject obj) {
         String timeStamp = Long.valueOf(System.currentTimeMillis() / 1000).toString();
-        DatabaseAccess databaseAccess3 = DatabaseAccess.getInstance(this);
-        databaseAccess3.open();
-        databaseAccess3.insertOrder(timeStamp, obj);
+        databaseAccess.open();
+        databaseAccess.insertOrder(timeStamp, obj);
         Toasty.success(this, R.string.order_done_successful, Toasty.LENGTH_SHORT).show();
         Intent intent = new Intent(this, OrdersActivity.class);
         startActivity(intent);
