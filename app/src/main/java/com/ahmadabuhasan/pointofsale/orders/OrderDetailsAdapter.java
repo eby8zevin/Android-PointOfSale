@@ -17,7 +17,6 @@ import com.ahmadabuhasan.pointofsale.databinding.OrderDetailsItemBinding;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /*
  * Created by Ahmad Abu Hasan (C) 2022
@@ -48,18 +47,13 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
 
         holder.binding.tvProductName.setText(this.orderData.get(position).get(Constant.PRODUCT_NAME));
         holder.binding.tvQty.setText(String.format("%s%s", this.context.getString(R.string.quantity), this.orderData.get(position).get(Constant.PRODUCT_QTY)));
-        holder.binding.tvWeight.setText(String.format("%s%s", this.context.getString(R.string.weight), this.orderData.get(position).get(Constant.PRODUCT_WEIGHT)));
+        holder.binding.tvWeight.setText(String.format("%s:%s", this.context.getString(R.string.weight), this.orderData.get(position).get(Constant.PRODUCT_WEIGHT)));
 
         String base64Image = this.orderData.get(position).get(Constant.PRODUCT_IMAGE);
         String unit_price = this.orderData.get(position).get(Constant.PRODUCT_PRICE);
         String qty = this.orderData.get(position).get(Constant.PRODUCT_QTY);
 
-        double price = Double.parseDouble(Objects.requireNonNull(unit_price));
-        int quantity = Integer.parseInt(Objects.requireNonNull(qty));
-
-        double d = quantity;
-        Double.isNaN(d);
-        double cost = d * price;
+        double cost = Double.parseDouble(unit_price) * Integer.parseInt(qty);
 
         databaseAccess.open();
         String currency = databaseAccess.getCurrency();
