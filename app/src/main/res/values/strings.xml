@@ -149,7 +149,7 @@
     <string name="order_id">Order ID:</string>
     <string name="order_receipt">Order Receipt</string>
     <string name="order_status">Order Status</string>
-    <string name="order_type">Order Type:</string>
+    <string name="order_type">Order Type</string>
     <string name="order_updated">Order Updated</string>
     <string name="payment">PAYMENT</string>
     <string name="payment_method">Payment Method:</string>
@@ -267,7 +267,7 @@
     <string name="want_to_delete_product">Want to Delete Product ?</string>
     <string name="want_to_delete_supplier">Want to Delete Supplier ?</string>
     <string name="walk_in_customer">Walk In Customer</string>
-    <string name="weight">Weight:</string>
+    <string name="weight">Weight</string>
     <string name="weight_name">Weight Name</string>
     <string name="weight_unit_deleted">Weight Unit Deleted</string>
     <string name="year">Year</string>
