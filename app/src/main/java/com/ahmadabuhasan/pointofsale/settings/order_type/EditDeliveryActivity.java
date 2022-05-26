@@ -59,7 +59,7 @@ public class EditDeliveryActivity extends BaseActivity {
 
                 databaseAccess.open();
                 if (databaseAccess.updateOrderType(delivery_id, delivery_name)) {
-                    Toasty.success(this, R.string.delivery_updated, Toasty.LENGTH_SHORT).show();
+                    Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(this, DeliveryActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
