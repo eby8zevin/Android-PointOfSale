@@ -43,9 +43,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     TextView tvTotalPrice;
     Button btnSubmitOrder;
 
+    MediaPlayer sound;
     public static Double total_price;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-    MediaPlayer sound;
 
     public CartAdapter(Context context1,
                        List<HashMap<String, String>> cartProduct1,
