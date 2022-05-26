@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.internal.view.SupportMenu;
@@ -84,7 +83,6 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         if (base64Image != null) {
             if (base64Image.length() < 6) {
                 Log.d("64base", base64Image);
-                //holder.binding.ivProduct.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 Glide.with(holder.itemView.getContext())
                         .load(base64Image)
                         .fitCenter()
