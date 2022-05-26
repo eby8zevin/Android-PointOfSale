@@ -81,7 +81,7 @@ public class GraphReportActivity extends BaseActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(monthList));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, getString(R.string.monthly_expense_report));
+        BarDataSet barDataSet = new BarDataSet(barEntries, getString(R.string.monthly_sales_report));
         barDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.9f);
