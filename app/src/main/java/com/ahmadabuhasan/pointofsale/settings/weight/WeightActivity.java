@@ -29,6 +29,7 @@ import es.dmoral.toasty.Toasty;
 public class WeightActivity extends BaseActivity {
 
     private ActivityWeightBinding binding;
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class WeightActivity extends BaseActivity {
         this.binding.weightRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.weightRecyclerview.setHasFixedSize(true);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> weightData = databaseAccess.getProductWeight();
         Log.d("data", "" + weightData.size());
