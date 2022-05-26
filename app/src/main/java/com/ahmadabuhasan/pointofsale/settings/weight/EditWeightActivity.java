@@ -59,7 +59,7 @@ public class EditWeightActivity extends BaseActivity {
 
                 databaseAccess.open();
                 if (databaseAccess.updateWeight(weight_id, weight_name)) {
-                    Toasty.success(EditWeightActivity.this, R.string.weight_updated, Toasty.LENGTH_SHORT).show();
+                    Toasty.success(EditWeightActivity.this, R.string.successfully_updated, Toasty.LENGTH_SHORT).show();
                     Intent i = new Intent(EditWeightActivity.this, WeightActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     EditWeightActivity.this.startActivity(i);
