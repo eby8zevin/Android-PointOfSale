@@ -64,7 +64,7 @@ public class EditProductActivity extends BaseActivity {
 
     String productID;
     String mediaPath, encodedImage = "N/A";
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +146,7 @@ public class EditProductActivity extends BaseActivity {
         this.weightUnitNames = new ArrayList<>();
         this.supplierNames = new ArrayList<>();
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> productData = databaseAccess.getProductsInfo(this.productID);
         String product_categoryID = productData.get(0).get(Constant.PRODUCT_CATEGORY);
