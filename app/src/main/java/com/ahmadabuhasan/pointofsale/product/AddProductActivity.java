@@ -72,7 +72,7 @@ public class AddProductActivity extends BaseActivity {
 
     ProgressDialog loading;
     String mediaPath, encodedImage = "N/A";
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +108,7 @@ public class AddProductActivity extends BaseActivity {
         this.weightUnitNames = new ArrayList<>();
         this.supplierNames = new ArrayList<>();
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         final List<HashMap<String, String>> productCategory = databaseAccess.getProductCategory();
         for (int i = 0; i < productCategory.size(); i++) {
@@ -320,8 +321,9 @@ public class AddProductActivity extends BaseActivity {
                     Intent i = new Intent(AddProductActivity.this, ProductActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     this.startActivity(i);
+                } else {
+                    Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
                 }
-                Toasty.error(this, R.string.failed, Toasty.LENGTH_SHORT).show();
             }
         });
     }
