@@ -1364,6 +1364,12 @@ public class DatabaseAccess {
         return check == 1;
     }
 
+    public boolean deleteOrderType(String delivery_id) {
+        long check = this.database.delete(Constant.ORDER_TYPE, "order_type_id=?", new String[]{delivery_id});
+        close();
+        return check == 1;
+    }
+
     public boolean deletePaymentMethod(String payment_method_id) {
         long check = this.database.delete(Constant.paymentMethod, "payment_method_id=?", new String[]{payment_method_id});
         close();
