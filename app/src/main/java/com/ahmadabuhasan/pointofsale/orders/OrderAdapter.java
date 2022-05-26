@@ -62,7 +62,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.binding.tvCustomerName.setText(customer_name);
         holder.binding.tvOrderId.setText(String.format("%s%s", this.context.getString(R.string.order_id), invoice_id));
         holder.binding.tvPaymentMethod.setText(String.format("%s%s", this.context.getString(R.string.payment_method), payment_method));
-        holder.binding.tvOrderType.setText(String.format("%s%s", this.context.getString(R.string.order_type), order_type));
+        holder.binding.tvOrderType.setText(String.format("%s:%s", this.context.getString(R.string.order_type), order_type));
         holder.binding.tvDate.setText(String.format("%s %s", order_time, order_date));
         holder.binding.tvOrderStatus.setText(order_status);
 
