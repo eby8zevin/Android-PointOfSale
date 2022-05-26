@@ -10,6 +10,7 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.databinding.ActivitySettingsBinding;
 import com.ahmadabuhasan.pointofsale.settings.backup.BackupActivity;
 import com.ahmadabuhasan.pointofsale.settings.categories.CategoriesActivity;
+import com.ahmadabuhasan.pointofsale.settings.order_type.DeliveryActivity;
 import com.ahmadabuhasan.pointofsale.settings.payment_method.PaymentMethodActivity;
 import com.ahmadabuhasan.pointofsale.settings.shop.ShopInformationActivity;
 import com.ahmadabuhasan.pointofsale.settings.weight.WeightActivity;
@@ -41,6 +42,7 @@ public class SettingsActivity extends BaseActivity {
         this.binding.cvShopInfo.setOnClickListener(view -> this.startActivity(new Intent(SettingsActivity.this, ShopInformationActivity.class)));
         this.binding.cvCategory.setOnClickListener(view -> this.startActivity(new Intent(SettingsActivity.this, CategoriesActivity.class)));
         this.binding.cvWeight.setOnClickListener(view -> this.startActivity(new Intent(SettingsActivity.this, WeightActivity.class)));
+        this.binding.cvDelivery.setOnClickListener(view -> this.startActivity(new Intent(SettingsActivity.this, DeliveryActivity.class)));
         this.binding.cvPaymentMethod.setOnClickListener(view -> this.startActivity(new Intent(SettingsActivity.this, PaymentMethodActivity.class)));
         this.binding.cvBackup.setOnClickListener(view -> this.startActivity(new Intent(SettingsActivity.this, BackupActivity.class)));
     }
