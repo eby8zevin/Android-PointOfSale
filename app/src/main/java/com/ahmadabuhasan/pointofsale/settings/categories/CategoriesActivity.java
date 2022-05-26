@@ -29,7 +29,7 @@ import es.dmoral.toasty.Toasty;
 public class CategoriesActivity extends BaseActivity {
 
     private ActivityCategoriesBinding binding;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class CategoriesActivity extends BaseActivity {
         this.binding.categoryRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.categoryRecyclerview.setHasFixedSize(true);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> categoryData = databaseAccess.getProductCategory();
         Log.d("data", "" + categoryData.size());
