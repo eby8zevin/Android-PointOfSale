@@ -132,7 +132,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
 
     @Override
     public int getItemCount() {
-        return productData.size();
+        return this.productData.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
