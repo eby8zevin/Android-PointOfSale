@@ -16,7 +16,7 @@ android {
         }
     }
 
-    compileSdkVersion 31
+    compileSdk 31
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
