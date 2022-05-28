@@ -3,17 +3,21 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="anti_FlashWhite">#F2F2F2</color> <!-- grey 5 -->
+    <color name="anti_FlashWhite">#F2F2F2</color>
     <color name="bright_gray">#E9E9E9</color>
     <color name="caribbean_green">#17D57E</color>
     <color name="cultured">#F7F7F7</color>
     <color name="deep_sky_blue">#01BAEF</color>
-    <color name="granite_gray">#666666</color> <!-- grey 60 -->
+    <color name="granite_gray">#666666</color>
     <color name="light_gray">#BCBCBC</color>
     <color name="placeholder">#6FB6B6B6</color>
-    <color name="platinum">#E6E6E6</color> <!-- grey 10 -->
+    <color name="platinum">#E6E6E6</color>
     <color name="red_pigment">#EA1D2C</color>
     <color name="red_ryb">#FF2E13</color>
     <color name="sonic_silver">#757575</color>
     <color name="windowBackground">#EEEEEE</color>
+
+    <color name="red">#FFFF0000</color>
+    <color name="yellow">#FFFFFF00</color>
+    <color name="green">#FF00FF00</color>
 </resources>
