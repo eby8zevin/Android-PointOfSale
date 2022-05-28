@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="1080dp"
     android:height="592dp"
     android:viewportWidth="1080"
-    android:viewportHeight="592">
+    android:viewportHeight="592"
+    tools:ignore="VectorRaster">
     <path android:pathData="M0,440.31L0,0L1080,0L1080,440.31C952.58,532.86 758.02,592 540,592S127.42,532.86 0,440.31Z">
         <aapt:attr name="android:fillColor">
             <gradient
@@ -14,10 +16,13 @@
                 android:startY="14.208"
                 android:type="linear">
                 <item
-                    android:color="#FF1CDC5C"
-                    android:offset="0" />
+                    android:color="#FFFF0000"
+                    android:offset="0.3" />
                 <item
-                    android:color="#FF01BAEF"
+                    android:color="#FFFFFF00"
+                    android:offset="0.7" />
+                <item
+                    android:color="#FF00FF00"
                     android:offset="1" />
             </gradient>
         </aapt:attr>
