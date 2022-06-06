@@ -127,7 +127,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.ahmadabuhasan.pointofsale.provider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -136,12 +136,12 @@
         </provider>
         <provider
             android:name="com.google.android.gms.ads.MobileAdsInitProvider"
-            android:authorities="com.ahmadabuhasan.pointofsale.mobileadsinitprovider"
+            android:authorities="${applicationId}.mobileadsinitprovider"
             android:exported="false"
             android:initOrder="100" />
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="com.ahmadabuhasan.pointofsale.workmanager-init"
+            android:authorities="${applicationId}.workmanager-init"
             android:directBootAware="false"
             android:exported="false"
             android:multiprocess="true" />
