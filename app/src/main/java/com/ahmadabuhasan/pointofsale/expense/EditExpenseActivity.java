@@ -114,7 +114,7 @@ public class EditExpenseActivity extends BaseActivity {
             int month = monthOfYear + 1;
             String fm = "" + month;
             String fd = "" + dayOfMonth;
-            if (monthOfYear < 10) {
+            if (monthOfYear < 9) {
                 fm = "0" + month;
             }
             if (dayOfMonth < 10) {
