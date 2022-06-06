@@ -88,13 +88,14 @@ public class AddExpenseActivity extends BaseActivity {
             int month = monthOfYear + 1;
             String fm = "" + month;
             String fd = "" + dayOfMonth;
-            if (monthOfYear < 10) {
+            if (monthOfYear < 9) {
                 fm = "0" + month;
             }
             if (dayOfMonth < 10) {
                 fd = "0" + dayOfMonth;
             }
             String date_time = year + "-" + fm + "-" + fd;
+            System.out.println(date_time);
             AddExpenseActivity.this.binding.etExpenseDate.setText(date_time);
         }, this.mYear, this.mMonth, this.mDay);
         datePickerDialog.show();
