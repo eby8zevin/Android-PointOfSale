@@ -38,7 +38,18 @@ android {
             signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.config
+            debuggable true
+        }
+    }
+    flavorDimensions "version"
+    productFlavors {
+        free {
+            dimension "version"
+            applicationId "com.ahmadabuhasan.pointofsale.free"
+        }
+        pro {
+            dimension "version"
+            applicationId "com.ahmadabuhasan.pointofsale.pro"
         }
     }
     compileOptions {
