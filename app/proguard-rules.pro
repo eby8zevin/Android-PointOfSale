@@ -20,6 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-keep public class com.ahmadabuhasan.pointofsale.**
 # https://github.com/airbnb/lottie-android/blob/master/sample/proguard-multidex-rules.pro
 -keep class com.airbnb.lottie.samples.** { *; }
 # https://github.com/androidmads/SQLite2XL
@@ -49,7 +50,7 @@
 # https://github.com/centic9/poi-on-android
 #Optimize
 -optimizations !field/*,!class/merging/*,*
--mergeinterfacesaggressively
+#-mergeinterfacesaggressively
 # will keep line numbers and file name obfuscation
 -renamesourcefileattribute SourceFile
 -keepattributes SourceFile,LineNumberTable
