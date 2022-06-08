@@ -15,6 +15,7 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityExpenseBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
+import com.ahmadabuhasan.pointofsale.utils.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,7 @@ public class ExpenseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityExpenseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        new Utils().interstitialAdsShow(this);
 
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
