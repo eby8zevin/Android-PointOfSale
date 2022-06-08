@@ -21,6 +21,7 @@ import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.database.DatabaseOpenHelper;
 import com.ahmadabuhasan.pointofsale.databinding.ActivitySuppliersBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
+import com.ahmadabuhasan.pointofsale.utils.Utils;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
@@ -47,6 +48,7 @@ public class SuppliersActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySuppliersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        new Utils().interstitialAdsShow(this);
 
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
