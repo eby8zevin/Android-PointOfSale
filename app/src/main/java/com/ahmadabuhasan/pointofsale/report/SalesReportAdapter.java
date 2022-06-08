@@ -56,9 +56,7 @@ public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.
         String qty = this.orderData.get(position).get(Constant.PRODUCT_QTY);
         double price = Double.parseDouble(Objects.requireNonNull(unit_price));
         int quantity = Integer.parseInt(Objects.requireNonNull(qty));
-        double d = quantity;
-        Double.isNaN(d);
-        double cost = d * price;
+        double cost = quantity * price;
         holder.binding.tvTotalCost.setText(String.format("%s%s x %s = %s%s", currency, unit_price, qty, currency, cost));
 
         String base64Image = this.orderData.get(position).get(Constant.PRODUCT_IMAGE);
@@ -68,7 +66,7 @@ public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.
         if (base64Image.isEmpty() || base64Image.length() < 6) {
             Glide.with(holder.itemView.getContext())
                     .load(base64Image)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.expense))
+                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_question))
                     .into(holder.binding.ivSalesReport);
             return;
         }
