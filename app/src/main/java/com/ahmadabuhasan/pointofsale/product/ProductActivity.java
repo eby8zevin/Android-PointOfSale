@@ -22,6 +22,8 @@ import com.ahmadabuhasan.pointofsale.database.DatabaseOpenHelper;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityProductBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
 import com.ajts.androidmads.library.SQLiteToExcel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import java.io.File;
@@ -47,6 +49,8 @@ public class ProductActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        MobileAds.initialize(this);
+        binding.adViewProduct.loadAd(new AdRequest.Builder().build());
 
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
