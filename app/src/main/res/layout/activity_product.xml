@@ -24,8 +24,14 @@
             android:hint="@string/search_here"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:padding="10dp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+            android:padding="10dp" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adViewProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:adSize="BANNER"
+            app:adUnitId="@string/admob_banner_ads_id" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/product_recyclerview"
@@ -37,8 +43,8 @@
         <ImageView
             android:id="@+id/iv_no_product"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="25dp"
             android:contentDescription="@string/no_product_found" />
     </LinearLayout>
 
