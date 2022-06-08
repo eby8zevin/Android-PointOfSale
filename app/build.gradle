@@ -34,22 +34,12 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
         debug {
             debuggable true
-        }
-    }
-    flavorDimensions "version"
-    productFlavors {
-        free {
-            dimension "version"
-            applicationId "com.ahmadabuhasan.pointofsale.free"
-        }
-        pro {
-            dimension "version"
-            applicationId "com.ahmadabuhasan.pointofsale.pro"
         }
     }
     compileOptions {
