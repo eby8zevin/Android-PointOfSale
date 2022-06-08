@@ -43,7 +43,7 @@
                     android:contentDescription="@string/category_name"
                     android:padding="10dp"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/category"
+                    app:srcCompat="@drawable/ic_question"
                     tools:ignore="InefficientWeight" />
 
                 <TextView
