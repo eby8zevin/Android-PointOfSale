@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityReportBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
+import com.ahmadabuhasan.pointofsale.utils.Utils;
 
 import java.util.Objects;
 
@@ -25,6 +26,7 @@ public class ReportActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityReportBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        new Utils().interstitialAdsShow(this);
 
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
