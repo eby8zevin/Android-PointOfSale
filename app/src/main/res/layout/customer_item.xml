@@ -39,7 +39,7 @@
                     android:contentDescription="@string/customers"
                     android:padding="10dp"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/customer"
+                    app:srcCompat="@drawable/ic_question"
                     tools:ignore="InefficientWeight" />
             </LinearLayout>
 
