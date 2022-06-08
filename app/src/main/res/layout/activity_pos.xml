@@ -89,7 +89,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,45 +99,41 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="end"
+                android:gravity="center"
                 android:orientation="horizontal"
-                tools:ignore="ObsoleteLayoutParam">
+                android:weightSum="2">
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    tools:ignore="UselessParent">
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_border"
+                    android:drawableEnd="@drawable/ic_search"
+                    android:ems="10"
+                    android:fontFamily="@font/sailec_regular"
+                    android:hint="@string/search_here"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:padding="10dp" />
 
-                    <EditText
-                        android:id="@+id/et_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/round_border"
-                        android:drawableEnd="@drawable/ic_search"
-                        android:ems="10"
-                        android:fontFamily="@font/sailec_regular"
-                        android:hint="@string/search_here"
-                        android:importantForAutofill="no"
-                        android:inputType="textPersonName"
-                        android:padding="10dp" />
-
-                    <ImageView
-                        android:id="@+id/iv_scanner"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/qr_barcode_scanner"
-                        app:srcCompat="@drawable/barcode" />
-                </LinearLayout>
-
+                <ImageView
+                    android:id="@+id/iv_scanner"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/qr_barcode_scanner"
+                    app:srcCompat="@drawable/barcode" />
             </LinearLayout>
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adViewPos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:adSize="BANNER"
+                app:adUnitId="@string/admob_banner_ads_id" />
 
             <LinearLayout
                 android:layout_width="match_parent"
