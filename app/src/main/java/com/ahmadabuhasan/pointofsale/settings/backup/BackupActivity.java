@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -99,6 +100,9 @@ public class BackupActivity extends BaseActivity {
             isBackup = false;
             BackupActivity.this.remoteBackup.connectToDrive(isBackup);
         });
+
+        binding.cvBackupToDrive.setVisibility(View.GONE);
+        binding.cvImportFromDrive.setVisibility(View.GONE);
     }
 
     private void requestPermission() {
