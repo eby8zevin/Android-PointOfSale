@@ -16,6 +16,8 @@ import com.ahmadabuhasan.pointofsale.R;
 import com.ahmadabuhasan.pointofsale.database.DatabaseAccess;
 import com.ahmadabuhasan.pointofsale.databinding.ActivityOrdersBinding;
 import com.ahmadabuhasan.pointofsale.utils.BaseActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +39,8 @@ public class OrdersActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOrdersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        MobileAds.initialize(this);
+        binding.adViewOrders.loadAd(new AdRequest.Builder().build());
 
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
