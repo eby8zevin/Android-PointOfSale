@@ -1,6 +1,6 @@
 name: Android Build
 
-on: push
+on: [ push, pull_request ]
 
 jobs:
   build:
@@ -14,6 +14,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
+      - name: permission for gradlew
+      - run: chmod +x gradlew
+
+      - name: Build with Gradle
+      - run: ./gradlew build
 
       - name: Run Test
         run: ./gradlew test
