@@ -1,8 +1,6 @@
 package com.ahmadabuhasan.pointofsale.customers;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,7 +32,6 @@ import es.dmoral.toasty.Toasty;
 public class AddCustomersActivity extends BaseActivity {
 
     private ActivityAddCustomersBinding binding;
-
     ProgressDialog loading;
     DatabaseAccess databaseAccess;
 
@@ -62,7 +59,7 @@ public class AddCustomersActivity extends BaseActivity {
             } else if (customer_cell.isEmpty()) {
                 this.binding.etCustomerCell.setError(getString(R.string.enter_customer_cell));
                 this.binding.etCustomerCell.requestFocus();
-            } else if (customer_email.isEmpty() || !customer_email.contains("@") || !customer_email.contains(".")) {
+            } else if (!customer_email.contains("@") || !customer_email.contains(".")) {
                 this.binding.etCustomerEmail.setError(getString(R.string.enter_valid_email));
                 this.binding.etCustomerEmail.requestFocus();
             } else if (customer_address.isEmpty()) {
@@ -102,21 +99,13 @@ public class AddCustomersActivity extends BaseActivity {
     }
 
     public void fileChooser() {
-        new ChooserDialog((Activity) this)
+        new ChooserDialog(this)
                 .displayPath(true)
                 .withFilter(false, false, "xls")
-                .withChosenListener(new ChooserDialog.Result() {
-                    @Override
-                    public void onChoosePath(String dir, File dirFile) {
-                        AddCustomersActivity.this.onImport(dir);
-                    }
-                }).withOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                dialogInterface.cancel();
-                Log.d("CANCEL", "CANCEL");
-            }
-        }).build().show();
+                .withChosenListener((dir, dirFile) -> AddCustomersActivity.this.onImport(dir)).withOnCancelListener(dialogInterface -> {
+                    dialogInterface.cancel();
+                    Log.d("CANCEL", "CANCEL");
+                }).build().show();
     }
 
     public void onImport(String path) {
@@ -139,15 +128,12 @@ public class AddCustomersActivity extends BaseActivity {
             @Override
             public void onCompleted(String dbName) {
                 Handler mHand = new Handler();
-                mHand.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        AddCustomersActivity.this.loading.dismiss();
-                        Toasty.success(AddCustomersActivity.this, R.string.data_successfully_imported, Toasty.LENGTH_SHORT).show();
-                        Intent i = new Intent(AddCustomersActivity.this, DashboardActivity.class);
-                        AddCustomersActivity.this.startActivity(i);
-                        AddCustomersActivity.this.finish();
-                    }
+                mHand.postDelayed(() -> {
+                    AddCustomersActivity.this.loading.dismiss();
+                    Toasty.success(AddCustomersActivity.this, R.string.data_successfully_imported, Toasty.LENGTH_SHORT).show();
+                    Intent i = new Intent(AddCustomersActivity.this, DashboardActivity.class);
+                    AddCustomersActivity.this.startActivity(i);
+                    AddCustomersActivity.this.finish();
                 }, 5000L);
             }
 
