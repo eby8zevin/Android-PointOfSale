@@ -14,6 +14,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+          keyAlias: ${{ secrets.KEY_ALIAS }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          storeFile: ${{ secrets.STORE_FILE }}
+          storePassword: ${{ secrets.STORE_PASSWORD }}
 
       - name: Run Test
         run: ./gradlew test
