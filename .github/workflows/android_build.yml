@@ -14,13 +14,26 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-          keyAlias: ${{ secrets.KEY_ALIAS }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-          storeFile: ${{ secrets.STORE_FILE }}
-          storePassword: ${{ secrets.STORE_PASSWORD }}
+          cache: java
 
       - name: Run Test
         run: ./gradlew test
 
       - name: Build Project
-        run: ./gradlew assemble
+        run: ./gradlew assembleRelease
+
+      - name: Sign APK
+        uses: eby8zevin/sign-android-release@v1
+        # ID used to access action output
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          signingKeyBase64: ${{ secrets.STORE_FILE }}
+          keyStorePassword: ${{ secrets.STORE_PASSWORD }}
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: release.apk
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
