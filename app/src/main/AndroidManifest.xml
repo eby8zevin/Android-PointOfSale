@@ -87,42 +87,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.karumi.dexter.DexterActivity"
-            android:theme="@style/Dexter.Internal.Theme.Transparent" />
-        <activity
-            android:name="in.mayanknagwanshi.imagepicker.ImageSelectActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
-            android:name="com.obsez.android.lib.filechooser.permissions.PermissionActivity"
-            android:label=""
-            android:theme="@style/Theme.Transparent" />
-        <activity
-            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="smallestScreenSize|screenSize|uiMode|screenLayout|orientation|keyboardHidden|keyboard"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent"
-            tools:replace="android:configChanges" />
-        <activity
-            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_application_id" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -133,109 +97,18 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-        <provider
-            android:name="com.google.android.gms.ads.MobileAdsInitProvider"
-            android:authorities="${applicationId}.mobileadsinitprovider"
-            android:exported="false"
-            android:initOrder="100" />
-        <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="${applicationId}.workmanager-init"
-            android:directBootAware="false"
-            android:exported="false"
-            android:multiprocess="true" />
 
-        <service
-            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
-            android:exported="true"
-            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
-            android:visibleToInstantApps="true"
-            tools:targetApi="o" />
-        <service
-            android:name="com.google.android.gms.ads.AdService"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
-            android:directBootAware="false"
-            android:enabled="@bool/enable_system_alarm_service_default"
-            android:exported="false" />
-        <service
-            android:name="androidx.work.impl.background.systemjob.SystemJobService"
-            android:directBootAware="false"
-            android:enabled="@bool/enable_system_job_service_default"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name="androidx.room.MultiInstanceInvalidationService"
-            android:exported="false" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_application_id" />
 
-        <receiver
-            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
-            android:directBootAware="false"
-            android:enabled="true"
-            android:exported="false" />
-        <receiver
-            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
-            android:directBootAware="false"
-            android:enabled="false"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
-            android:directBootAware="false"
-            android:enabled="false"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BATTERY_OKAY" />
-                <action android:name="android.intent.action.BATTERY_LOW" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
-            android:directBootAware="false"
-            android:enabled="false"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
-                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
-            android:directBootAware="false"
-            android:enabled="false"
-            android:exported="false">
-            <intent-filter>
-                <action
-                    android:name="android.net.conn.CONNECTIVITY_CHANGE"
-                    tools:ignore="BatteryLife" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
-            android:directBootAware="false"
-            android:enabled="false"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
-            android:directBootAware="false"
-            android:enabled="@bool/enable_system_alarm_service_default"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
-            </intent-filter>
-        </receiver>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>
