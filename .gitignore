@@ -17,4 +17,4 @@ local.properties
 # Keystore files
 *.jks
 /keystore.properties
-signing_key.jks.base64.txt
+*.txt
