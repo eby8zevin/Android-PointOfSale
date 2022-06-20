@@ -23,7 +23,7 @@ jobs:
         run: ./gradlew assembleRelease
 
       - name: Sign APK
-        uses: eby8zevin/sign-android-release@v1
+        uses: r0adkll/sign-android-release@v1
         # ID used to access action output
         id: sign_app
         with:
