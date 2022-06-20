@@ -28,7 +28,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        //signingConfig signingConfigs.config
+        signingConfig signingConfigs.config
     }
 
     buildTypes {
@@ -36,7 +36,7 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
         }
         debug {
             debuggable true
