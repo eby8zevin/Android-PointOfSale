@@ -1,12 +1,12 @@
 package com.ahmadabuhasan.pointofsale.customers;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.internal.view.SupportMenu;
 
 import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
@@ -25,6 +25,7 @@ import es.dmoral.toasty.Toasty;
 public class EditCustomersActivity extends BaseActivity {
 
     private ActivityEditCustomersBinding binding;
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class EditCustomersActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.edit_customer);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         String getCustomer_id = getIntent().getExtras().getString(Constant.CUSTOMER_ID);
 
         this.binding.etCustomerName.setText(getIntent().getExtras().getString(Constant.CUSTOMER_NAME));
@@ -55,10 +57,10 @@ public class EditCustomersActivity extends BaseActivity {
             this.binding.etCustomerEmail.setEnabled(true);
             this.binding.etCustomerAddress.setEnabled(true);
 
-            this.binding.etCustomerName.setTextColor(SupportMenu.CATEGORY_MASK);
-            this.binding.etCustomerCell.setTextColor(SupportMenu.CATEGORY_MASK);
-            this.binding.etCustomerEmail.setTextColor(SupportMenu.CATEGORY_MASK);
-            this.binding.etCustomerAddress.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etCustomerName.setTextColor(Color.RED);
+            this.binding.etCustomerCell.setTextColor(Color.RED);
+            this.binding.etCustomerEmail.setTextColor(Color.RED);
+            this.binding.etCustomerAddress.setTextColor(Color.RED);
 
             this.binding.tvEditCustomer.setVisibility(View.GONE);
             this.binding.tvUpdateCustomer.setVisibility(View.VISIBLE);
@@ -76,15 +78,13 @@ public class EditCustomersActivity extends BaseActivity {
             } else if (customer_cell.isEmpty()) {
                 this.binding.etCustomerCell.setError(this.getString(R.string.enter_customer_cell));
                 this.binding.etCustomerCell.requestFocus();
-            } else if (customer_email.isEmpty() || !customer_email.contains("@") || !customer_email.contains(".")) {
+            } else if (!customer_email.contains("@") || !customer_email.contains(".")) {
                 this.binding.etCustomerEmail.setError(this.getString(R.string.enter_valid_email));
                 this.binding.etCustomerEmail.requestFocus();
             } else if (customer_address.isEmpty()) {
                 this.binding.etCustomerAddress.setError(this.getString(R.string.enter_customer_address));
                 this.binding.etCustomerAddress.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
                 databaseAccess.open();
                 if (databaseAccess.updateCustomer(getCustomer_id, customer_name, customer_cell, customer_email, customer_address)) {
                     Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
@@ -100,10 +100,10 @@ public class EditCustomersActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() != android.R.id.home) {
-            return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
-        finish();
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 }
