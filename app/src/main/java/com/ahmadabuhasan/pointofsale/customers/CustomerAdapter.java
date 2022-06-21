@@ -71,8 +71,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
                         databaseAccess.open();
                         if (databaseAccess.deleteCustomer(customer_id)) {
                             Toasty.error(this.context, R.string.customer_deleted, Toasty.LENGTH_SHORT).show();
-                            this.customerData.remove(holder.getAdapterPosition());
-                            this.notifyItemRemoved(holder.getAdapterPosition());
+                            this.customerData.remove(holder.getBindingAdapterPosition());
+                            this.notifyItemRemoved(holder.getBindingAdapterPosition());
                         } else {
                             Toast.makeText(this.context, R.string.failed, Toast.LENGTH_SHORT).show();
                         }
@@ -99,11 +99,11 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
         @Override
         public void onClick(View view) {
             Intent i = new Intent(CustomerAdapter.this.context, EditCustomersActivity.class);
-            i.putExtra(Constant.CUSTOMER_ID, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(Constant.CUSTOMER_ID));
-            i.putExtra(Constant.CUSTOMER_NAME, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(Constant.CUSTOMER_NAME));
-            i.putExtra(Constant.CUSTOMER_CELL, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(Constant.CUSTOMER_CELL));
-            i.putExtra(Constant.CUSTOMER_EMAIL, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(Constant.CUSTOMER_EMAIL));
-            i.putExtra(Constant.CUSTOMER_ADDRESS, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(Constant.CUSTOMER_ADDRESS));
+            i.putExtra(Constant.CUSTOMER_ID, CustomerAdapter.this.customerData.get(getAbsoluteAdapterPosition()).get(Constant.CUSTOMER_ID));
+            i.putExtra(Constant.CUSTOMER_NAME, CustomerAdapter.this.customerData.get(getAbsoluteAdapterPosition()).get(Constant.CUSTOMER_NAME));
+            i.putExtra(Constant.CUSTOMER_CELL, CustomerAdapter.this.customerData.get(getAbsoluteAdapterPosition()).get(Constant.CUSTOMER_CELL));
+            i.putExtra(Constant.CUSTOMER_EMAIL, CustomerAdapter.this.customerData.get(getAbsoluteAdapterPosition()).get(Constant.CUSTOMER_EMAIL));
+            i.putExtra(Constant.CUSTOMER_ADDRESS, CustomerAdapter.this.customerData.get(getAbsoluteAdapterPosition()).get(Constant.CUSTOMER_ADDRESS));
             context.startActivity(i);
         }
     }
