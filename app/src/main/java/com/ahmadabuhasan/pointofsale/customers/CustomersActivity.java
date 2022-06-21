@@ -1,6 +1,5 @@
 package com.ahmadabuhasan.pointofsale.customers;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +38,6 @@ import es.dmoral.toasty.Toasty;
 public class CustomersActivity extends BaseActivity {
 
     private ActivityCustomersBinding binding;
-
     ProgressDialog loading;
     DatabaseAccess databaseAccess;
 
@@ -123,21 +121,19 @@ public class CustomersActivity extends BaseActivity {
     }
 
     public void folderChooser() {
-        new ChooserDialog((Activity) this)
+        new ChooserDialog(this)
                 .displayPath(true)
-                .withFilter(true, false, new String[0])
-                .withChosenListener(new ChooserDialog.Result() {
-                    @Override
-                    public void onChoosePath(String dir, File dirFile) {
-                        CustomersActivity.this.onExport(dir);
-                        Log.d("path", dir);
-                    }
+                .withFilter(true, false)
+                .withChosenListener((dir, dirFile) -> {
+                    CustomersActivity.this.onExport(dir);
+                    Log.d("path", dir);
                 }).build().show();
     }
 
     public void onExport(String path) {
         File file = new File(path);
         if (!file.exists()) {
+            //noinspection ResultOfMethodCallIgnored
             file.mkdirs();
         }
         SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(), DatabaseOpenHelper.DATABASE_NAME, path);
@@ -153,12 +149,9 @@ public class CustomersActivity extends BaseActivity {
             @Override
             public void onCompleted(String filePath) {
                 Handler mHand = new Handler();
-                mHand.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        CustomersActivity.this.loading.dismiss();
-                        Toasty.success(CustomersActivity.this, R.string.data_successfully_exported, Toasty.LENGTH_SHORT).show();
-                    }
+                mHand.postDelayed(() -> {
+                    CustomersActivity.this.loading.dismiss();
+                    Toasty.success(CustomersActivity.this, R.string.data_successfully_exported, Toasty.LENGTH_SHORT).show();
                 }, 5000L);
             }
 
