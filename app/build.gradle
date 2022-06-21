@@ -7,19 +7,19 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))*/
 
 android {
-    signingConfigs {
+    /*signingConfigs {
         config {
-            /*keyAlias keystoreProperties['keyAlias']
+            *//*keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']*/
+            storePassword keystoreProperties['storePassword']*//*
 
-            keyAlias System.getenv('KEY_ALIAS')
+            *//*keyAlias System.getenv('KEY_ALIAS')
             keyPassword System.getenv('KEY_PASSWORD')
             storeFile = file('STORE_FILE')
-            storePassword System.getenv('STORE_PASSWORD')
+            storePassword System.getenv('STORE_PASSWORD')*//*
         }
-    }
+    }*/
 
     compileSdk 32
     useLibrary 'org.apache.http.legacy'
@@ -33,7 +33,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        //signingConfig signingConfigs.config
     }
 
     buildTypes {
