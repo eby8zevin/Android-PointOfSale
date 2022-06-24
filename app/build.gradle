@@ -2,19 +2,19 @@ plugins {
     id 'com.android.application'
 }
 
-def keystorePropertiesFile = rootProject.file("keystore.properties")
+/*def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))*/
 
 android {
-    signingConfigs {
+    /*signingConfigs {
         config {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
         }
-    }
+    }*/
 
     compileSdk 32
     useLibrary 'org.apache.http.legacy'
@@ -27,7 +27,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.config
+        //signingConfig signingConfigs.config
     }
 
     buildTypes {
