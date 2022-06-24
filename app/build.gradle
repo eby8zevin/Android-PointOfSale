@@ -2,24 +2,19 @@ plugins {
     id 'com.android.application'
 }
 
-/*def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))*/
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    /*signingConfigs {
+    signingConfigs {
         config {
-            *//*keyAlias keystoreProperties['keyAlias']
+            keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']*//*
-
-            *//*keyAlias System.getenv('KEY_ALIAS')
-            keyPassword System.getenv('KEY_PASSWORD')
-            storeFile = file('STORE_FILE')
-            storePassword System.getenv('STORE_PASSWORD')*//*
+            storePassword keystoreProperties['storePassword']
         }
-    }*/
+    }
 
     compileSdk 32
     useLibrary 'org.apache.http.legacy'
@@ -32,18 +27,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
+        signingConfig signingConfigs.config
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.config
+            //shrinkResources false
         }
         debug {
-            debuggable true
+            debuggable false
         }
     }
     compileOptions {
