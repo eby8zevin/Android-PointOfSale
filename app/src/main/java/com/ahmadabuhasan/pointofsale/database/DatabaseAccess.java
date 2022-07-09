@@ -134,19 +134,6 @@ public class DatabaseAccess {
         return check != -1;
     }
 
-    public boolean updateShopInformation(String shop_name, String shop_contact, String shop_email, String shop_address, String shop_currency, String tax) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Constant.SHOP_NAME, shop_name);
-        contentValues.put(Constant.SHOP_CONTACT, shop_contact);
-        contentValues.put(Constant.SHOP_EMAIL, shop_email);
-        contentValues.put(Constant.SHOP_ADDRESS, shop_address);
-        contentValues.put(Constant.SHOP_CURRENCY, shop_currency);
-        contentValues.put(Constant.TAX, tax);
-        long check = this.database.update(Constant.SHOP, contentValues, "shop_id=? ", new String[]{"1"});
-        close();
-        return check != -1;
-    }
-
     public boolean addProduct(String product_name, String product_code, String product_category, String product_description, String product_buy_price, String product_sell_price, String product_stock, String product_supplier, String product_image, String weight_unit_id, String product_weight) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.PRODUCT_NAME, product_name);
@@ -639,7 +626,7 @@ public class DatabaseAccess {
     public void updateProductQty(String id, String qty) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constant.PRODUCT_QTY, qty);
-        long update = this.database.update("product_cart", contentValues, "cart_id=?", new String[]{id});
+        this.database.update("product_cart", contentValues, "cart_id=?", new String[]{id});
     }
 
     public String getProductName(String product_id) {
@@ -1315,30 +1302,6 @@ public class DatabaseAccess {
         return product;
     }
 
-    public int addToCart(String product_name, String price, String weight, int qty, String base64Image, String ref, String tva_tx, String product_id) {
-        Cursor cursor = this.database.rawQuery("SELECT * FROM cart WHERE product_name='" + product_name + "' AND price='" + price + "' AND weight='" + weight + "'", null);
-        if (cursor.getCount() >= 1) {
-            return 2;
-        }
-        ContentValues values = new ContentValues();
-        values.put(Constant.PRODUCT_NAME, product_name);
-        values.put(Constant.PRICE, price);
-        values.put("weight", weight);
-        values.put("qty", qty);
-        values.put("image", base64Image);
-        values.put("ref", ref);
-        values.put("tva_tx", tva_tx);
-        values.put("fk_product", product_id);
-        long check = this.database.insert("cart", null, values);
-        cursor.close();
-        this.database.close();
-        //if data insert success, its return 1, if failed return -1
-        if (check == -1) {
-            return -1;
-        }
-        return 1;
-    }
-
     public ArrayList<HashMap<String, String>> getSuppliers() {
         ArrayList<HashMap<String, String>> supplier = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM suppliers ORDER BY suppliers_id DESC", null);
@@ -1401,14 +1364,14 @@ public class DatabaseAccess {
 
     public boolean deleteOrder(String invoice_id) {
         long check = this.database.delete("order_list", "invoice_id=?", new String[]{invoice_id});
-        long delete = this.database.delete("order_details", "invoice_id=?", new String[]{invoice_id});
+        //long delete = this.database.delete("order_details", "invoice_id=?", new String[]{invoice_id});
         close();
         return check == 1;
     }
 
     public Boolean deleteProduct(String product_id) {
         long check = this.database.delete("products", "product_id=?", new String[]{product_id});
-        long delete = this.database.delete("product_cart", "product_id=?", new String[]{product_id});
+        //long delete = this.database.delete("product_cart", "product_id=?", new String[]{product_id});
         close();
         return check == 1;
     }
