@@ -27,17 +27,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        //signingConfig signingConfigs.config
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //shrinkResources false
+            shrinkResources true
+            //signingConfig signingConfigs.config
         }
         debug {
-            debuggable false
+            debuggable true
         }
     }
     compileOptions {
