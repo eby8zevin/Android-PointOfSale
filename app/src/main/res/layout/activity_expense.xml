@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:padding="15dp"
     tools:context=".expense.ExpenseActivity">
 
     <LinearLayout
@@ -16,7 +17,6 @@
             android:id="@+id/et_expense_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:background="@drawable/round_border"
             android:drawableEnd="@drawable/ic_search"
             android:ems="10"
@@ -30,7 +30,7 @@
             android:id="@+id/expense_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
             android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
@@ -39,6 +39,7 @@
             android:layout_height="300dp"
             android:layout_marginTop="50dp"
             android:contentDescription="@string/no_data_found" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -59,6 +60,7 @@
             android:focusable="true"
             app:backgroundTint="?android:attr/colorAccent"
             app:srcCompat="@drawable/ic_add" />
+
     </LinearLayout>
 
 </RelativeLayout>
