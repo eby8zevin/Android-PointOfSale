@@ -3,12 +3,12 @@ package com.ahmadabuhasan.pointofsale.expense;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.internal.view.SupportMenu;
 
 import com.ahmadabuhasan.pointofsale.Constant;
 import com.ahmadabuhasan.pointofsale.R;
@@ -29,6 +29,7 @@ public class EditExpenseActivity extends BaseActivity {
 
     private ActivityEditExpenseBinding binding;
     int mYear, mMonth, mDay, mHour, mMinute;
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class EditExpenseActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.edit_expense);
 
+        databaseAccess = DatabaseAccess.getInstance(this);
         final String get_ExpenseID = getIntent().getExtras().getString(Constant.EXPENSE_ID);
 
         this.binding.etExpenseName.setText(getIntent().getExtras().getString(Constant.EXPENSE_NAME));
@@ -62,11 +64,11 @@ public class EditExpenseActivity extends BaseActivity {
             this.binding.etExpenseDate.setEnabled(true);
             this.binding.etExpenseTime.setEnabled(true);
 
-            this.binding.etExpenseName.setTextColor(SupportMenu.CATEGORY_MASK);
-            this.binding.etExpenseNote.setTextColor(SupportMenu.CATEGORY_MASK);
-            this.binding.etExpenseAmount.setTextColor(SupportMenu.CATEGORY_MASK);
-            this.binding.etExpenseDate.setTextColor(SupportMenu.CATEGORY_MASK);
-            this.binding.etExpenseTime.setTextColor(SupportMenu.CATEGORY_MASK);
+            this.binding.etExpenseName.setTextColor(Color.RED);
+            this.binding.etExpenseNote.setTextColor(Color.RED);
+            this.binding.etExpenseAmount.setTextColor(Color.RED);
+            this.binding.etExpenseDate.setTextColor(Color.RED);
+            this.binding.etExpenseTime.setTextColor(Color.RED);
 
             this.binding.tvEditExpense.setVisibility(View.GONE);
             this.binding.tvUpdateExpense.setVisibility(View.VISIBLE);
@@ -137,7 +139,6 @@ public class EditExpenseActivity extends BaseActivity {
             EditExpenseActivity.this.mMinute = minute;
             if (EditExpenseActivity.this.mHour < 12) {
                 am_pm = "AM";
-                EditExpenseActivity.this.mHour = hourOfDay;
             } else {
                 am_pm = "PM";
                 EditExpenseActivity.this.mHour = hourOfDay - 12;
