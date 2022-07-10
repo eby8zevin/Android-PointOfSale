@@ -62,12 +62,12 @@ public class ExpenseActivity extends BaseActivity {
 
         this.binding.etExpenseSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 databaseAccess.open();
                 List<HashMap<String, String>> searchExpenseList = databaseAccess.searchExpense(charSequence.toString());
                 if (searchExpenseList.size() <= 0) {
