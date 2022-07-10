@@ -29,6 +29,7 @@ public class AddExpenseActivity extends BaseActivity {
 
     private ActivityAddExpenseBinding binding;
     int mYear, mMonth, mDay, mHour, mMinute;
+    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class AddExpenseActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.add_expense);
+
+        databaseAccess = DatabaseAccess.getInstance(this);
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
         String currentTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date());
@@ -63,8 +66,6 @@ public class AddExpenseActivity extends BaseActivity {
                 this.binding.etExpenseAmount.setError(this.getString(R.string.expense_amount_cannot_be_empty));
                 this.binding.etExpenseAmount.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
                 databaseAccess.open();
                 if (databaseAccess.addExpense(expense_name, expense_amount, expense_note, expense_date, expense_time)) {
                     Toasty.success(this, R.string.expense_successfully_added, Toasty.LENGTH_SHORT).show();
@@ -112,7 +113,6 @@ public class AddExpenseActivity extends BaseActivity {
             AddExpenseActivity.this.mMinute = minute;
             if (AddExpenseActivity.this.mHour < 12) {
                 am_pm = "AM";
-                AddExpenseActivity.this.mHour = hourOfDay;
             } else {
                 am_pm = "PM";
                 AddExpenseActivity.this.mHour = hourOfDay - 12;
