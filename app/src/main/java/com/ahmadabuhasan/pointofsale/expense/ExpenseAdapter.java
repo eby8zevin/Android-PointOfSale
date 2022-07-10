@@ -70,8 +70,8 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
                         databaseAccess.open();
                         if (databaseAccess.deleteExpense(expense_id)) {
                             Toasty.error(this.context, R.string.expense_deleted, Toasty.LENGTH_SHORT).show();
-                            this.expenseData.remove(holder.getAdapterPosition());
-                            this.notifyItemRemoved(holder.getAdapterPosition());
+                            this.expenseData.remove(holder.getBindingAdapterPosition());
+                            this.notifyItemRemoved(holder.getBindingAdapterPosition());
                         } else {
                             Toast.makeText(this.context, R.string.failed, Toast.LENGTH_SHORT).show();
                         }
@@ -98,12 +98,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         @Override
         public void onClick(View view) {
             Intent i = new Intent(ExpenseAdapter.this.context, EditExpenseActivity.class);
-            i.putExtra(Constant.EXPENSE_ID, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_ID));
-            i.putExtra(Constant.EXPENSE_NAME, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_NAME));
-            i.putExtra(Constant.EXPENSE_AMOUNT, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_AMOUNT));
-            i.putExtra(Constant.EXPENSE_DATE, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_DATE));
-            i.putExtra(Constant.EXPENSE_TIME, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_TIME));
-            i.putExtra(Constant.EXPENSE_NOTE, (String) ((HashMap) ExpenseAdapter.this.expenseData.get(getAdapterPosition())).get(Constant.EXPENSE_NOTE));
+            i.putExtra(Constant.EXPENSE_ID, ExpenseAdapter.this.expenseData.get(getAbsoluteAdapterPosition()).get(Constant.EXPENSE_ID));
+            i.putExtra(Constant.EXPENSE_NAME, ExpenseAdapter.this.expenseData.get(getAbsoluteAdapterPosition()).get(Constant.EXPENSE_NAME));
+            i.putExtra(Constant.EXPENSE_AMOUNT, ExpenseAdapter.this.expenseData.get(getAbsoluteAdapterPosition()).get(Constant.EXPENSE_AMOUNT));
+            i.putExtra(Constant.EXPENSE_DATE, ExpenseAdapter.this.expenseData.get(getAbsoluteAdapterPosition()).get(Constant.EXPENSE_DATE));
+            i.putExtra(Constant.EXPENSE_TIME, ExpenseAdapter.this.expenseData.get(getAbsoluteAdapterPosition()).get(Constant.EXPENSE_TIME));
+            i.putExtra(Constant.EXPENSE_NOTE, ExpenseAdapter.this.expenseData.get(getAbsoluteAdapterPosition()).get(Constant.EXPENSE_NOTE));
             context.startActivity(i);
         }
     }
