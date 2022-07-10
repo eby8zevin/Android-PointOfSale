@@ -39,6 +39,7 @@
             android:layout_height="300dp"
             android:layout_marginTop="50dp"
             android:contentDescription="@string/no_data_found" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -59,6 +60,7 @@
             android:focusable="true"
             app:backgroundTint="?android:attr/colorAccent"
             app:srcCompat="@drawable/ic_add" />
+
     </LinearLayout>
 
 </RelativeLayout>
