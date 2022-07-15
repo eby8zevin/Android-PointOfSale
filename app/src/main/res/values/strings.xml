@@ -114,7 +114,7 @@
     <string name="generate_pdf_receipt">PDF Receipt</string>
     <string name="import_from_excel">Import From Excel</string>
     <string name="import_from_google_drive">Import from Google Drive</string>
-    <string name="money">$96.00</string>
+    <string name="money">Rp100.000,00</string>
     <string name="monthly">Monthly</string>
     <string name="monthly_expense_graph">Monthly Expense Graph</string>
     <string name="monthly_expense_in_graph">Monthly Expense in Graph</string>
@@ -274,5 +274,5 @@
     <string name="yearly">Yearly</string>
     <string name="yes">Yes</string>
     <string name="zero_zero">00</string>
-    <string name="zeroDecimal">0.00</string>
+    <string name="zeroDecimal">0,00</string>
 </resources>
