@@ -1,6 +1,5 @@
 package com.ahmadabuhasan.pointofsale.pos;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -37,11 +36,8 @@ import es.dmoral.toasty.Toasty;
 
 public class PosActivity extends BaseActivity {
 
-    @SuppressLint("StaticFieldLeak")
-    public static EditText etSearch;
-    @SuppressLint("StaticFieldLeak")
     public static TextView tvCount;
-
+    public static EditText etSearch;
     private ActivityPosBinding binding;
 
     int spanCount;
@@ -61,9 +57,6 @@ public class PosActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.all_product);
         getSupportActionBar().hide();
 
-        etSearch = binding.etSearch;
-        tvCount = binding.tvCount;
-
         this.binding.ivNoProduct.setVisibility(View.GONE);
         this.binding.tvNoProduct.setVisibility(View.GONE);
 
@@ -77,8 +70,8 @@ public class PosActivity extends BaseActivity {
             this.spanCount = Configuration.SCREENLAYOUT_SIZE_XLARGE;
         }
 
+        tvCount = binding.tvCount;
         final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
         databaseAccess.open();
         int count = databaseAccess.getCartItemCount();
         if (count == 0) {
@@ -96,6 +89,7 @@ public class PosActivity extends BaseActivity {
         this.binding.ivScanner.setOnClickListener(view -> startActivity(new Intent(PosActivity.this, ScannerActivity.class)));
 
         this.binding.tvReset.setOnClickListener(view -> {
+            etSearch.getText().clear();
             databaseAccess.open();
             List<HashMap<String, String>> productList = databaseAccess.getProducts();
             if (productList.isEmpty()) {
@@ -103,14 +97,14 @@ public class PosActivity extends BaseActivity {
                 binding.tvNoProduct.setVisibility(View.VISIBLE);
                 binding.ivNoProduct.setVisibility(View.VISIBLE);
                 binding.ivNoProduct.setImageResource(R.drawable.not_found);
-                return;
-            }
-            binding.tvNoProduct.setVisibility(View.GONE);
-            binding.ivNoProduct.setVisibility(View.GONE);
-            binding.posRecyclerview.setVisibility(View.VISIBLE);
+            } else {
+                binding.tvNoProduct.setVisibility(View.GONE);
+                binding.ivNoProduct.setVisibility(View.GONE);
+                binding.posRecyclerview.setVisibility(View.VISIBLE);
 
-            posProductAdapter = new PosProductAdapter(PosActivity.this, productList);
-            binding.posRecyclerview.setAdapter(posProductAdapter);
+                posProductAdapter = new PosProductAdapter(PosActivity.this, productList);
+                binding.posRecyclerview.setAdapter(posProductAdapter);
+            }
         });
 
         this.binding.categoryRecyclerview.setLayoutManager(new LinearLayoutManager(PosActivity.this, LinearLayoutManager.HORIZONTAL, false));
@@ -129,6 +123,7 @@ public class PosActivity extends BaseActivity {
         this.binding.posRecyclerview.setLayoutManager(gridLayoutManager);
         this.binding.posRecyclerview.setHasFixedSize(true);
 
+        etSearch = binding.etSearch;
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
@@ -144,14 +139,14 @@ public class PosActivity extends BaseActivity {
                     binding.tvNoProduct.setVisibility(View.VISIBLE);
                     binding.ivNoProduct.setVisibility(View.VISIBLE);
                     binding.ivNoProduct.setImageResource(R.drawable.not_found);
-                    return;
-                }
-                binding.tvNoProduct.setVisibility(View.VISIBLE);
-                binding.ivNoProduct.setVisibility(View.VISIBLE);
-                binding.posRecyclerview.setVisibility(View.VISIBLE);
+                } else {
+                    binding.tvNoProduct.setVisibility(View.GONE);
+                    binding.ivNoProduct.setVisibility(View.GONE);
+                    binding.posRecyclerview.setVisibility(View.VISIBLE);
 
-                posProductAdapter = new PosProductAdapter(PosActivity.this, searchProductList);
-                binding.posRecyclerview.setAdapter(posProductAdapter);
+                    posProductAdapter = new PosProductAdapter(PosActivity.this, searchProductList);
+                    binding.posRecyclerview.setAdapter(posProductAdapter);
+                }
             }
 
             @Override
