@@ -3,6 +3,7 @@ package com.ahmadabuhasan.pointofsale.pos;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.util.Base64;
 import android.util.Log;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.internal.view.SupportMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmadabuhasan.pointofsale.Constant;
@@ -22,8 +22,10 @@ import com.ahmadabuhasan.pointofsale.product.EditProductActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
@@ -37,6 +39,9 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
     private final Context context;
     private final List<HashMap<String, String>> productData;
     MediaPlayer sound;
+
+    Locale locale = new Locale("in", "ID");
+    NumberFormat formatIDR = NumberFormat.getInstance(locale);
 
     public PosProductAdapter(Context context1, List<HashMap<String, String>> productData1) {
         this.context = context1;
@@ -67,9 +72,9 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         holder.binding.tvProductName.setText(product_name);
 
         int getStock = Integer.parseInt(Objects.requireNonNull(product_stock));
-        holder.binding.tvStock.setText(String.format("%s : %s", this.context.getString(R.string.stock), product_stock));
+        holder.binding.tvStock.setText(String.format("%s: %s", this.context.getString(R.string.stock), product_stock));
         if (getStock <= 5) {
-            holder.binding.tvStock.setTextColor(SupportMenu.CATEGORY_MASK);
+            holder.binding.tvStock.setTextColor(Color.RED);
         }
 
         databaseAccess.open();
@@ -78,7 +83,8 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
 
         databaseAccess.open();
         String currency = databaseAccess.getCurrency();
-        holder.binding.tvPrice.setText(String.format("%s%s", currency, product_price));
+        double convert = Double.parseDouble(Objects.requireNonNull(product_price));
+        holder.binding.tvPrice.setText(String.format("%s%s", currency, formatIDR.format(convert)));
 
         if (base64Image != null) {
             if (base64Image.length() < 6) {
