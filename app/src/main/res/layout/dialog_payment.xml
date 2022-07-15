@@ -43,6 +43,7 @@
                 android:gravity="center"
                 android:text="@string/submit"
                 android:textColor="@android:color/white" />
+
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -66,7 +67,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -90,6 +91,7 @@
                     android:contentDescription="@string/select_customer"
                     app:srcCompat="@drawable/ic_arrow_down"
                     app:tint="@color/granite_gray" />
+
             </LinearLayout>
 
             <View
@@ -124,6 +126,7 @@
                     android:contentDescription="@string/select_order_type"
                     app:srcCompat="@drawable/ic_arrow_down"
                     app:tint="@color/granite_gray" />
+
             </LinearLayout>
 
             <View
@@ -158,6 +161,7 @@
                     android:contentDescription="@string/select_payment_method"
                     app:srcCompat="@drawable/ic_arrow_down"
                     app:tint="@color/granite_gray" />
+
             </LinearLayout>
 
             <View
@@ -190,6 +194,7 @@
                     android:padding="15dp"
                     android:text="@string/zero_zero"
                     android:textSize="18sp" />
+
             </LinearLayout>
 
             <View
@@ -223,6 +228,7 @@
                     android:padding="15dp"
                     android:text="@string/zero_zero"
                     android:textSize="18sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -251,6 +257,7 @@
                     android:importantForAutofill="no"
                     android:inputType="numberDecimal"
                     android:padding="15dp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -278,6 +285,7 @@
                     android:padding="15dp"
                     android:text="@string/zeroDecimal"
                     android:textSize="18sp" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -21,7 +20,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:orientation="horizontal">
 
@@ -35,11 +34,10 @@
                     android:id="@+id/iv_cart_product"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_weight="1"
                     android:contentDescription="@string/product_cart"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/image_placeholder"
-                    tools:ignore="InefficientWeight" />
+                    app:srcCompat="@drawable/image_placeholder" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -48,8 +46,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingLeft="10dp"
-                tools:ignore="RtlHardcoded,RtlSymmetry">
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp">
 
                 <TextView
                     android:id="@+id/tv_item_name"
@@ -77,6 +75,7 @@
                     android:padding="2dp"
                     android:text="@string/money"
                     android:textColor="@color/red_pigment" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -100,6 +99,7 @@
                         android:layout_height="30dp"
                         android:contentDescription="@string/want_to_delete"
                         app:srcCompat="@drawable/ic_delete" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -149,6 +149,7 @@
                         android:textColor="#D84315"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
                 </LinearLayout>
 
             </LinearLayout>
