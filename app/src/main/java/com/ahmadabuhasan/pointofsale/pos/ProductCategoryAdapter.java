@@ -59,18 +59,18 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     @Override
     public void onBindViewHolder(@NonNull ProductCategoryAdapter.MyViewHolder holder, int position) {
 
+        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
+
         final String category_id = this.categoryData.get(position).get(Constant.CATEGORY_ID);
         String category_name = this.categoryData.get(position).get(Constant.CATEGORY_NAME);
 
         holder.binding.tvCategoryName.setText(category_name);
         holder.binding.cvCategory.setOnClickListener(view -> {
             ProductCategoryAdapter.this.sound.start();
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
 
             databaseAccess.open();
             List<HashMap<String, String>> fromCategoryList = databaseAccess.getTabProducts(category_id);
             if (fromCategoryList.size() <= 0) {
-                this.recyclerView.setVisibility(View.INVISIBLE);
                 this.recyclerView.setVisibility(View.GONE);
                 this.tvNoData.setVisibility(View.VISIBLE);
                 this.ivNoData.setVisibility(View.VISIBLE);
@@ -107,8 +107,8 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
         @Override
         public void onClick(View view) {
             Intent i = new Intent(ProductCategoryAdapter.this.context, EditCategoryActivity.class);
-            i.putExtra(Constant.CATEGORY_ID, (String) ((HashMap) ProductCategoryAdapter.this.categoryData.get(getAdapterPosition())).get(Constant.CATEGORY_ID));
-            i.putExtra(Constant.CATEGORY_NAME, (String) ((HashMap) ProductCategoryAdapter.this.categoryData.get(getAdapterPosition())).get(Constant.CATEGORY_NAME));
+            i.putExtra(Constant.CATEGORY_ID, ProductCategoryAdapter.this.categoryData.get(getAbsoluteAdapterPosition()).get(Constant.CATEGORY_ID));
+            i.putExtra(Constant.CATEGORY_NAME, ProductCategoryAdapter.this.categoryData.get(getAbsoluteAdapterPosition()).get(Constant.CATEGORY_NAME));
         }
     }
 }
