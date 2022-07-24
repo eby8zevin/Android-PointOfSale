@@ -46,7 +46,6 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
     public void onBindViewHolder(@NonNull ExpenseAdapter.MyViewHolder holder, int position) {
 
         final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
-
         databaseAccess.open();
         String currency = databaseAccess.getCurrency();
 

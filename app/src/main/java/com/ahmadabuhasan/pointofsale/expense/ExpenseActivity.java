@@ -30,7 +30,6 @@ import es.dmoral.toasty.Toasty;
 public class ExpenseActivity extends BaseActivity {
 
     private ActivityExpenseBinding binding;
-    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class ExpenseActivity extends BaseActivity {
         this.binding.expenseRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.binding.expenseRecyclerview.setHasFixedSize(true);
 
-        databaseAccess = DatabaseAccess.getInstance(this);
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<HashMap<String, String>> expenseData = databaseAccess.getAllExpense();
         Log.d("data", "" + expenseData.size());
