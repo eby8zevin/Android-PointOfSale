@@ -33,7 +33,6 @@ public class AddCustomersActivity extends BaseActivity {
 
     private ActivityAddCustomersBinding binding;
     ProgressDialog loading;
-    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class AddCustomersActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.add_customer);
 
-        databaseAccess = DatabaseAccess.getInstance(this);
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
         this.binding.tvAddCustomer.setOnClickListener(view -> {
             String customer_name = this.binding.etCustomerName.getText().toString().trim();
@@ -109,7 +108,8 @@ public class AddCustomersActivity extends BaseActivity {
     }
 
     public void onImport(String path) {
-        databaseAccess.open();
+        DatabaseAccess databaseAccess1 = DatabaseAccess.getInstance(this);
+        databaseAccess1.open();
         File file = new File(path);
         if (!file.exists()) {
             Toast.makeText(this, R.string.no_file_found, Toast.LENGTH_SHORT).show();

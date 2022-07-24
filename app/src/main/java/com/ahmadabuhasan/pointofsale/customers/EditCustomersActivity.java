@@ -25,7 +25,6 @@ import es.dmoral.toasty.Toasty;
 public class EditCustomersActivity extends BaseActivity {
 
     private ActivityEditCustomersBinding binding;
-    DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class EditCustomersActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.edit_customer);
 
-        databaseAccess = DatabaseAccess.getInstance(this);
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         String getCustomer_id = getIntent().getExtras().getString(Constant.CUSTOMER_ID);
 
         this.binding.etCustomerName.setText(getIntent().getExtras().getString(Constant.CUSTOMER_NAME));
