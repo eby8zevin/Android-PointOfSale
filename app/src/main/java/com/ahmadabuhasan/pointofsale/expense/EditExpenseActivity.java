@@ -29,7 +29,7 @@ public class EditExpenseActivity extends BaseActivity {
 
     private ActivityEditExpenseBinding binding;
     int mYear, mMonth, mDay, mHour, mMinute;
-    DatabaseAccess databaseAccess;
+    String time_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class EditExpenseActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.edit_expense);
 
-        databaseAccess = DatabaseAccess.getInstance(this);
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         final String get_ExpenseID = getIntent().getExtras().getString(Constant.EXPENSE_ID);
 
         this.binding.etExpenseName.setText(getIntent().getExtras().getString(Constant.EXPENSE_NAME));
@@ -91,8 +91,6 @@ public class EditExpenseActivity extends BaseActivity {
                 this.binding.etExpenseAmount.setError(this.getString(R.string.expense_amount_cannot_be_empty));
                 this.binding.etExpenseAmount.requestFocus();
             } else {
-                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
                 databaseAccess.open();
                 if (databaseAccess.updateExpense(get_ExpenseID, expense_name, expense_amount, expense_note, expense_date, expense_time)) {
                     Toasty.success(this, R.string.update_successfully, Toasty.LENGTH_SHORT).show();
@@ -137,13 +135,61 @@ public class EditExpenseActivity extends BaseActivity {
             String am_pm;
             EditExpenseActivity.this.mHour = hourOfDay;
             EditExpenseActivity.this.mMinute = minute;
-            if (EditExpenseActivity.this.mHour < 12) {
+
+            if (mHour == 0) {
                 am_pm = "AM";
-            } else {
-                am_pm = "PM";
-                EditExpenseActivity.this.mHour = hourOfDay - 12;
+                if (mMinute < 10) {
+                    time_date = "0" + mHour + ":0" + mMinute + " " + am_pm;
+                } else {
+                    time_date = "0" + mHour + ":" + mMinute + " " + am_pm;
+                }
             }
-            String time_date = this.mHour + ":" + minute + " " + am_pm;
+
+            if (mHour < 12) {
+                am_pm = "AM";
+                if (mHour < 10) {
+                    if (mMinute < 10) {
+                        time_date = "0" + mHour + ":0" + mMinute + " " + am_pm;
+                    } else {
+                        time_date = "0" + mHour + ":" + mMinute + " " + am_pm;
+                    }
+                } else {
+                    if (mMinute < 10) {
+                        time_date = mHour + ":0" + mMinute + " " + am_pm;
+                    } else {
+                        time_date = mHour + ":" + mMinute + " " + am_pm;
+                    }
+                }
+            }
+
+            if (mHour == 12) {
+                am_pm = "PM";
+                mHour = 0;
+                if (mMinute < 10) {
+                    time_date = "0" + mHour + ":0" + mMinute + " " + am_pm;
+                } else {
+                    time_date = "0" + mHour + ":" + mMinute + " " + am_pm;
+                }
+            }
+
+            if (mHour > 12) {
+                am_pm = "PM";
+                mHour = hourOfDay - 12;
+                if (mHour < 10) {
+                    if (mMinute < 10) {
+                        time_date = "0" + mHour + ":0" + mMinute + " " + am_pm;
+                    } else {
+                        time_date = "0" + mHour + ":" + mMinute + " " + am_pm;
+                    }
+                } else {
+                    if (mMinute < 10) {
+                        time_date = mHour + ":0" + mMinute + " " + am_pm;
+                    } else {
+                        time_date = mHour + ":" + mMinute + " " + am_pm;
+                    }
+                }
+            }
+
             EditExpenseActivity.this.binding.etExpenseTime.setText(time_date);
         }, this.mHour, this.mMinute, false);
         timePickerDialog.show();

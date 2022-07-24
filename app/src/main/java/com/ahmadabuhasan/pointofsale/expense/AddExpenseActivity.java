@@ -29,7 +29,7 @@ public class AddExpenseActivity extends BaseActivity {
 
     private ActivityAddExpenseBinding binding;
     int mYear, mMonth, mDay, mHour, mMinute;
-    DatabaseAccess databaseAccess;
+    String time_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class AddExpenseActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.add_expense);
 
-        databaseAccess = DatabaseAccess.getInstance(this);
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
         String currentTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date());
@@ -111,13 +111,61 @@ public class AddExpenseActivity extends BaseActivity {
             String am_pm;
             AddExpenseActivity.this.mHour = hourOfDay;
             AddExpenseActivity.this.mMinute = minute;
-            if (AddExpenseActivity.this.mHour < 12) {
+
+            if (mHour == 0) {
                 am_pm = "AM";
-            } else {
-                am_pm = "PM";
-                AddExpenseActivity.this.mHour = hourOfDay - 12;
+                if (mMinute < 10) {
+                    time_date = "0" + mHour + ":0" + mMinute + " " + am_pm;
+                } else {
+                    time_date = "0" + mHour + ":" + mMinute + " " + am_pm;
+                }
             }
-            String time_date = this.mHour + ":" + minute + " " + am_pm;
+
+            if (mHour < 12) {
+                am_pm = "AM";
+                if (mHour < 10) {
+                    if (mMinute < 10) {
+                        time_date = "0" + mHour + ":0" + mMinute + " " + am_pm;
+                    } else {
+                        time_date = "0" + mHour + ":" + mMinute + " " + am_pm;
+                    }
+                } else {
+                    if (mMinute < 10) {
+                        time_date = mHour + ":0" + mMinute + " " + am_pm;
+                    } else {
+                        time_date = mHour + ":" + mMinute + " " + am_pm;
+                    }
+                }
+            }
+
+            if (mHour == 12) {
+                am_pm = "PM";
+                mHour = 0;
+                if (mMinute < 10) {
+                    time_date = "0" + mHour + ":0" + mMinute + " " + am_pm;
+                } else {
+                    time_date = "0" + mHour + ":" + mMinute + " " + am_pm;
+                }
+            }
+
+            if (mHour > 12) {
+                am_pm = "PM";
+                mHour = hourOfDay - 12;
+                if (mHour < 10) {
+                    if (mMinute < 10) {
+                        time_date = "0" + mHour + ":0" + mMinute + " " + am_pm;
+                    } else {
+                        time_date = "0" + mHour + ":" + mMinute + " " + am_pm;
+                    }
+                } else {
+                    if (mMinute < 10) {
+                        time_date = mHour + ":0" + mMinute + " " + am_pm;
+                    } else {
+                        time_date = mHour + ":" + mMinute + " " + am_pm;
+                    }
+                }
+            }
+
             AddExpenseActivity.this.binding.etExpenseTime.setText(time_date);
         }, this.mHour, this.mMinute, false);
         timePickerDialog.show();
