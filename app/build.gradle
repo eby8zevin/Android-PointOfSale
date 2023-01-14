@@ -16,7 +16,7 @@ android {
         }
     }*/
 
-    buildToolsVersion "32.0.0"
+    buildToolsVersion "30.0.3"
     compileSdk 32
     useLibrary 'org.apache.http.legacy'
 
